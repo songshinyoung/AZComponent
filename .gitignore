@@ -1,11 +1,9 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
 *.o
 *.obj
+*.bak
 
 # Precompiled Headers
 *.gch
@@ -14,7 +12,7 @@
 # Compiled Dynamic libraries
 *.so
 *.dylib
-*.dll
+
 
 # Fortran module files
 *.mod
@@ -24,9 +22,33 @@
 *.lai
 *.la
 *.a
-*.lib
+
 
 # Executables
 *.exe
 *.out
 *.app
+
+# Logfile
+*.log
+*.lot
+
+#Ignore folder
+__history/
+Win32/
+Logs/
+Logs by LOT
+.svn/
+Debug/
+Release/
+Ini_Backup/
+SoftResetData/
+
+#Ignore file
+*.ldb
+
+*.~dsk
+Detaping.tds
+*.local
+Detaping.map
+*.vlb

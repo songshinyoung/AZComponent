@@ -1,0 +1,7 @@
+RightArrowGlyph4 BITMAP "Images\\ArrowButton1_4.bmp"
+RightArrowGlyph5 BITMAP "Images\\ArrowButton2_4.bmp"
+RightArrowGlyph3 BITMAP "Images\\ArrowButton3_4.bmp"
+RightArrowGlyph6 BITMAP "Images\\ArrowButton5_4.bmp"
+RightArrowGlyph BITMAP "Images\\ArrowButton_4.bmp"
+RightArrowGlyph2 BITMAP "Images\\ArrowButton_4_Small.bmp"
+CheckIndicator BITMAP "Images\\Check_Indicator.bmp"

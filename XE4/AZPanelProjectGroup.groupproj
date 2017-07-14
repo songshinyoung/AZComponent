@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{C9668203-02D6-46FA-B8D2-3A9878502B90}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="TAZPanel.cbproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="TAZPanel_Dsgn.cbproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="TAZPanel">
+        <MSBuild Projects="TAZPanel.cbproj"/>
+    </Target>
+    <Target Name="TAZPanel:Clean">
+        <MSBuild Projects="TAZPanel.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TAZPanel:Make">
+        <MSBuild Projects="TAZPanel.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="TAZPanel_Dsgn">
+        <MSBuild Projects="TAZPanel_Dsgn.cbproj"/>
+    </Target>
+    <Target Name="TAZPanel_Dsgn:Clean">
+        <MSBuild Projects="TAZPanel_Dsgn.cbproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TAZPanel_Dsgn:Make">
+        <MSBuild Projects="TAZPanel_Dsgn.cbproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="TAZPanel;TAZPanel_Dsgn"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="TAZPanel:Clean;TAZPanel_Dsgn:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="TAZPanel:Make;TAZPanel_Dsgn:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

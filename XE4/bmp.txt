@@ -1,0 +1,30 @@
+File TAZPanel.cbproj:
+            <ResourceId>TAZPANEL</ResourceId>
+File TAZPanel_2.cbproj:
+            <ResourceId>TAZPANEL</ResourceId>
+File TAZPanel_resources.rc:
+TAZPANEL BITMAP "AZPanel.bmp"
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+grep: input lines truncated - result questionable
+File __history\TAZPanel_resources.rc.~1~:
+TAZPANEL BITMAP "AZPanel.png"
+File TAZPanel.cbproj:
+            <ResourceId>TAZPANEL</ResourceId>
+File TAZPanel_2.cbproj:
+            <ResourceId>TAZPANEL</ResourceId>
+File TAZPanel_resources.rc:
+TAZPANEL BITMAP "AZPanel.bmp"

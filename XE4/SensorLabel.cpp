@@ -268,7 +268,18 @@ void __fastcall TSensorLabel::DrawTitle()
     int nTxtW = Canvas->TextWidth(Caption);
     int nTxtH = Canvas->TextHeight(Caption);
 
-    int nStartX = FNumWidth + FNumSpace + FSenWidth + FSenSpace;
+    int nSenWidth = 0;
+
+    if(FSenLEDImage) {
+        if(!Enabled)    nSenWidth = pBmpSenDisable->Width;
+        else if(FSenOn) nSenWidth = pBmpSenOn->Width;
+        else            nSenWidth = pBmpSenOff->Width;
+    }
+    else {
+        nSenWidth = FSenWidth;
+    }
+    
+    int nStartX = FNumWidth + FNumSpace + nSenWidth + FSenSpace;
     int nStartY = (Height - nTxtH) / 2;
 
     switch(Alignment ) {

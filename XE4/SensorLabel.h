@@ -33,8 +33,13 @@ private:
     int             FSenWidth;
     int             FSenHeight;
     int             FSenRectRound;
-    bool            FSenOn;     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    bool            FSenOn;         ///< true일 경우 On Color, false일 경우 Off Color를 적용 
     int             FSenSpace;
+    bool            FSenLEDImage;   ///< true일 경우 기본 Default LED Image사용 
+
+    Graphics::TBitmap* pBmpSenOn;
+    Graphics::TBitmap* pBmpSenOff;
+    Graphics::TBitmap* pBmpSenDisable;
 
     //--------------------------------
     // Title
@@ -65,6 +70,7 @@ private:
     void            __fastcall SetSenRectRound(int v);
     void            __fastcall SetSenOn(bool   v);
     void            __fastcall SetSenSpace(int    v);
+    void            __fastcall SetSenLEDImage(bool v);
 
     void            __fastcall  NumFontChanged(System::TObject* Sender);   ///< Font의 속성이 변경된 것을 Call Back 받기 위한 Event 함수.
 
@@ -101,6 +107,7 @@ __published:
     __property  int             SenRectRound    = { read = FSenRectRound,   write = SetSenRectRound,    default = 3  };
     __property  bool            SenOn           = { read = FSenOn,          write = SetSenOn,           default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
     __property  int             SenSpace        = { read = FSenSpace,       write = SetSenSpace,        default = 5 };
+    __property  bool            SenLEDImage     = { read = FSenLEDImage,    write = SetSenLEDImage,     default = true };
 
 
     //---------------------------------------

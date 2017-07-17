@@ -49,12 +49,26 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     FSenRectRound   = 3;
     FSenOn          = false ;
     FSenSpace       = 5 ;    
+    FSenLEDImage    = true;
+
+    pBmpSenOn       = new Graphics::TBitmap;
+    pBmpSenOff      = new Graphics::TBitmap;
+    pBmpSenDisable  = new Graphics::TBitmap;
+
+    pBmpSenOn->LoadFromResourceName((int)HInstance, "SensorLED_On");
+    pBmpSenOff->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+    pBmpSenDisable->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+    
 }
 
 __fastcall TSensorLabel::~TSensorLabel()
 {
-    if(pBitmapBase) delete pBitmapBase;
-    if(FNumFont)    delete FNumFont;
+    if(pBitmapBase)     delete pBitmapBase;
+    if(FNumFont)        delete FNumFont;
+
+    if(pBmpSenOn)       delete pBmpSenOn;
+    if(pBmpSenOff)      delete pBmpSenOff;
+    if(pBmpSenDisable)  delete pBmpSenDisable;
     
 }
 
@@ -172,28 +186,69 @@ void __fastcall TSensorLabel::DrawSensor()
     int nY2 = Height;
 
     Canvas->Lock();
+
+    if(FSenLEDImage) {
+        int nSenWidth  = 20;
+        int nSenHeight = 20;
+        TColor clTransP = clWhite;
+        Graphics::TBitmap* pLEDBitmap = NULL;
+
+        if(!Enabled) {
+            pLEDBitmap  = pBmpSenDisable;
+        }
+        else if(FSenOn) {
+            pLEDBitmap  = pBmpSenOn;
+        }
+        else {
+            pLEDBitmap  = pBmpSenOff;
+        }
+
+        nSenWidth  = pLEDBitmap->Width;
+        nSenHeight = pLEDBitmap->Height;
+        clTransP   = pLEDBitmap->Canvas->Pixels[0][0];
     
-    SetBkMode(Canvas->Handle, TRANSPARENT);
+        nY1 = nSenWidth >= Height ? 0            : ((Height - nSenWidth) / 2);
+        //nY2 = nSenWidth >= Height ? Height       : (nY1 + nSenHeight);
+        //nX2 = nX1 + nSenWidth;
 
-    Canvas->Brush->Color = FSenOn ? FSenOnColor : FSenOffColor;
-    Canvas->Brush->Style = bsSolid;
-    Canvas->Pen->Color   = FSenLineColor;
+        TransparentBlt(
+            Canvas->Handle,
+            nX1,
+            nY1,
+            nSenWidth,
+            nSenHeight,
+            pLEDBitmap->Canvas->Handle,
+            0,
+            0,
+            nSenWidth,
+            nSenHeight,
+            clTransP);
 
-    switch(FSenType) {
-        case slCircle: 
-            nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
-            nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
-            nX2 = FSenWidth >= Height ? nX1 + Height : nX1 + FSenWidth;
-            
-            Canvas->Ellipse(nX1, nY1, nX2, nY2); 
-            break;
-            
-        case slRect:   
-            nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
-            nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
-            
-            Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
-            break;
+
+    }
+    else {
+        SetBkMode(Canvas->Handle, TRANSPARENT);
+
+        Canvas->Brush->Color = FSenOn ? FSenOnColor : FSenOffColor;
+        Canvas->Brush->Style = bsSolid;
+        Canvas->Pen->Color   = FSenLineColor;
+
+        switch(FSenType) {
+            case slCircle: 
+                nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
+                nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
+                nX2 = FSenWidth >= Height ? nX1 + Height : nX1 + FSenWidth;
+                
+                Canvas->Ellipse(nX1, nY1, nX2, nY2); 
+                break;
+                
+            case slRect:   
+                nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
+                nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
+                
+                Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
+                break;
+        }
     }
     
     Canvas->Unlock();
@@ -373,4 +428,11 @@ void __fastcall TSensorLabel::SetSenSpace(int    v)
 }
 
 
+void  __fastcall TSensorLabel::SetSenLEDImage(bool v)
+{
+    if(FSenLEDImage != v) {
+        FSenLEDImage = v;
+        Invalidate();
+    }
+}
 

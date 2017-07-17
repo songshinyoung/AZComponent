@@ -200,6 +200,18 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>CheckIndicator</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Disable.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_On</ResourceId>
+        </RcItem>
         <CppCompile Include="IndexButton.cpp">
             <DependentOn>IndexButton.h</DependentOn>
             <BuildOrder>21</BuildOrder>

@@ -21,7 +21,7 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
 {
     pBitmapBase     = NULL;
 
-    Color           = (TColor)0xA53E1E;
+    Color           = clBtnFace;
     AutoSize        = false;
     Transparent     = true;
     ParentColor     = false;
@@ -55,9 +55,9 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     pBmpSenOff      = new Graphics::TBitmap;
     pBmpSenDisable  = new Graphics::TBitmap;
 
-    pBmpSenOn->LoadFromResourceName((int)HInstance, "SensorLED_On");
-    pBmpSenOff->LoadFromResourceName((int)HInstance, "SensorLED_Off");
-    pBmpSenDisable->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+    pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
+    pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
     
 }
 

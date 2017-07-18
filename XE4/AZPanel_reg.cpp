@@ -18,6 +18,8 @@
 #include "AZAnalogGauge.h"
 #include "AZGauges.h"
 #include "SensorLabel.h"
+#include "DualSensorLabel.h"
+#include "ActuatorButton.h"
 
 //#include <PropertyCategories.hpp>    // Pascal unit
 #include <VCLEditors.hpp>
@@ -39,6 +41,7 @@ namespace Azpanel_reg
                                         __classid(TIndexButton),
                                         __classid(TTitleLabel),
                                         __classid(TSensorLabel),
+                                        __classid(TDualSensorLabel),
                                         __classid(TAZFlowShape),
                                         __classid(TAZArrowButton),
                                         __classid(TAZCalendar),
@@ -47,6 +50,7 @@ namespace Azpanel_reg
                                         __classid(TAZServoState),
 										__classid(TAZDateTimeView),
 										__classid(TAZAnalogGauge),
+                                        __classid(TActuatorButton),
 										__classid(TAZGauge)
                                         };
 

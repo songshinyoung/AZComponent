@@ -115,6 +115,10 @@
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ItemGroup>
+        <CppCompile Include="ActuatorButton.cpp">
+            <DependentOn>ActuatorButton.h</DependentOn>
+            <BuildOrder>37</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZAnalogGauge.cpp">
             <DependentOn>AZAnalogGauge.h</DependentOn>
             <BuildOrder>28</BuildOrder>
@@ -172,6 +176,10 @@
             <DependentOn>DualButton.h</DependentOn>
             <BuildOrder>17</BuildOrder>
         </CppCompile>
+        <CppCompile Include="DualSensorLabel.cpp">
+            <DependentOn>DualSensorLabel.h</DependentOn>
+            <BuildOrder>33</BuildOrder>
+        </CppCompile>
         <RcItem Include="Images\ArrowButton1_4.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>RightArrowGlyph4</ResourceId>
@@ -211,6 +219,18 @@
         <RcItem Include="Images\SensorLED_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Disable.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_On</ResourceId>
         </RcItem>
         <CppCompile Include="IndexButton.cpp">
             <DependentOn>IndexButton.h</DependentOn>

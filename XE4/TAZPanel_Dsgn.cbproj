@@ -101,6 +101,10 @@
         <TASM_Debugging>None</TASM_Debugging>
     </PropertyGroup>
     <ItemGroup>
+        <CppCompile Include="ActuatorButton.cpp">
+            <DependentOn>ActuatorButton.h</DependentOn>
+            <BuildOrder>48</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZAnalogGauge.cpp">
             <DependentOn>AZAnalogGauge.h</DependentOn>
             <BuildOrder>40</BuildOrder>
@@ -178,6 +182,10 @@
             <DependentOn>DualButton.h</DependentOn>
             <BuildOrder>32</BuildOrder>
         </CppCompile>
+        <CppCompile Include="DualSensorLabel.cpp">
+            <DependentOn>DualSensorLabel.h</DependentOn>
+            <BuildOrder>46</BuildOrder>
+        </CppCompile>
         <RcItem Include="Images\AZAnalogGauge.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZANALOGGAUGE</ResourceId>
@@ -233,6 +241,14 @@
         <RcItem Include="Images\ImageButton.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZIMAGEBUTTON</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\TActuatorButton.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TACTUATORBUTTON</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\TDualSensorLabel.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TDUALSENSORLABEL</ResourceId>
         </RcItem>
         <RcItem Include="Images\TitleLabel.bmp">
             <ResourceType>BITMAP</ResourceType>

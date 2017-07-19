@@ -33,14 +33,16 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     FSenOnColor     = clLime ;
     FSenOffColor    = clSilver ;
     FSenType        = slCircle ;
-    FSenWidth       = 20 ;
-    FSenHeight      = 20 ;
+    FSenWidth       = 15 ;
+    FSenHeight      = 15 ;
     FSenRectRound   = 3;
     FSenOnL         = false ;
     FSenOnR         = false ;
     FSenSpace       = 5 ;    
     FSenLEDImage    = true;
-
+    FSenVisibleL    = true;
+    FSenVisibleR    = true;
+    
     FSenOutLine         = true;
     FSenOutLineColor    = clBlack;
     FSenOutLineRound    = 0;
@@ -108,6 +110,8 @@ void __fastcall TDualSensorLabel::Paint()
 //---------------------------------------------------------------------------
 void __fastcall TDualSensorLabel::DrawOutLine()
 {
+    if(!Visible || this->Width <= 0 || this->Height <=0) return;
+    
     Canvas->Lock();
     
     SetBkMode(Canvas->Handle, TRANSPARENT);
@@ -122,15 +126,15 @@ void __fastcall TDualSensorLabel::DrawOutLine()
             Canvas->Brush->Style = bsSolid;
         }
         
-        Canvas->Brush->Color = Color;
-        Canvas->Pen->Color   = FSenOutLineColor;
+        Canvas->Brush->Color = Enabled ? Color : clBtnFace;
+        Canvas->Pen->Color   = Enabled ? FSenOutLineColor : clGray;
         Canvas->RoundRect(1, 0, this->Width-1, this->Height-1, FSenOutLineRound, FSenOutLineRound); 
     }
     else {
         if(!Transparent) {
             Canvas->Brush->Style = bsSolid;
-            Canvas->Brush->Color = Color;
-            Canvas->Pen->Color   = Color;
+            Canvas->Brush->Color = Enabled ? Color : clBtnFace;
+            Canvas->Pen->Color   = Enabled ? Color : clBtnFace;
             Canvas->RoundRect(1, 0, this->Width-1, this->Height-1, FSenOutLineRound, FSenOutLineRound); 
         }
     }
@@ -143,6 +147,7 @@ void __fastcall TDualSensorLabel::DrawOutLine()
 
 void __fastcall TDualSensorLabel::DrawSensorL()
 {
+    if(!FSenVisibleL || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -196,9 +201,16 @@ void __fastcall TDualSensorLabel::DrawSensorL()
     else {
         SetBkMode(Canvas->Handle, TRANSPARENT);
 
-        Canvas->Brush->Color = FSenOnL ? FSenOnColor : FSenOffColor;
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnL ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
         Canvas->Brush->Style = bsSolid;
-        Canvas->Pen->Color   = FSenLineColor;
 
         switch(FSenType) {
             case slCircle: 
@@ -224,6 +236,7 @@ void __fastcall TDualSensorLabel::DrawSensorL()
 
 void __fastcall TDualSensorLabel::DrawSensorR()
 {
+    if(!FSenVisibleR || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -277,9 +290,16 @@ void __fastcall TDualSensorLabel::DrawSensorR()
     else {
         SetBkMode(Canvas->Handle, TRANSPARENT);
 
-        Canvas->Brush->Color = FSenOnR ? FSenOnColor : FSenOffColor;
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnR ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
         Canvas->Brush->Style = bsSolid;
-        Canvas->Pen->Color   = FSenLineColor;
 
         switch(FSenType) {
             case slCircle: 
@@ -307,13 +327,17 @@ void __fastcall TDualSensorLabel::DrawSensorR()
 
 void __fastcall TDualSensorLabel::DrawTitle()
 {
-    if(Width <= 0 || Height <= 0 || (Width < FSenWidth + FSenSpace)) return;
+    if(!Visible || Width <= 0 || Height <= 0 || (Width < FSenWidth + FSenSpace)) return;
 
     Canvas->Lock();
     
     SetBkMode(Canvas->Handle, TRANSPARENT);
 
     Canvas->Font->Assign(Font);
+
+    if(!Enabled) {
+        Canvas->Font->Color = clGray;
+    }
 
     int nTxtW = Canvas->TextWidth(Caption);
     int nTxtH = Canvas->TextHeight(Caption);
@@ -329,7 +353,8 @@ void __fastcall TDualSensorLabel::DrawTitle()
         nSenWidth = FSenWidth;
     }
     
-    int nStartX = nSenWidth + FSenSpace;
+    int nStartX = nSenWidth + FSenSpace + FSenOutSpace;
+    nStartX = FSenOutLine ? nStartX + 1 : nStartX;
     int nStartY = (Height - nTxtH) / 2;
 
     switch(Alignment ) {
@@ -437,6 +462,22 @@ void  __fastcall TDualSensorLabel::SetSenLEDImage(bool v)
 {
     if(FSenLEDImage != v) {
         FSenLEDImage = v;
+        Invalidate();
+    }
+}
+
+void  __fastcall TDualSensorLabel::SetSenVisibleL(bool v)
+{
+    if(FSenVisibleL != v) {
+        FSenVisibleL = v;
+        Invalidate();
+    }
+}
+
+void  __fastcall TDualSensorLabel::SetSenVisibleR(bool v)
+{
+    if(FSenVisibleR != v) {
+        FSenVisibleR = v;
         Invalidate();
     }
 }

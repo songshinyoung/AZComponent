@@ -16,6 +16,8 @@ typedef void __fastcall (__closure *TDualBtnClickEvent)(System::TObject* Sender,
 class PACKAGE TDualButton : public TWinControl
 {
 private:
+    bool                bLoaded;
+    
     TSpeedButton *      FSBLeft;
     TSpeedButton *      FSBRight;
 

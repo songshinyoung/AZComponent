@@ -21,6 +21,10 @@ typedef void __fastcall (__closure *TArrowBtnMouseUpEvent)(  TObject *Sender, TM
 class PACKAGE TAZArrowButton : public TWinControl
 {
 private:
+    int              m_nTestCount;
+
+    bool             m_bLoaded; // Load가 완료되면 true 
+    
     TArrowButtomView FButtonView;           // 보여질 버튼 설정. (수평, 수직, 둘 다)
     bool             FEditBoxVisible;
     TFont *          FFontTitle;
@@ -70,9 +74,9 @@ private:
 
     //Graphics::TBitmap* BMP_Indicator;
 
-    void        __fastcall DisplayUpdate();
+    void        __fastcall DisplayUpdate(bool bView);
     void        __fastcall DisplayEditBox(int nWidth, int nHeight);
-    void        __fastcall CreateIndicatorImage();
+    void        __fastcall CreateIndicatorImage(bool bView);
 
     void         __fastcall MyResize(TObject *Sender);
     System::Classes::TNotifyEvent FOnResize;

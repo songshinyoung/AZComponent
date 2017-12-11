@@ -19,6 +19,8 @@ static inline void ValidCtrCheck(TDualSensorLabel *)
 __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     : TCustomLabel(Owner)
 {
+    bLoaded         = false;
+    
     pBitmapBase     = NULL;
 
     AutoSize        = false;
@@ -55,7 +57,11 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
     pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
     pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
-    
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+    }      
 }
 
 __fastcall TDualSensorLabel::~TDualSensorLabel()
@@ -82,6 +88,8 @@ __fastcall TDualSensorLabel::~TDualSensorLabel()
 void __fastcall TDualSensorLabel::Loaded(void)
 {
     TGraphicControl::Loaded();
+
+    bLoaded = true;
 
     Invalidate();
 }
@@ -110,6 +118,8 @@ void __fastcall TDualSensorLabel::Paint()
 //---------------------------------------------------------------------------
 void __fastcall TDualSensorLabel::DrawOutLine()
 {
+    if(!bLoaded) return;
+    
     if(!Visible || this->Width <= 0 || this->Height <=0) return;
     
     Canvas->Lock();
@@ -147,6 +157,8 @@ void __fastcall TDualSensorLabel::DrawOutLine()
 
 void __fastcall TDualSensorLabel::DrawSensorL()
 {
+    if(!bLoaded) return;
+
     if(!FSenVisibleL || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
@@ -236,6 +248,8 @@ void __fastcall TDualSensorLabel::DrawSensorL()
 
 void __fastcall TDualSensorLabel::DrawSensorR()
 {
+    if(!bLoaded) return;
+
     if(!FSenVisibleR || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
@@ -327,6 +341,8 @@ void __fastcall TDualSensorLabel::DrawSensorR()
 
 void __fastcall TDualSensorLabel::DrawTitle()
 {
+    if(!bLoaded) return;
+
     if(!Visible || Width <= 0 || Height <= 0 || (Width < FSenWidth + FSenSpace)) return;
 
     Canvas->Lock();
@@ -482,7 +498,7 @@ void  __fastcall TDualSensorLabel::SetSenVisibleR(bool v)
     }
 }
 
-void __fastcall TDualSensorLabel::SetSenOutLine(  v)
+void __fastcall TDualSensorLabel::SetSenOutLine(bool  v)
 {
     if(FSenOutLine != v) {
         FSenOutLine = v;

@@ -19,6 +19,8 @@ static inline void ValidCtrCheck(TActuatorButton *)
 __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     : TWinControl(Owner)
 {
+    bLoaded                 = false;
+    
     TWinControl::OnResize   = MyResize;
 
     //--------------------------------
@@ -94,7 +96,11 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenFont->OnChange  = SenFontChanged; // Font가 변경될 경우 이를 감지할 Call Back 함수를 등록한다.
 
 
-    DisplayUpdate();
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+        DisplayUpdate();
+    }  
 
 }
 
@@ -119,6 +125,8 @@ __fastcall TActuatorButton::~TActuatorButton()
 void __fastcall TActuatorButton::Loaded(void)
 {
     TWinControl::Loaded();
+
+    bLoaded = true;
 
     DisplayUpdate();
 }
@@ -219,7 +227,9 @@ void __fastcall TActuatorButton::CreateIndicatorImage()
 }
 //---------------------------------------------------------------------------
 void __fastcall TActuatorButton::DisplayUpdate()
-{
+{   
+    if(!bLoaded) return;
+    
     int nWidth = FLayout == dbHorizontal ? this->Width / 2 : this->Width;
 
     //FSBLeft->Font->Assign(this->Font);
@@ -504,7 +514,7 @@ void  __fastcall TActuatorButton::SetSenVisibleR(bool v)
 }
 
 
-void __fastcall TActuatorButton::SetSenOutLine(  v)
+void __fastcall TActuatorButton::SetSenOutLine(bool  v)
 {
     if(FSenOutLine != v) {
         FSenOutLine = v;

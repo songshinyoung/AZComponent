@@ -15,7 +15,7 @@
 
 class PACKAGE TImageBtnSubCaptionProperty : public TPersistent
 {
-private:
+private:    
     bool                        FVisible;
     String                      FCaption;
     bool                        FVAlign;    // true : Main Caption의 Top 에 위치. false : Main Caption의 Bottom에 위치.
@@ -70,6 +70,8 @@ typedef enum EImageButtonStateType{
 class PACKAGE TAZImageButton : public TImage
 {
 private:
+    bool                        bLoaded;
+
     // Property value. --------------------------
     Vcl::Graphics::TBitmap*     FGlyph;
     TNumGlyphs                  FNumGlyphs;

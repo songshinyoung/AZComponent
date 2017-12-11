@@ -19,6 +19,8 @@ static inline void ValidCtrCheck(TSensorLabel *)
 __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     : TCustomLabel(Owner)
 {
+    bLoaded         = false;
+    
     pBitmapBase     = NULL;
 
     Color           = clBtnFace;
@@ -58,7 +60,11 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
     pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
     pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
-    
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+    }      
 }
 
 __fastcall TSensorLabel::~TSensorLabel()
@@ -88,6 +94,8 @@ void __fastcall TSensorLabel::Loaded(void)
 {
     TGraphicControl::Loaded();
 
+    bLoaded = true;
+    
     Invalidate();
 }
 
@@ -116,6 +124,7 @@ void __fastcall TSensorLabel::Paint()
 
 void __fastcall TSensorLabel::DrawNumber()
 {
+    if(!bLoaded) return;
     if(!FNumVisible || Width <= 0 || Height <= 0 || FNumWidth <= 0) return;
     
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -173,6 +182,8 @@ void __fastcall TSensorLabel::DrawNumber()
 
 void __fastcall TSensorLabel::DrawSensor()
 {
+    if(!bLoaded) return;
+
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -257,6 +268,8 @@ void __fastcall TSensorLabel::DrawSensor()
 
 void __fastcall TSensorLabel::DrawTitle()
 {
+    if(!bLoaded) return;
+
     if(Width <= 0 || Height <= 0 || (Width < FNumWidth + FNumSpace + FSenWidth + FSenSpace)) return;
 
     Canvas->Lock();

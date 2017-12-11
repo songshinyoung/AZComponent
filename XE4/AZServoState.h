@@ -19,6 +19,7 @@ enum {
 class PACKAGE TAZServoStateIndicatorProperty : public TPersistent
 {
 private:
+    
     int     nID;
 
     bool    FState;
@@ -57,6 +58,7 @@ __published:
 class PACKAGE TAZServoState : public TGraphicControl
 {
 private:
+    bool    bLoaded;
     int     FIndex;
     bool    FIndexVisible;
     bool    FCaptionVisible;

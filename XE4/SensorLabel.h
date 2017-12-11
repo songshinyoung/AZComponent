@@ -13,6 +13,7 @@
 class PACKAGE TSensorLabel : public TCustomLabel
 {
 private:
+    bool            bLoaded;
     //--------------------------------
     // Number 
     bool            FNumVisible;

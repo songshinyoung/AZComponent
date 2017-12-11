@@ -19,6 +19,7 @@ static inline void ValidCtrCheck(TAZServoState *)
 __fastcall TAZServoState::TAZServoState(TComponent* Owner)
     : TGraphicControl(Owner)
 {
+    bLoaded             = false;
     FIndex              = 0;
     Color               = clGray;
     FIndicatorRectColor = clWhite;
@@ -74,6 +75,11 @@ __fastcall TAZServoState::TAZServoState(TComponent* Owner)
     Font->Style = TFontStyles() << fsBold;
 
     tmpBitmap1 = new Graphics::TBitmap;
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+    }      
 }
 //---------------------------------------------------------------------------
 __fastcall TAZServoState::~TAZServoState()
@@ -98,7 +104,9 @@ __fastcall TAZServoState::~TAZServoState()
 //---------------------------------------------------------------------------
 void  __fastcall TAZServoState::Loaded(void)
 {
-    //
+    TGraphicControl::Loaded();
+
+    bLoaded = true;
 }
 
 //---------------------------------------------------------------------------
@@ -107,6 +115,8 @@ void  __fastcall TAZServoState::Paint()
     if(!Visible) {
         if(!ComponentState.Contains(csDesigning)) return;
     }
+
+    if(!bLoaded) return;
 
     // -------------------------------------------------------
     // ¿Ü°û ±×¸®±â

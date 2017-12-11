@@ -11,6 +11,7 @@
 class PACKAGE TTitleLabel : public TCustomLabel
 {
 private:
+    bool    bLoaded;
     int     FSpace;             ///< 외곽과 Caption 사이의 공간
     int     FTopDownGap;        ///< 상단과 하단의 색상 밝기 차이
     int     FLineInterval;      ///< 라인별로 그라데이션 효과 정도.

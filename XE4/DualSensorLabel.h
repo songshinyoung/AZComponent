@@ -13,6 +13,7 @@
 class PACKAGE TDualSensorLabel : public TCustomLabel
 {
 private:
+    bool            bLoaded;
 
     //--------------------------------
     // Sensor Led 
@@ -67,7 +68,7 @@ private:
     void            __fastcall SetSenVisibleL(bool v);
     void            __fastcall SetSenVisibleR(bool v);
 
-    void            __fastcall SetSenOutLine(  v);
+    void            __fastcall SetSenOutLine(bool  v);
     void            __fastcall SetSenOutLineColor(TColor    v);
     void            __fastcall SetSenOutLineRound(int       v);
     void            __fastcall SetSenOutSpace(int       v);

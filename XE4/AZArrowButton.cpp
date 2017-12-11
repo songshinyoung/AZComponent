@@ -25,6 +25,8 @@ static inline void ValidCtrCheck(TAZArrowButton *)
 __fastcall TAZArrowButton::TAZArrowButton(TComponent* Owner)
     : TWinControl(Owner)
 {
+    m_bLoaded = false;
+    
     TWinControl::OnResize   = MyResize;
 
     Width  = 200;
@@ -43,11 +45,11 @@ __fastcall TAZArrowButton::TAZArrowButton(TComponent* Owner)
         FBitBtn[i]->OnMouseUp    = MyMouseUp;
     }
 
-    FButtonView = avBoth;
+    FButtonView     = avBoth;
     FEditBoxVisible = true;
-    FColorBox   = clBlack;
-    FColorEdit  = (TColor)0x373737;
-    FGlyphType  = 1;
+    FColorBox       = clBlack;
+    FColorEdit      = (TColor)0x373737;
+    FGlyphType      = 1;
 
     //FCaptionTitle   = L"";
     FCaptionValue   = 0.0;
@@ -140,9 +142,11 @@ __fastcall TAZArrowButton::TAZArrowButton(TComponent* Owner)
     FNumGlyphs = 4;
 
     //--------------------------
-
-    CreateIndicatorImage();
-    DisplayUpdate();
+    if(ComponentState.Contains(csDesigning)) {
+        m_bLoaded = true;
+        CreateIndicatorImage(m_bLoaded);
+        DisplayUpdate(m_bLoaded);
+    }
 }
 //---------------------------------------------------------------------------
 __fastcall TAZArrowButton::~TAZArrowButton()
@@ -178,7 +182,7 @@ void     __fastcall TAZArrowButton::MyResize(TObject *Sender)
 {
     if(FOnResize) FOnResize(this);
 
-    DisplayUpdate();
+    DisplayUpdate(m_bLoaded);
 }
 //---------------------------------------------------------------------------
 void     __fastcall TAZArrowButton::MyClick(TObject *Sender)
@@ -262,7 +266,7 @@ void     __fastcall TAZArrowButton::MyEditClick(TObject *Sender)
     if(Sender == NULL)     return;
 
     if(InputNumber(Sender)) {
-        DisplayUpdate();
+        DisplayUpdate(m_bLoaded);
     }
 
     //-----------------------------
@@ -274,8 +278,10 @@ void __fastcall TAZArrowButton::Loaded(void)
 {
     TWinControl::Loaded();
 
-    CreateIndicatorImage();
-    DisplayUpdate();
+    m_bLoaded = true;
+
+    CreateIndicatorImage(m_bLoaded);
+    DisplayUpdate(m_bLoaded);
 }
 //---------------------------------------------------------------------------
 void     __fastcall TAZArrowButton::SetEnabled(bool Value)
@@ -287,7 +293,7 @@ void     __fastcall TAZArrowButton::SetEnabled(bool Value)
     if(FBitBtn[abTop])       FBitBtn[abTop]->Enabled      = Value;
     if(FBitBtn[abBottom])    FBitBtn[abBottom]->Enabled   = Value;
 
-    DisplayUpdate();
+    DisplayUpdate(m_bLoaded);
 }
 //---------------------------------------------------------------------------
 TBitBtn * __fastcall TAZArrowButton::GetBitBtn(int n)
@@ -298,10 +304,12 @@ TBitBtn * __fastcall TAZArrowButton::GetBitBtn(int n)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TAZArrowButton::DisplayUpdate()
+void __fastcall TAZArrowButton::DisplayUpdate(bool bView)
 {
     //CreateIndicatorImage();
 
+    if(!bView) return;
+    
     int nOneBtnW = 0;
     int nOneBtnH = 0;
 
@@ -414,6 +422,7 @@ void __fastcall TAZArrowButton::DisplayEditBox(int nWidth, int nHeight)
         FLabelTitle->Visible    = FEditBoxVisible;
 
         FLabelValue->Font->Assign(FFontValue);
+            
         FLabelValue->Caption    = GetDrawValue(FCaptionValue, FInputEdit->Type, FInputEdit->DecimalPlaces) ;
         FLabelValue->Visible    = FEditBoxVisible;
 
@@ -439,8 +448,10 @@ void __fastcall TAZArrowButton::DisplayEditBox(int nWidth, int nHeight)
 
 }
 
-void __fastcall TAZArrowButton::CreateIndicatorImage()
+void __fastcall TAZArrowButton::CreateIndicatorImage(bool bView)
 {
+    if(!bView) return;
+
     Graphics::TBitmap* pBmpRight = new Graphics::TBitmap;
     Graphics::TBitmap* pBmpDown  = new Graphics::TBitmap;
     Graphics::TBitmap* pBmpUp    = new Graphics::TBitmap;
@@ -448,60 +459,87 @@ void __fastcall TAZArrowButton::CreateIndicatorImage()
 
     if(IsCustom()) {
         pBmpRight->Assign(FGlyph);
+
+        int nImageW  = pBmpRight->Width;
+        int nImageH  = pBmpRight->Height;
+        int nImage1W = nImageW / FNumGlyphs;
+
+        pBmpDown->Width     = nImageH * FNumGlyphs;
+        pBmpDown->Height    = nImage1W;
+
+        pBmpUp->Width       = nImageH * FNumGlyphs;
+        pBmpUp->Height      = nImage1W;
+
+        pBmpLeft->Width     = nImageW;
+        pBmpLeft->Height    = nImageH;
+
+        for(int i=0; i<FNumGlyphs; i++) {
+            for(int y=0; y<nImageH; y++) {
+                for(int x=0; x<nImage1W; x++) {
+                    // 시계 방향 90도 회전하여 복사함. (Down)
+                    pBmpDown->Canvas->Pixels[nImageH * i + y][x]
+                    = pBmpRight->Canvas->Pixels[nImage1W * i + x][y];
+
+                    //  수평으로 뒤집어서 복사함. (Left)
+                    pBmpLeft->Canvas->Pixels[nImage1W * i + (nImage1W-x-1)][y]
+                    = pBmpRight->Canvas->Pixels[nImage1W * i + x][y];
+                }
+            }
+        }
+
+        for(int y=0; y<pBmpDown->Height; y++) {
+            for(int x=0; x<pBmpDown->Width; x++) {
+                // Down 이미지를 수직 방향으로 뒤집어서 복사함 (Up)
+                pBmpUp->Canvas->Pixels[x][y] = pBmpDown->Canvas->Pixels[x][pBmpDown->Height - y - 1];
+            }
+        }
+        
     }
     else {
+        String sGlyphName_D;
+        String sGlyphName_L;
+        String sGlyphName_R;
+        String sGlyphName_U;
         String sGlyphName;
 
+//        switch(FGlyphType) {
+//            case 1:  sGlyphName = "RightArrowGlyph";  break;
+//            case 2:  sGlyphName = "RightArrowGlyph2"; break;
+//            case 3:  sGlyphName = "RightArrowGlyph3"; break;
+//            case 4:  sGlyphName = "RightArrowGlyph4"; break;
+//            case 5:  sGlyphName = "RightArrowGlyph5"; break;
+//            case 6:  sGlyphName = "RightArrowGlyph6"; break;
+//            default: sGlyphName = "RightArrowGlyph";  break;
+//        }
+
         switch(FGlyphType) {
-            case 1:  sGlyphName = "RightArrowGlyph"; break;
-            case 2:  sGlyphName = "RightArrowGlyph2"; break;
-            case 3:  sGlyphName = "RightArrowGlyph3"; break;
-            case 4:  sGlyphName = "RightArrowGlyph4"; break;
-            case 5:  sGlyphName = "RightArrowGlyph5"; break;
-            case 6:  sGlyphName = "RightArrowGlyph6"; break;
-            default: sGlyphName = "RightArrowGlyph"; break;
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+               sGlyphName   = "ARROW" + IntToStr(FGlyphType);
+               sGlyphName_D = sGlyphName + "_D";
+               sGlyphName_L = sGlyphName + "_L";
+               sGlyphName_R = sGlyphName + "_R";
+               sGlyphName_U = sGlyphName + "_U";
+               break;
+
+            default: sGlyphName = "RightArrowGlyph";  break;
         }
+        
         //pBmpRight->LoadFromResourceName((int)HInstance, sGlyphName);
         //int nResI = FindClassHInstance(__classid(TAZArrowButton));
-        pBmpRight->LoadFromResourceName((int)HInstance, sGlyphName);
+        pBmpDown    ->LoadFromResourceName((int)HInstance, sGlyphName_D);
+        pBmpLeft    ->LoadFromResourceName((int)HInstance, sGlyphName_L);
+        pBmpRight   ->LoadFromResourceName((int)HInstance, sGlyphName_R);
+        pBmpUp      ->LoadFromResourceName((int)HInstance, sGlyphName_U);
+        
         FNumGlyphs = 4;
 
     }
 
-    int nImageW  = pBmpRight->Width;
-    int nImageH  = pBmpRight->Height;
-    int nImage1W = nImageW / FNumGlyphs;
-
-    pBmpDown->Width     = nImageH * FNumGlyphs;
-    pBmpDown->Height    = nImage1W;
-
-    pBmpUp->Width       = nImageH * FNumGlyphs;
-    pBmpUp->Height      = nImage1W;
-
-    pBmpLeft->Width     = nImageW;
-    pBmpLeft->Height    = nImageH;
-
-    for(int i=0; i<FNumGlyphs; i++) {
-        for(int y=0; y<nImageH; y++) {
-            for(int x=0; x<nImage1W; x++) {
-                // 시계 방향 90도 회전하여 복사함. (Down)
-                pBmpDown->Canvas->Pixels[nImageH * i + y][x]
-                = pBmpRight->Canvas->Pixels[nImage1W * i + x][y];
-
-                //  수평으로 뒤집어서 복사함. (Left)
-                pBmpLeft->Canvas->Pixels[nImage1W * i + (nImage1W-x-1)][y]
-                = pBmpRight->Canvas->Pixels[nImage1W * i + x][y];
-            }
-        }
-    }
-
-    for(int y=0; y<pBmpDown->Height; y++) {
-        for(int x=0; x<pBmpDown->Width; x++) {
-            // Down 이미지를 수직 방향으로 뒤집어서 복사함 (Up)
-            pBmpUp->Canvas->Pixels[x][y]
-            = pBmpDown->Canvas->Pixels[x][pBmpDown->Height - y - 1];
-        }
-    }
 
     // 투명 색상 지정. 왼쪽 가장 아래 픽셀의 색상이 투명 색상으로 적용된다.
     TColor cTranColor = pBmpRight->Canvas->Pixels[0][pBmpRight->Height - 1];
@@ -528,7 +566,7 @@ void __fastcall TAZArrowButton::SetButtonView(TArrowButtomView e)
 {
     if(FButtonView != e) {
         FButtonView = e;
-        DisplayUpdate();
+        DisplayUpdate(m_bLoaded);
     }
 }
 
@@ -536,7 +574,7 @@ void __fastcall TAZArrowButton::SetEditBoxVisible(bool b)
 {
     if(FEditBoxVisible != b) {
         FEditBoxVisible = b;
-        DisplayUpdate();
+        DisplayUpdate(m_bLoaded);
     }
 }
 
@@ -550,12 +588,12 @@ void __fastcall TAZArrowButton::SetMyFont(int Index, TFont * p)
 
     //MessageBox(NULL, "SetFont", "", MB_OK);
 
-    DisplayUpdate();
+    DisplayUpdate(m_bLoaded);
 }
 
 void     __fastcall TAZArrowButton::FontChanged(System::TObject* Sender)
 {
-    DisplayUpdate();
+    DisplayUpdate(m_bLoaded);
 }
 
 
@@ -572,14 +610,14 @@ void __fastcall TAZArrowButton::SetMyCaption(int Index, String s)
         case 7: bChanged = (s != FBtnCaptionBottom);    FBtnCaptionBottom   = s; break;
     }
 
-    if(bChanged) DisplayUpdate();
+    if(bChanged) DisplayUpdate(m_bLoaded);
 }
 
 void __fastcall TAZArrowButton::SetCaptionValue(double d)
 {
     if(FCaptionValue != d) {
         FCaptionValue = d;
-        DisplayUpdate();
+        DisplayUpdate(m_bLoaded);
     }
 }
 
@@ -591,7 +629,7 @@ void __fastcall TAZArrowButton::SetColor(int Index, TColor c)
         case 2: bChanged = (c != FColorEdit); FColorEdit = c; break;
     }
 
-    if(bChanged) DisplayUpdate();
+    if(bChanged) DisplayUpdate(m_bLoaded);
 }
 
 void __fastcall TAZArrowButton::SetGlyphType(int n)
@@ -599,8 +637,8 @@ void __fastcall TAZArrowButton::SetGlyphType(int n)
     if(FGlyphType != n) {
         FGlyphType = n;
 
-        CreateIndicatorImage();
-        DisplayUpdate();
+        CreateIndicatorImage(m_bLoaded);
+        DisplayUpdate(m_bLoaded);
     }
 }
 
@@ -615,7 +653,7 @@ void __fastcall TAZArrowButton::SetGlyph(Vcl::Graphics::TBitmap* Value)
         FGlyph->Assign(Value);
     }
 
-    CreateIndicatorImage();
+    CreateIndicatorImage(m_bLoaded);
 }
 
 Vcl::Graphics::TBitmap* __fastcall TAZArrowButton::GetGlyph(void)
@@ -632,15 +670,15 @@ void __fastcall TAZArrowButton::SetNumGlyphs(TNumGlyphs Value)
 {
     if(FNumGlyphs != Value) {
         FNumGlyphs = Value;
-        CreateIndicatorImage();
-        DisplayUpdate();
+        CreateIndicatorImage(m_bLoaded);
+        DisplayUpdate(m_bLoaded);
     }
 }
 
 void __fastcall TAZArrowButton::GlyphChanged(System::TObject* Sender)
 {
-    CreateIndicatorImage();
-    DisplayUpdate();
+    CreateIndicatorImage(m_bLoaded);
+    DisplayUpdate(m_bLoaded);
 }
 
 bool __fastcall TAZArrowButton::IsCustom(void)
@@ -697,14 +735,14 @@ bool     __fastcall TAZArrowButton::InputNumber(TObject *Sender)
 //----------------------------------------------------------------------------
 void  __fastcall TAZArrowButton::InputEditChanged(System::TObject* Sender)
 {
-    DisplayUpdate();
+    DisplayUpdate(m_bLoaded);
 }
 
 void __fastcall TAZArrowButton::SetInputEdit(TAZEditBoxProperty * p)
 {
     if(p) {
         FInputEdit->Assign(p);
-        DisplayUpdate();
+        DisplayUpdate(m_bLoaded);
     }
 }
 //----------------------------------------------------------------------------

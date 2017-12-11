@@ -180,6 +180,102 @@
             <DependentOn>DualSensorLabel.h</DependentOn>
             <BuildOrder>33</BuildOrder>
         </CppCompile>
+        <RcItem Include="Images\Arrow1_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW1_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow1_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW1_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow1_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW1_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow1_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW1_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow2_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW2_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow2_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW2_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow2_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW2_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow2_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW2_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_D.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_D</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_L.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_R.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_R</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_U.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_U</ResourceId>
+        </RcItem>
         <RcItem Include="Images\ArrowButton1_4.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>RightArrowGlyph4</ResourceId>

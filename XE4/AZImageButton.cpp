@@ -19,6 +19,8 @@ static inline void ValidCtrCheck(TAZImageButton *)
 __fastcall TAZImageButton::TAZImageButton(TComponent* Owner)
     : TImage(Owner)
 {
+    bLoaded         = false;
+    
     TImage::OnResize = MyResize;
 
     //FCaption    = "Caption";
@@ -52,8 +54,12 @@ __fastcall TAZImageButton::TAZImageButton(TComponent* Owner)
     FCaptionSub = new TImageBtnSubCaptionProperty;
     FCaptionSub->OnChange = CaptionSubChanged;
     
-    CreateDefaultImage();
     
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+        CreateDefaultImage();
+    }      
 }
 
 //-----------------------------------------------------------------------
@@ -69,6 +75,8 @@ void __fastcall TAZImageButton::Loaded(void)
 {
     TGraphicControl::Loaded();
 
+    bLoaded = true;
+    
     CreateDefaultImage();
 
     DisplayUpdate(m_eButtonState);
@@ -515,6 +523,8 @@ void __fastcall TAZImageButton::GlyphChanged(System::TObject* Sender)
 
 void __fastcall TAZImageButton::DisplayUpdate(EImageButtonState eState)
 {
+    if(!bLoaded) return;
+    
     Vcl::Graphics::TBitmap* pButtonImg = NULL;
     
     if(FGlyph->Width == 0 || FGlyph->Height == 0) {

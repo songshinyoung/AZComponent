@@ -17,6 +17,7 @@ class PACKAGE TMatrixButtonProperty : public TPersistent
     typedef TMatrixButtonProperty inherited;
 
 private:
+   
     bool                FEnabled;
     int                 FColCount;
     int                 FRowCount;
@@ -94,6 +95,8 @@ typedef void __fastcall (__closure *TIndexBtnMouseUpEvent)(  TObject *Sender, TM
 class PACKAGE TIndexButton : public TWinControl
 {
 private:
+    bool                bLoaded;
+
     System::Classes::TStrings * FList;
     int                 FBtnHeight;             ///< 각 SpeedButton의 높이. (FLayout이 ibVertical일 경우 유효함)
     int                 FBtnWidth;              ///< 각 SpeedButton의 넓이. (FLayout이 ibHorizontal일 경우 유효함)

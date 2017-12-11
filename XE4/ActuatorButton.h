@@ -17,6 +17,8 @@ typedef void __fastcall (__closure *TActuatorBtnClickEvent)(System::TObject* Sen
 class PACKAGE TActuatorButton : public TWinControl
 {
 private:
+    bool                bLoaded;
+    
     TDualSensorLabel *  FDualSenLabel;
     TSpeedButton *      FSBLeft;
     TSpeedButton *      FSBRight;
@@ -94,7 +96,7 @@ private:
     void                __fastcall SetSenVisibleL(bool v);
     void                __fastcall SetSenVisibleR(bool v);
 
-    void                __fastcall SetSenOutLine(  v);
+    void                __fastcall SetSenOutLine(bool  v);
     void                __fastcall SetSenOutLineColor(TColor    v);
     void                __fastcall SetSenOutLineRound(int       v);
     void                __fastcall SetSenOutSpace(int       v);

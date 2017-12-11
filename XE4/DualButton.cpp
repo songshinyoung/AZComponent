@@ -19,6 +19,7 @@ static inline void ValidCtrCheck(TDualButton *)
 __fastcall TDualButton::TDualButton(TComponent* Owner)
     : TWinControl(Owner)
 {
+    bLoaded                 = false;
     TWinControl::OnResize   = MyResize;
 
     FAllowAllUp             = false;
@@ -64,7 +65,11 @@ __fastcall TDualButton::TDualButton(TComponent* Owner)
 
     //Font->OnChange = FontChanged;
 
-    DisplayUpdate();
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+        DisplayUpdate();
+    }    
 }
 
 __fastcall TDualButton::~TDualButton()
@@ -86,6 +91,8 @@ __fastcall TDualButton::~TDualButton()
 void __fastcall TDualButton::Loaded(void)
 {
     TWinControl::Loaded();
+
+    bLoaded = true;
 
     DisplayUpdate();
 }
@@ -183,6 +190,8 @@ void __fastcall TDualButton::CreateIndicatorImage()
 //---------------------------------------------------------------------------
 void __fastcall TDualButton::DisplayUpdate()
 {
+    if(!bLoaded) return;
+    
     int nWidth = FLayout == dbHorizontal ? this->Width / 2 : this->Width;
 
     //FSBLeft->Font->Assign(this->Font);

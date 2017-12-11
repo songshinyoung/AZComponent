@@ -408,6 +408,7 @@ public:
 
 
 private:
+    bool                bLoaded;
 
 // . . . Private attributes
     // State

@@ -19,6 +19,7 @@ static inline void ValidCtrCheck(TTitleLabel *)
 __fastcall TTitleLabel::TTitleLabel(TComponent* Owner)
     : TCustomLabel(Owner)
 {
+    bLoaded         = false;
     AutoSize        = false;
 
     pBitmapBase     = NULL;
@@ -44,6 +45,11 @@ __fastcall TTitleLabel::TTitleLabel(TComponent* Owner)
     FShadowTextColor    = clBlack;
     FShadowText         = false;
     FShadowTextRange    = 1;
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+    }      
 }
 
 __fastcall TTitleLabel::~TTitleLabel()
@@ -66,6 +72,8 @@ void __fastcall TTitleLabel::Loaded(void)
 {
     TGraphicControl::Loaded();
 
+    bLoaded = true;
+
     Invalidate();
 }
 
@@ -81,6 +89,8 @@ void     __fastcall TTitleLabel::SetEnabled(bool Value)
 
 void __fastcall TTitleLabel::Paint()
 {
+    if(!bLoaded) return;
+    
     if(Enabled) CreateBaseImage(Color,      Enabled);
     else        CreateBaseImage(clSilver,   Enabled);
 

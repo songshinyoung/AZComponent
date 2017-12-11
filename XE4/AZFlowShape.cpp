@@ -47,7 +47,13 @@ __fastcall TAZFlowShape::TAZFlowShape(TComponent* Owner)
     bBeginUpdate = false;
     nCreateCellCount = 0;
     CreateCells();
-    Invalidate();
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+        Invalidate();
+    }      
+    
 }
 //---------------------------------------------------------------------------
 __fastcall TAZFlowShape::~TAZFlowShape()
@@ -216,6 +222,7 @@ void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
 {
     if(nCreateCellCount <= 0)   return;
     if(bBeginUpdate)            return;
+    if(!bLoaded)                return;
 
     int nTitleHeight = FTitle->Visible ? (FTitle->Height + FTitle->Space) : 0;
 

@@ -42,6 +42,7 @@ __fastcall TIndexButton::TIndexButton(TComponent* Owner)
     this->Width             = 200;
     this->Height            = 300;
 
+    bLoaded                 = false;
     FBtnHeight              = 70;
     FBtnWidth               = 100;
     FGlyphRound             = 5;
@@ -81,7 +82,12 @@ __fastcall TIndexButton::TIndexButton(TComponent* Owner)
     //--------------------------------
 
     CreateButton();
-    DisplayUpdate();
+
+    //--------------------------
+    if(ComponentState.Contains(csDesigning)) {
+        bLoaded = true;
+        DisplayUpdate();
+    }      
 
 }
 
@@ -119,6 +125,8 @@ void __fastcall TIndexButton::Loaded(void)
     //AnsiString sTemp;
     //sTemp.printf("Loaded : List Count = %d", FList->Count);
     //MessageBox(NULL, sTemp.c_str(), "", MB_OK);
+
+    bLoaded = true;
 
     CreateButton();
     DisplayUpdate();
@@ -533,6 +541,8 @@ void __fastcall TIndexButton::DrawIndicatorNumber( Vcl::Graphics::TBitmap *   pB
 //---------------------------------------------------------------------------
 void __fastcall TIndexButton::DisplayUpdate()
 {
+    if(!bLoaded) return;
+    
     CreateIndicatorImage();
 
     if(FMatrixButton->Enabled) {

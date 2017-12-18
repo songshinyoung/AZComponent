@@ -83,9 +83,11 @@ protected:
     void            __fastcall DrawOutLine();
 
 public:
-    __fastcall TDualSensorLabel(TComponent* Owner);
-    virtual __fastcall ~TDualSensorLabel();
-    virtual void     __fastcall Paint();                         ///< Paint 함수 오버라이드.
+                    __fastcall TDualSensorLabel(TComponent* Owner);
+    virtual         __fastcall ~TDualSensorLabel();
+    virtual void    __fastcall Paint();                         ///< Paint 함수 오버라이드.
+
+    void            __fastcall SetLoaded(bool b); // SSY_0171218 ( 다른 컨퍼넌트에서 동적으로 생성시 Loaded가 호출되지 않는다. 긍제로 Loaded를 된것처럼 설정하다 ) 
 
 __published:
 

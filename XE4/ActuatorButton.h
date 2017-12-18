@@ -129,6 +129,7 @@ protected:
 public:
     __fastcall TActuatorButton(TComponent* Owner);
     virtual __fastcall ~TActuatorButton();
+
         
 __published:
     __property TDualSensorLabel * DualSenLabel  = { read = FDualSenLabel, stored = true};

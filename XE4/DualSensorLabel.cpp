@@ -94,6 +94,10 @@ void __fastcall TDualSensorLabel::Loaded(void)
     Invalidate();
 }
 
+void            __fastcall TDualSensorLabel::SetLoaded(bool b)
+{ 
+    bLoaded = b;
+}
 
 void     __fastcall TDualSensorLabel::SetEnabled(bool Value)
 {
@@ -162,7 +166,7 @@ void __fastcall TDualSensorLabel::DrawSensorL()
     if(!FSenVisibleL || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
-    Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
 
     int nX1 = FSenOutLine ? FSenOutSpace + 2 : FSenOutSpace;
     int nY1 = 0;
@@ -253,7 +257,7 @@ void __fastcall TDualSensorLabel::DrawSensorR()
     if(!FSenVisibleR || !Visible) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
-    Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
 
     int nX1 = FSenOutLine ? (this->Width - FSenWidth - FSenOutSpace - 3) : (this->Width - FSenWidth - FSenOutSpace - 1);
     int nY1 = 0;

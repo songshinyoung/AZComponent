@@ -128,6 +128,8 @@ void __fastcall TActuatorButton::Loaded(void)
 
     bLoaded = true;
 
+    FDualSenLabel->SetLoaded(true);
+
     DisplayUpdate();
 }
 //---------------------------------------------------------------------------

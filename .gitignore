@@ -52,3 +52,6 @@ Detaping.tds
 *.local
 Detaping.map
 *.vlb
+
+#User Define Ignore file
+*.zip

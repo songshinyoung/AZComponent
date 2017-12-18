@@ -124,10 +124,11 @@ void __fastcall TSensorLabel::Paint()
 
 void __fastcall TSensorLabel::DrawNumber()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     if(!bLoaded) return;
     if(!FNumVisible || Width <= 0 || Height <= 0 || FNumWidth <= 0) return;
     
-    Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
     int nTxtW = 0, nTxtH = 0;
 
     int nRoundWidth  = FNumWidth;       // Unit과의 간격을 유지하는 크기인 Space 공간을 제외한 크기.
@@ -182,14 +183,15 @@ void __fastcall TSensorLabel::DrawNumber()
 
 void __fastcall TSensorLabel::DrawSensor()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     if(!bLoaded) return;
 
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
-    Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
 
-    int nRoundWidth  = FNumWidth;       // Unit과의 간격을 유지하는 크기인 Space 공간을 제외한 크기.
-    int nRoundHeight = Height;
+    //int nRoundWidth  = FNumWidth;       // Unit과의 간격을 유지하는 크기인 Space 공간을 제외한 크기.
+    //int nRoundHeight = Height;
 
     int nX1 = FNumWidth + FNumSpace;
     int nY1 = 0;
@@ -268,6 +270,7 @@ void __fastcall TSensorLabel::DrawSensor()
 
 void __fastcall TSensorLabel::DrawTitle()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     if(!bLoaded) return;
 
     if(Width <= 0 || Height <= 0 || (Width < FNumWidth + FNumSpace + FSenWidth + FSenSpace)) return;
@@ -313,6 +316,8 @@ void __fastcall TSensorLabel::DrawTitle()
 //---------------------------------------------------------------------------
 void     __fastcall TSensorLabel::NumFontChanged(System::TObject* Sender)
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     Invalidate();
 }
 
@@ -320,6 +325,7 @@ void     __fastcall TSensorLabel::NumFontChanged(System::TObject* Sender)
 void    __fastcall  TSensorLabel::SetNumFont(Vcl::Graphics::TFont * p)
 {
     FNumFont->Assign(p);
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     Invalidate();
 }
 
@@ -327,6 +333,7 @@ void __fastcall TSensorLabel::SetNumVisible(bool b)
 {
     if(FNumVisible != b) {
         FNumVisible = b;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -335,6 +342,7 @@ void __fastcall TSensorLabel::SetNumber(int    v)
 {
     if(FNumber != v) {
         FNumber = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -343,6 +351,7 @@ void __fastcall TSensorLabel::SetNumBGColor(TColor v)
 {
     if(FNumBGColor != v) {
         FNumBGColor = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -351,6 +360,7 @@ void __fastcall TSensorLabel::SetNumLineColor(TColor v)
 {
     if(FNumLineColor != v) {
         FNumLineColor = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -359,6 +369,7 @@ void __fastcall TSensorLabel::SetNumRectRound(int    v)
 {
     if(FNumRectRound != v) {
         FNumRectRound = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -367,6 +378,7 @@ void __fastcall TSensorLabel::SetNumWidth(int    v)
 {
     if(FNumWidth != v) {
         FNumWidth = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -375,6 +387,7 @@ void __fastcall TSensorLabel::SetNumSpace(int    v)
 {
     if(FNumSpace != v) {
         FNumSpace = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -383,6 +396,7 @@ void __fastcall TSensorLabel::SetSenLineColor(TColor v)
 {
     if(FSenLineColor != v) {
         FSenLineColor = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -407,6 +421,7 @@ void __fastcall TSensorLabel::SetSenType(TSensorLedType  v)
 {
     if(FSenType != v) {
         FSenType = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -415,6 +430,7 @@ void __fastcall TSensorLabel::SetSenWidth(int    v)
 {
     if(FSenWidth != v) {
         FSenWidth = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -423,6 +439,7 @@ void __fastcall TSensorLabel::SetSenHeight(int    v)
 {
     if(FSenHeight != v) {
         FSenHeight = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -431,6 +448,7 @@ void __fastcall TSensorLabel::SetSenRectRound(int v)
 {
     if(FSenRectRound != v) {
         FSenRectRound = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -447,6 +465,7 @@ void __fastcall TSensorLabel::SetSenSpace(int    v)
 {
     if(FSenSpace != v) {
         FSenSpace = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }
@@ -456,6 +475,7 @@ void  __fastcall TSensorLabel::SetSenLEDImage(bool v)
 {
     if(FSenLEDImage != v) {
         FSenLEDImage = v;
+        if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
 }

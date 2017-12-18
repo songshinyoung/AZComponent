@@ -89,6 +89,8 @@ void     __fastcall TTitleLabel::SetEnabled(bool Value)
 
 void __fastcall TTitleLabel::Paint()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
     
     if(Enabled) CreateBaseImage(Color,      Enabled);

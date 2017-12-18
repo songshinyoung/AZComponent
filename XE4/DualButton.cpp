@@ -190,6 +190,8 @@ void __fastcall TDualButton::CreateIndicatorImage()
 //---------------------------------------------------------------------------
 void __fastcall TDualButton::DisplayUpdate()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
     
     int nWidth = FLayout == dbHorizontal ? this->Width / 2 : this->Width;

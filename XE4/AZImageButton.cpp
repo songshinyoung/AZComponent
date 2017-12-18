@@ -289,6 +289,7 @@ void __fastcall TAZImageButton::SetEnabled(bool b)
 //-----------------------------------------------------------------------
 void __fastcall TAZImageButton::Paint()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     TImage::Paint();
 }
 
@@ -523,6 +524,8 @@ void __fastcall TAZImageButton::GlyphChanged(System::TObject* Sender)
 
 void __fastcall TAZImageButton::DisplayUpdate(EImageButtonState eState)
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
     
     Vcl::Graphics::TBitmap* pButtonImg = NULL;

@@ -122,9 +122,11 @@ void __fastcall TDualSensorLabel::Paint()
 //---------------------------------------------------------------------------
 void __fastcall TDualSensorLabel::DrawOutLine()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
     
-    if(!Visible || this->Width <= 0 || this->Height <=0) return;
+    if(this->Width <= 0 || this->Height <=0) return;
     
     Canvas->Lock();
     
@@ -161,9 +163,11 @@ void __fastcall TDualSensorLabel::DrawOutLine()
 
 void __fastcall TDualSensorLabel::DrawSensorL()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
 
-    if(!FSenVisibleL || !Visible) return;
+    if(!FSenVisibleL) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
     //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -252,9 +256,11 @@ void __fastcall TDualSensorLabel::DrawSensorL()
 
 void __fastcall TDualSensorLabel::DrawSensorR()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
 
-    if(!FSenVisibleR || !Visible) return;
+    if(!FSenVisibleR) return;
     if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
     
     //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
@@ -345,9 +351,11 @@ void __fastcall TDualSensorLabel::DrawSensorR()
 
 void __fastcall TDualSensorLabel::DrawTitle()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
 
-    if(!Visible || Width <= 0 || Height <= 0 || (Width < FSenWidth + FSenSpace)) return;
+    if(Width <= 0 || Height <= 0 || (Width < FSenWidth + FSenSpace)) return;
 
     Canvas->Lock();
     

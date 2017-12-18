@@ -307,6 +307,7 @@ TBitBtn * __fastcall TAZArrowButton::GetBitBtn(int n)
 void __fastcall TAZArrowButton::DisplayUpdate(bool bView)
 {
     //CreateIndicatorImage();
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
 
     if(!bView) return;
     
@@ -392,6 +393,9 @@ void __fastcall TAZArrowButton::DisplayUpdate(bool bView)
 //---------------------------------------------------------------------------
 void __fastcall TAZArrowButton::DisplayEditBox(int nWidth, int nHeight)
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+    if(!m_bLoaded) return;
+
     FBasePanel->Visible = FEditBoxVisible;
 
     if(FEditBoxVisible) {

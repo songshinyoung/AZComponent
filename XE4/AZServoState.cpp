@@ -112,9 +112,7 @@ void  __fastcall TAZServoState::Loaded(void)
 //---------------------------------------------------------------------------
 void  __fastcall TAZServoState::Paint()
 {
-    if(!Visible) {
-        if(!ComponentState.Contains(csDesigning)) return;
-    }
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
 
     if(!bLoaded) return;
 

@@ -683,7 +683,9 @@ void __fastcall TAZNumShape::Paint()
 //-----------------------------------------------------------------------
 void __fastcall TAZNumShape::PaintTitle()
 {
-    if(!Visible || bBeginUpdate || !bLoaded) return;
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(bBeginUpdate || !bLoaded) return;
     
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
     int nTxtW = 0, nTxtH = 0;
@@ -828,7 +830,9 @@ void __fastcall TAZNumShape::PaintTitle()
 //-----------------------------------------------------------------------
 void __fastcall TAZNumShape::PaintValue()
 {
-    if(!Visible || bBeginUpdate || !bLoaded) return;
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(bBeginUpdate || !bLoaded) return;
 
     // -------------------------------------------------------
 

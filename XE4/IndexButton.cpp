@@ -541,6 +541,8 @@ void __fastcall TIndexButton::DrawIndicatorNumber( Vcl::Graphics::TBitmap *   pB
 //---------------------------------------------------------------------------
 void __fastcall TIndexButton::DisplayUpdate()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(!bLoaded) return;
     
     CreateIndicatorImage();

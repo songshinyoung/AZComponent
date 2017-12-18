@@ -164,6 +164,7 @@ __published:
     __property TArrowBtnMouseDownEvent          OnMouseDown  = {read=FOnMouseDown, write=FOnMouseDown};
     __property TArrowBtnMouseLeaveEvent         OnMouseLeave = {read=FOnMouseLeave, write=FOnMouseLeave};
     __property TArrowBtnMouseUpEvent            OnMouseUp    = {read=FOnMouseUp, write=FOnMouseUp};
+    __property Visible;
 
 };
 //---------------------------------------------------------------------------

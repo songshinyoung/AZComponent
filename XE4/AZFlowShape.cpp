@@ -214,12 +214,15 @@ void     __fastcall TAZFlowShape::TitleChanged(System::TObject* Sender)
 
 void __fastcall TAZFlowShape::Paint()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
     DrawPaint(false);
 
 }
 //---------------------------------------------------------------------------
 void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     if(nCreateCellCount <= 0)   return;
     if(bBeginUpdate)            return;
     if(!bLoaded)                return;

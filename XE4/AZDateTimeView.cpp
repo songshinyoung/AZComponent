@@ -71,6 +71,8 @@ void __fastcall TAZDateTimeView::Loaded(void)
 //-----------------------------------------------------------------------
 void __fastcall TAZDateTimeView::Paint()
 {
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
     String sDateTime = FormatDateTime(FFormat, FDateTime); 
     Vcl::Graphics::TCanvas* BuffCanvas = NULL;
     

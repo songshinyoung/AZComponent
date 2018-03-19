@@ -69,7 +69,6 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     //--------------------------------
     BMP_Indicator = new Graphics::TBitmap;
 
-
     //--------------------------------
     FSenBGColor         = clBtnFace;
     FSenLineColor       = clBlack ;
@@ -106,10 +105,11 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
 
 __fastcall TActuatorButton::~TActuatorButton()
 {
-    if(FDualSenLabel)       delete FDualSenLabel;
-    if(FSBLeft)             delete FSBLeft;
-    if(FSBRight)            delete FSBRight;
-    if(BMP_Indicator)       delete BMP_Indicator;
+    if(FDualSenLabel)           delete FDualSenLabel;
+    if(FSBLeft)                 delete FSBLeft;
+    if(FSBRight)                delete FSBRight;
+    if(BMP_Indicator)           delete BMP_Indicator;
+    
 }
 //---------------------------------------------------------------------------
 //namespace ActuatorButton

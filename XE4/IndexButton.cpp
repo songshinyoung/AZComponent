@@ -54,6 +54,7 @@ __fastcall TIndexButton::TIndexButton(TComponent* Owner)
 
     FColorUp                = (TColor)0x09B9B9B;            // 선택되지 않은 상태 색상. ( Enable)
     FColorDisable           = (TColor)0x0CDCDCD;            // Disable 상태 색상.
+    FColorDisableSelect     = (TColor)0x0787878;            // Disable 상태에서 선택된 버튼 색상. 
     FColorDown              = (TColor)0x04080FF;            // 사용자가 Mouse Down 중인 상태 색상.
     FColorSelect            = (TColor)0x0DBDB00;            // 선택된 상태 색상.
     FColorLine              = clGray;
@@ -68,6 +69,7 @@ __fastcall TIndexButton::TIndexButton(TComponent* Owner)
 
     //--------------------------------
     BMP_Indicator           = new Graphics::TBitmap;
+    BMP_IndicatorDisable    = new Graphics::TBitmap;
     BMP_IndicatorNumbering  = new Graphics::TBitmap;
 
     //--------------------------------
@@ -102,10 +104,11 @@ __fastcall TIndexButton::~TIndexButton()
         }
     }
 
-    if(FGlyph) delete FGlyph;
-    if(FMatrixButton) delete FMatrixButton;
-    if(BMP_Indicator) delete BMP_Indicator;
-    if(BMP_IndicatorNumbering) delete BMP_IndicatorNumbering;
+    if(FGlyph)                  delete FGlyph;
+    if(FMatrixButton)           delete FMatrixButton;
+    if(BMP_Indicator)         delete BMP_Indicator;
+    if(BMP_IndicatorDisable)    delete BMP_IndicatorDisable;
+    if(BMP_IndicatorNumbering)  delete BMP_IndicatorNumbering;
     
 }
 //---------------------------------------------------------------------------
@@ -135,11 +138,13 @@ void __fastcall TIndexButton::Loaded(void)
 void     __fastcall TIndexButton::SetEnabled(bool Value)
 {
     TWinControl::SetEnabled(Value);
-
+    
     for(int i=0; i<BtnList->Count; i++) {
         TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
         pBtn->Enabled = Value;
     }
+
+    CreateIndicatorImage();
 }
 
 //---------------------------------------------------------------------------
@@ -368,10 +373,22 @@ void __fastcall TIndexButton::CreateIndicatorImage()
         //int nResI = FindClassHInstance(__classid(TIndexButton));
         BMP_Indicator->LoadFromResourceName((int)HInstance, "CheckIndicator");
 
-        for(int i=0; i<BtnList->Count; i++) {
-            TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
-            pBtn->Glyph->Assign(BMP_Indicator);
-        }        
+        if(Enabled) {
+            for(int i=0; i<BtnList->Count; i++) {
+                TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
+                pBtn->Glyph->Assign(BMP_Indicator);
+            }        
+        }
+        else {
+            BMP_IndicatorDisable->LoadFromResourceName((int)HInstance, "CheckIndicatorDisable");
+
+            for(int i=0; i<BtnList->Count; i++) {
+                TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
+                if(FIndex == i) {
+                    pBtn->Glyph->Assign(BMP_IndicatorDisable);
+                }
+            }               
+        }
     }
     else {
         if(BMP_Indicator == NULL) return;
@@ -442,6 +459,20 @@ void __fastcall TIndexButton::CreateIndicatorImage()
         DrawIndicatorPeice(BMP_Indicator->Canvas, 2, nImg1Width, nImg1Height, FColorDown, true);
         DrawIndicatorPeice(BMP_Indicator->Canvas, 3, nImg1Width, nImg1Height, FColorSelect, true);
 
+        if(Enabled != true && BMP_IndicatorDisable != NULL) {
+            BMP_IndicatorDisable->Width  = nImg1Width * 4;
+            BMP_IndicatorDisable->Height = nImg1Height;
+
+            BMP_IndicatorDisable->Canvas->Brush->Color = (TColor)0xFFFFFE;
+            BMP_IndicatorDisable->Canvas->FillRect(Rect(0, 0, BMP_IndicatorDisable->Width, BMP_IndicatorDisable->Height));
+            
+            DrawIndicatorPeice(BMP_IndicatorDisable->Canvas, 0, nImg1Width, nImg1Height, FColorUp,              false);
+            DrawIndicatorPeice(BMP_IndicatorDisable->Canvas, 1, nImg1Width, nImg1Height, FColorDisableSelect,   false);
+            DrawIndicatorPeice(BMP_IndicatorDisable->Canvas, 2, nImg1Width, nImg1Height, FColorDown,            true);
+            DrawIndicatorPeice(BMP_IndicatorDisable->Canvas, 3, nImg1Width, nImg1Height, FColorSelect,          true);
+
+        }
+
         if(FNumbering->Enabled) {
             BMP_IndicatorNumbering->Width  = nImg1Width * 4;
             BMP_IndicatorNumbering->Height = nImg1Height;
@@ -451,11 +482,33 @@ void __fastcall TIndexButton::CreateIndicatorImage()
             TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
 
             if(FNumbering->Enabled) {
-                DrawIndicatorNumber(BMP_IndicatorNumbering, BMP_Indicator, FNumbering->StartNumber + i);
+                if(Enabled) {
+                    DrawIndicatorNumber(BMP_IndicatorNumbering, BMP_Indicator, FNumbering->StartNumber + i);
+                }
+                else {
+                    if((FIndex == i) && (BMP_IndicatorDisable != NULL)) {
+                        DrawIndicatorNumber(BMP_IndicatorNumbering, BMP_IndicatorDisable, FNumbering->StartNumber + i);
+                    }
+                    else {
+                        DrawIndicatorNumber(BMP_IndicatorNumbering, BMP_Indicator, FNumbering->StartNumber + i);
+                    }                    
+                }
+                
                 pBtn->Glyph->Assign(BMP_IndicatorNumbering);
+                
             }
             else {
-                pBtn->Glyph->Assign(BMP_Indicator);
+                if(Enabled) {
+                    pBtn->Glyph->Assign(BMP_Indicator);
+                }
+                else {
+                    if((FIndex == i) && (BMP_IndicatorDisable != NULL)) {
+                        pBtn->Glyph->Assign(BMP_IndicatorDisable);
+                    }
+                    else {
+                        pBtn->Glyph->Assign(BMP_Indicator);
+                    } 
+                }
             }
         }
 
@@ -779,11 +832,12 @@ void __fastcall TIndexButton::SetList(System::Classes::TStrings * s)
 void __fastcall TIndexButton::SetColor(int Index, TColor c)
 {
     switch(Index) {
-        case 1: FColorUp = c;       break;
-        case 2: FColorDisable = c;  break;
-        case 3: FColorDown = c;     break;
-        case 4: FColorSelect = c;   break;
-        case 5: FColorLine = c;     break;
+        case 1: FColorUp            = c;    break;
+        case 2: FColorDisable       = c;    break;
+        case 3: FColorDown          = c;    break;
+        case 4: FColorSelect        = c;    break;
+        case 5: FColorLine          = c;    break;
+        case 6: FColorDisableSelect = c;    break;
     }
 
     DisplayUpdate();

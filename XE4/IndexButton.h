@@ -109,6 +109,7 @@ private:
     
     TColor              FColorUp;               ///< 선택되지 않은 상태 색상. ( Enable)
     TColor              FColorDisable;          ///< Disable 상태 색상.
+    TColor              FColorDisableSelect;    ///< Select Disable 상태 색상.
     TColor              FColorDown;             ///< 사용자가 Mouse Down 중인 상태 색상.
     TColor              FColorSelect;           ///< 선택된 상태 색상.
     TColor              FColorLine;             ///< 인디게이터 라인 색상.
@@ -174,6 +175,7 @@ private:
     
     //-------------------------------
     Graphics::TBitmap* BMP_Indicator;
+    Graphics::TBitmap* BMP_IndicatorDisable;
     Graphics::TBitmap* BMP_IndicatorNumbering;
 
     TList * BtnList;
@@ -278,11 +280,13 @@ __published:
     __property int              GlyphHeight     = { read = FGlyphHeight,   write = SetGlyphHeight, default = -1 };
     __property TButtonLayout    GlyphLayout     = { read = FGlyphLayout,   write = SetGlyphLayout, default = blGlyphLeft};
 
-    __property TColor           ColorUp         = { read = FColorUp,       write = SetColor,       index = 1, default = (TColor)0x09B9B9B };
-    __property TColor           ColorDisable    = { read = FColorDisable,  write = SetColor,       index = 2, default = (TColor)0x0CDCDCD };
-    __property TColor           ColorDown       = { read = FColorDown,     write = SetColor,       index = 3, default = (TColor)0x04080FF };
-    __property TColor           ColorSelect     = { read = FColorSelect,   write = SetColor,       index = 4, default = (TColor)0x0DBDB00 };
-    __property TColor           ColorLine       = { read = FColorLine,     write = SetColor,       index = 5, default = clGray };
+    __property TColor           ColorUp             = { read = FColorUp,            write = SetColor,       index = 1, default = (TColor)0x09B9B9B };
+    __property TColor           ColorDisable        = { read = FColorDisable,       write = SetColor,       index = 2, default = (TColor)0x0CDCDCD };
+    __property TColor           ColorDown           = { read = FColorDown,          write = SetColor,       index = 3, default = (TColor)0x04080FF };
+    __property TColor           ColorSelect         = { read = FColorSelect,        write = SetColor,       index = 4, default = (TColor)0x0DBDB00 };
+    __property TColor           ColorLine           = { read = FColorLine,          write = SetColor,       index = 5, default = clGray };
+    __property TColor           ColorDisableSelect  = { read = FColorDisableSelect, write = SetColor,       index = 6, default = (TColor)0x0787878 };
+
 
     __property Vcl::Graphics::TBitmap*  Glyph   = { read = GetGlyph,       write = SetGlyph                            };
     __property bool             GlyphDefault    = { read = FGlyphDefault,  write = SetGlyphDefault, default = false };

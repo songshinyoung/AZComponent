@@ -304,6 +304,10 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>CheckIndicator</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Check_Indicator_Disable.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>CheckIndicatorDisable</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Disable</ResourceId>

@@ -2,8 +2,14 @@
 #ifndef DefineH
 #define DefineH
 
+#ifndef  SAFE_DELETE
 #define SAFE_DELETE(p)              { if(p) { delete (p);    (p)=NULL; } }      ///< 포인터 해제
+#endif
+
+#ifndef SAFE_DELETE_ARRAY
 #define SAFE_DELETE_ARRAY(p)        { if(p) { delete[] (p);    (p)=NULL; } }    ///< 배열 포인터 해제
+#endif
+
 
 #define AZ_NUM_SHAPE_FONT     "Let's go Digital"
 //-----------------------------------------------------------------------

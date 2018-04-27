@@ -311,16 +311,22 @@ void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
 
                 if(FCaptionVisible && (FppCells[nIndex] != NULL)) {
                     if(FppCells[nIndex]->Caption != "") {
+                        if(FppCells[nIndex]->SpecialFontColor) {
+                            Canvas->Font->Color = FppCells[nIndex]->FontColor;
+                            if(FppCells[nIndex]->FontSize > 0) Canvas->Font->Size  = FppCells[nIndex]->FontSize;
+                        }
+                        
                         nTxtW = Canvas->TextWidth(FppCells[nIndex]->Caption);
                         nTxtH = Canvas->TextHeight(FppCells[nIndex]->Caption);
 
                         SetBkMode(Canvas->Handle, TRANSPARENT);     // 투명 출력.
 
-                        if(FppCells[nIndex]->SpecialFontColor) Canvas->Font->Color = FppCells[nIndex]->FontColor;
-     
                         Canvas->TextOutA(nX + (nW - nTxtW) / 2 , nY + (nH - nTxtH) / 2 , FppCells[nIndex]->Caption);
 
-                        if(FppCells[nIndex]->SpecialFontColor) Canvas->Font->Color = Font->Color;
+                        if(FppCells[nIndex]->SpecialFontColor) {
+                            Canvas->Font->Color = Font->Color;
+                            Canvas->Font->Size  = Font->Size;
+                        }
                     }
                 }
             }
@@ -516,7 +522,9 @@ __fastcall TFlowShapeCell::TFlowShapeCell()
     FBGColor    = clWhite;
     FLineColor  = clGray;
     FFontColor  = clBlack;
+    FFontSize   = 0;
     bChanged    = false;
+    
 }
 
 void __fastcall TFlowShapeCell::SetTag(int n)
@@ -525,7 +533,7 @@ void __fastcall TFlowShapeCell::SetTag(int n)
         FTag = n;
         DoOnChange();
     }
-};
+}
 
 void __fastcall TFlowShapeCell::SetCaption(String s)
 {
@@ -533,7 +541,7 @@ void __fastcall TFlowShapeCell::SetCaption(String s)
         FCaption = s;
         DoOnChange();
     }
-};
+}
 
 void __fastcall TFlowShapeCell::SetBGColor(TColor c)
 {
@@ -541,7 +549,7 @@ void __fastcall TFlowShapeCell::SetBGColor(TColor c)
         FBGColor = c;
         DoOnChange();
     }
-};
+}
 
 void __fastcall TFlowShapeCell::SetLineColor(TColor c)
 {
@@ -549,7 +557,7 @@ void __fastcall TFlowShapeCell::SetLineColor(TColor c)
         FLineColor = c;
         DoOnChange();
     }
-};
+}
 
 void __fastcall TFlowShapeCell::SetFontColor(TColor c)
 {
@@ -557,7 +565,15 @@ void __fastcall TFlowShapeCell::SetFontColor(TColor c)
         FFontColor = c;
         DoOnChange();
     }
-};
+}
+
+void __fastcall TFlowShapeCell::SetFontSize(int n)
+{
+    if(FFontSize != n) {
+        FFontSize = n;
+        DoOnChange();
+    }
+}
 
 void __fastcall TFlowShapeCell::SetSpecialFontColor(bool b)
 {
@@ -571,7 +587,7 @@ void __fastcall TFlowShapeCell::DoOnChange(void)
 {
     bChanged = true;
     if(FOnChange) FOnChange(this);
-};
+}
 //---------------------------------------------------------------------------
 
 

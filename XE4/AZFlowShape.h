@@ -19,6 +19,7 @@ private:
     TColor  FLineColor;
     TColor  FFontColor;
     bool    FSpecialFontColor;  // false일 경우 기본 Font의 Font Color를 사용한다. true이면 FFontColor를 사용한다. 
+    int     FFontSize;
 
     void __fastcall SetTag(int n);
     void __fastcall SetCaption(String s);
@@ -26,6 +27,7 @@ private:
     void __fastcall SetLineColor(TColor c);
     void __fastcall SetFontColor(TColor c);
     void __fastcall SetSpecialFontColor(bool b);
+    void __fastcall SetFontSize(int n);
 
     TNotifyEvent     FOnChange;              ///< 나를 가져다 쓸 class에서 여기에 Event를 등록할 것이다.
     void     __fastcall DoOnChange(void);      ///< 내 속성이 변경될 때 마다 이 함수를 호출하여 FOnChange에 등록된 Evnet가 있을 경우 호출 시켜 준다.
@@ -47,6 +49,7 @@ public:
     __property TColor  LineColor        = { read =  FLineColor,         write = SetLineColor };
     __property TColor  FontColor        = { read =  FFontColor,         write = SetFontColor };
     __property bool    SpecialFontColor = { read =  FSpecialFontColor,  write = SetSpecialFontColor };
+    __property int     FontSize         = { read =  FFontSize,          write = SetFontSize };
 
     __property TNotifyEvent OnChange = {read = FOnChange, write = FOnChange};
 
@@ -162,7 +165,7 @@ private:
 
     int     nClickRow;
     int     nClickCol;
-    bool    __fastcall FindCell(const int x, const int y, int &Row, int &Col);
+    //bool    __fastcall FindCell(const int x, const int y, int &Row, int &Col);
 
     TFlowShapeClickEvent        FOnClick;
     TFlowShapeMouseDownEvent    FOnMouseDown;
@@ -184,6 +187,7 @@ public:
     void    __fastcall  Paint();                            ///< Paint 함수 오버라이드.
     void    __fastcall  BeginUpdate();
     void    __fastcall  EndUpdate();
+    bool    __fastcall  FindCell(const int x, const int y,  int &Row, int &Col);
 
     __property TFlowShapeCell * Cells[int nRow][int nCol] = { read = GetCells };
 

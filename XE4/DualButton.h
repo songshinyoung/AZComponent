@@ -23,6 +23,7 @@ private:
 
     TColor              FColorUp;               ///< 선택되지 않은 상태 색상. ( Enable)
     TColor              FColorDisable;          ///< Disable 상태 색상.
+    TColor              FColorDisableSelected;  ///< Disable 상태 색상.(선택된 버튼)
     TColor              FColorDown;             ///< 사용자가 Mouse Down 중인 상태 색상.
     TColor              FColorSelect;           ///< 선택된 상태 색상.
     TColor              FColorLine;             ///< 인디게이터 라인 색상.
@@ -51,6 +52,7 @@ private:
 
     //-------------------------------
     Graphics::TBitmap* BMP_Indicator;
+    Graphics::TBitmap* BMP_IndicatorSelected;
 
     void __fastcall DisplayUpdate();
     void __fastcall CreateIndicatorImage();
@@ -60,6 +62,8 @@ private:
 
     TDualBtnClickEvent FOnClick;
     void __fastcall MyClick(TObject *Sender);
+
+    void __fastcall SetBtnIndicatorImg(TDualButtonState eState);
 
 protected:
     virtual void     __fastcall Loaded(void);                ///< Loaded 함수 오버라이드.
@@ -86,11 +90,12 @@ __published:
     __property int              Spacing         = { read = FSpacing,       write = SetSpacing,     default = 4 };
     __property int              GlyphRound      = { read = FGlyphRound,    write = SetGlyphRound,  default = 2 };
 
-    __property TColor           ColorUp         = { read = FColorUp,       write = SetColor,       index = 1, default = clGray };
-    __property TColor           ColorDisable    = { read = FColorDisable,  write = SetColor,       index = 2, default = clBtnFace };
-    __property TColor           ColorDown       = { read = FColorDown,     write = SetColor,       index = 3, default = clRed };
-    __property TColor           ColorSelect     = { read = FColorSelect,   write = SetColor,       index = 4, default = clLime };
-    __property TColor           ColorLine       = { read = FColorLine,     write = SetColor,       index = 5, default = clBlack };
+    __property TColor           ColorUp         = { read = FColorUp,                write = SetColor,       index = 1, default = clGray };
+    __property TColor           ColorDisable    = { read = FColorDisable,           write = SetColor,       index = 2, default = clBtnFace };
+    __property TColor           ColorDown       = { read = FColorDown,              write = SetColor,       index = 3, default = clRed };
+    __property TColor           ColorSelect     = { read = FColorSelect,            write = SetColor,       index = 4, default = clLime };
+    __property TColor           ColorLine       = { read = FColorLine,              write = SetColor,       index = 5, default = clBlack };
+    __property TColor           ColorDisableSel = { read = FColorDisableSelected,   write = SetColor,       index = 6, default = clGray };
 
     __property TDualButtonLayout Layout         = { read = FLayout,        write = SetLayout,       default = dbHorizontal };
     __property TButtonLayout     GlyphLayout    = { read = FGlyphLayout,   write = SetGlyphLayout,  default = blGlyphTop };

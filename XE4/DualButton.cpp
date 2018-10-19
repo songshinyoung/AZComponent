@@ -49,6 +49,7 @@ __fastcall TDualButton::TDualButton(TComponent* Owner)
 
     FColorUp                = clGray;           // 선택되지 않은 상태 색상. ( Enable)
     FColorDisable           = clBtnFace;        // Disable 상태 색상.
+    FColorDisableSelected   = clGray;           // Disable 상태 색상.(선택 버튼)
     FColorDown              = clRed;            // 사용자가 Mouse Down 중인 상태 색상.
     FColorSelect            = clLime;           // 선택된 상태 색상.
 
@@ -61,7 +62,8 @@ __fastcall TDualButton::TDualButton(TComponent* Owner)
     this->Height            = 50;
 
     //--------------------------------
-    BMP_Indicator = new Graphics::TBitmap;
+    BMP_Indicator           = new Graphics::TBitmap;
+    BMP_IndicatorSelected   = new Graphics::TBitmap;
 
     //Font->OnChange = FontChanged;
 
@@ -74,9 +76,10 @@ __fastcall TDualButton::TDualButton(TComponent* Owner)
 
 __fastcall TDualButton::~TDualButton()
 {
-    if(FSBLeft)         delete FSBLeft;
-    if(FSBRight)        delete FSBRight;
-    if(BMP_Indicator)   delete BMP_Indicator;
+    if(FSBLeft)                 delete FSBLeft;
+    if(FSBRight)                delete FSBRight;
+    if(BMP_Indicator)           delete BMP_Indicator;
+    if(BMP_IndicatorSelected)   delete BMP_IndicatorSelected;
 }
 //---------------------------------------------------------------------------
 //namespace Dualbutton
@@ -136,12 +139,14 @@ void     __fastcall TDualButton::MyClick(TObject *Sender)
     else if(FSBRight->Down)   FState = dbRight;
     else                      FState = dbNone;
 
+    SetBtnIndicatorImg(FState);
+
     if(FOnClick) FOnClick(this, FState);
 }
 //---------------------------------------------------------------------------
 void __fastcall TDualButton::CreateIndicatorImage()
 {
-    if(BMP_Indicator == NULL) return;
+    if(BMP_Indicator == NULL || BMP_IndicatorSelected == NULL) return;
 
     int nImg1Width  = 0;
     int nImg1Height = 0;
@@ -165,6 +170,7 @@ void __fastcall TDualButton::CreateIndicatorImage()
 
     nImg1Height = nImg1Height < 6 ? 6 : nImg1Height;
 
+    //-------------------------------------------------
     BMP_Indicator->Width  = nImg1Width * 4;
     BMP_Indicator->Height = nImg1Height;
 
@@ -184,8 +190,50 @@ void __fastcall TDualButton::CreateIndicatorImage()
     BMP_Indicator->Canvas->Brush->Color = FColorSelect;     // Selected
     BMP_Indicator->Canvas->RoundRect(nImg1Width*3 + 1,  1, nImg1Width*4 -2, nImg1Height-1, FGlyphRound, FGlyphRound);
 
-    FSBLeft->Glyph->Assign(BMP_Indicator);
-    FSBRight->Glyph->Assign(BMP_Indicator);
+
+    //-------------------------------------------------
+    BMP_IndicatorSelected->Width  = nImg1Width * 4;
+    BMP_IndicatorSelected->Height = nImg1Height;
+
+    BMP_IndicatorSelected->Canvas->Brush->Color = clBtnFace;
+    BMP_IndicatorSelected->Canvas->FillRect(Rect(0,0,BMP_IndicatorSelected->Width, BMP_IndicatorSelected->Height));
+
+    BMP_IndicatorSelected->Canvas->Pen->Color   = FColorLine;               // Line.
+    BMP_IndicatorSelected->Canvas->Brush->Color = FColorUp;                 // Normal
+    BMP_IndicatorSelected->Canvas->RoundRect(1, 1, nImg1Width-2, nImg1Height-1, FGlyphRound, FGlyphRound);
+
+    BMP_IndicatorSelected->Canvas->Brush->Color = FColorDisableSelected;    // Disable
+    BMP_IndicatorSelected->Canvas->RoundRect(nImg1Width   + 1,  1, nImg1Width*2 -2, nImg1Height-1, FGlyphRound, FGlyphRound);
+
+    BMP_IndicatorSelected->Canvas->Brush->Color = FColorDown;               // Down Click
+    BMP_IndicatorSelected->Canvas->RoundRect(nImg1Width*2 + 1,  1, nImg1Width*3 -2, nImg1Height-1, FGlyphRound, FGlyphRound);
+
+    BMP_IndicatorSelected->Canvas->Brush->Color = FColorSelect;             // Selected
+    BMP_IndicatorSelected->Canvas->RoundRect(nImg1Width*3 + 1,  1, nImg1Width*4 -2, nImg1Height-1, FGlyphRound, FGlyphRound);
+
+    SetBtnIndicatorImg(FState);
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TDualButton::SetBtnIndicatorImg(TDualButtonState eState)
+{
+    switch(eState) {
+        case dbLeft:
+            FSBLeft->Glyph->Assign(BMP_IndicatorSelected);
+            FSBRight->Glyph->Assign(BMP_Indicator);
+            break;
+        
+        case dbRight:
+            FSBLeft->Glyph->Assign(BMP_Indicator);
+            FSBRight->Glyph->Assign(BMP_IndicatorSelected);
+            break;
+        
+        default:
+        case dbNone:
+            FSBLeft->Glyph->Assign(BMP_Indicator);
+            FSBRight->Glyph->Assign(BMP_Indicator);
+            break;
+    }
 }
 //---------------------------------------------------------------------------
 void __fastcall TDualButton::DisplayUpdate()
@@ -249,6 +297,9 @@ void __fastcall TDualButton::SetState(TDualButtonState e)
 {
     if(FState != e) {
         FState = e;
+
+        SetBtnIndicatorImg(FState);
+            
         switch(FState) {
             case dbNone:
                 FSBLeft->Down  = false;
@@ -300,11 +351,12 @@ void __fastcall TDualButton::SetSpacing(int n)
 void __fastcall TDualButton::SetColor(int Index, TColor c)
 {
     switch(Index) {
-        case 1: FColorUp = c;       break;
-        case 2: FColorDisable = c;  break;
-        case 3: FColorDown = c;     break;
-        case 4: FColorSelect = c;   break;
-        case 5: FColorLine = c;     break;
+        case 1: FColorUp                = c;  break;
+        case 2: FColorDisable           = c;  break;
+        case 3: FColorDown              = c;  break;
+        case 4: FColorSelect            = c;  break;
+        case 5: FColorLine              = c;  break;
+        case 6: FColorDisableSelected   = c;  break;
     }
 
     DisplayUpdate();

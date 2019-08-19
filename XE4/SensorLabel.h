@@ -96,7 +96,7 @@ __published:
     __property  TColor          NumBGColor      = { read = FNumBGColor,     write = SetNumBGColor,      default = clTeal };
     __property  TColor          NumLineColor    = { read = FNumLineColor,   write = SetNumLineColor,    default = clBlack };
     __property  int             NumRectRound    = { read = FNumRectRound,   write = SetNumRectRound,    default = 0 };
-    __property  int             NumWidth        = { read = FNumWidth,       write = SetNumWidth,        default = 1 };
+    __property  int             NumWidth        = { read = FNumWidth,       write = SetNumWidth,        default = 25};
     __property  int             NumSpace        = { read = FNumSpace,       write = SetNumSpace,        default = 5 };
 
     __property  TColor          SenLineColor    = { read = FSenLineColor,   write = SetSenLineColor,    default = clBlack };

@@ -87,6 +87,13 @@ private:
     TColor                      FDefaultColor;
     TColor                      FDefaultLineColor;
     bool                        FDefaultLine;
+    TColor                      FDefaultSelectColor;
+    TColor                      FDefaultDownColor;
+
+    bool                        FShadowFont;
+    TColor                      FShadowFontColor;
+    int                         FShadowFontLeft;
+    int                         FShadowFontTop;
 
     void                    __fastcall SetCaption(String s);
     void                    __fastcall SetCaptionSub(TImageBtnSubCaptionProperty * p);
@@ -102,6 +109,13 @@ private:
     void                    __fastcall SetDefaultColor(TColor c);
     void                    __fastcall SetDefaultLineColor(TColor c);
     void                    __fastcall SetDefaultLine(bool b);
+    void                    __fastcall SetDefaultSelectColor(TColor c);
+    void                    __fastcall SetDefaultDownColor(TColor c);
+
+    void                    __fastcall SetShadowFont(bool b);
+    void                    __fastcall SetShadowFontColor(TColor c);
+    void                    __fastcall SetShadowFontLeft(int n);
+    void                    __fastcall SetShadowFontTop(int n);
 
     // Private value.----------------------------
     EImageButtonState   m_eButtonState;
@@ -164,9 +178,19 @@ __published:
     __property bool                         Down        = { read = FDown,           write = SetDown,        default = false     };
 
     __property TColor              DefaultColor         = { read = FDefaultColor,          write = SetDefaultColor,       default = (TColor)0xA53E1E     };
+    __property TColor              DefaultSelectColor   = { read = FDefaultSelectColor,    write = SetDefaultSelectColor, default = (TColor)0xFF8000     };
+    __property TColor              DefaultDownColor     = { read = FDefaultDownColor,      write = SetDefaultDownColor,   default = clAqua               };
     __property TColor              DefaultLineColor     = { read = FDefaultLineColor,      write = SetDefaultLineColor,   default = (TColor)0x952E0E     };
     __property bool                DefaultLineVisible   = { read = FDefaultLine,           write = SetDefaultLine,        default = true     };
-    
+
+
+    __property bool                ShadowFont           = { read = FShadowFont,           write = SetShadowFont,          default = false     };
+    __property TColor              ShadowFontColor      = { read = FShadowFontColor,      write = SetShadowFontColor,     default = clBlack   };
+    __property int                 ShadowFontColorLeft  = { read = FShadowFontLeft,       write = SetShadowFontLeft,      default = -1        };
+    __property int                 ShadowFontColorTop   = { read = FShadowFontTop,        write = SetShadowFontTop,       default = -1        };
+
+
+
     __property Vcl::Graphics::TBitmap*      Glyph       = { read = GetGlyph,        write = SetGlyph                            };
     __property TNumGlyphs                   NumGlyphs   = { read = GetNumGlyphs,    write = SetNumGlyphs,   default=4           };
     

@@ -133,6 +133,20 @@
             <DependentOn>AZImageButton.h</DependentOn>
             <BuildOrder>39</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZLabelImage.cpp">
+            <DependentOn>AZLabelImage.h</DependentOn>
+            <BuildOrder>52</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="AZLabelImageComponentEditor.cpp">
+            <DependentOn>AZLabelImageComponentEditor.h</DependentOn>
+            <BuildOrder>55</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="AZLabelImage_Dsgn.cpp">
+            <Form>fmAZLabelImageEditor</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>AZLabelImage_Dsgn.h</DependentOn>
+            <BuildOrder>54</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZNumberPad.cpp">
             <DependentOn>AZNumberPad.h</DependentOn>
             <BuildOrder>26</BuildOrder>
@@ -150,6 +164,10 @@
             <FormType>dfm</FormType>
             <DependentOn>AZNumShape_Dsgn.h</DependentOn>
             <BuildOrder>28</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="AZOnOffButton.cpp">
+            <DependentOn>AZOnOffButton.h</DependentOn>
+            <BuildOrder>51</BuildOrder>
         </CppCompile>
         <CppCompile Include="AZPanel_reg.cpp">
             <BuildOrder>30</BuildOrder>
@@ -214,6 +232,10 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TINDEXBUTTON</ResourceId>
         </RcItem>
+        <RcItem Include="Images\AZLabelImage.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TAZLABELIMAGE</ResourceId>
+        </RcItem>
         <RcItem Include="Images\AZLabell.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TNUMPANEL</ResourceId>
@@ -225,6 +247,10 @@
         <RcItem Include="Images\AZNumShape.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZNUMSHAPE</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\AZOnOffButton.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TAZONOFFBUTTON</ResourceId>
         </RcItem>
         <RcItem Include="Images\AZPanel.bmp">
             <ResourceType>BITMAP</ResourceType>
@@ -294,6 +320,7 @@
         <PackageImport Include="xmlrtl.bpi">
             <BuildOrder>36</BuildOrder>
         </PackageImport>
+        <FormResources Include="AZLabelImage_Dsgn.dfm"/>
         <FormResources Include="AZNumShape_Dsgn.dfm"/>
         <FormResources Include="Common\frmNumPad_AZ.dfm"/>
         <BuildConfiguration Include="Release">

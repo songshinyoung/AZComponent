@@ -47,8 +47,15 @@ __fastcall TAZImageButton::TAZImageButton(TComponent* Owner)
     m_pDefaultImage = new Vcl::Graphics::TBitmap;
 
     FDefaultColor       = (TColor)0xA53E1E;
+    FDefaultSelectColor = (TColor)0xFF8000;
+    FDefaultDownColor   = clAqua;
     FDefaultLineColor   = (TColor)0x952E0E;
     FDefaultLine        = true;
+
+    FShadowFont           = false;
+    FShadowFontColor      = clBlack;
+    FShadowFontLeft       = -1;
+    FShadowFontTop        = -1;
 
     //--------------------------
     FCaptionSub = new TImageBtnSubCaptionProperty;
@@ -192,10 +199,10 @@ void __fastcall TAZImageButton::CreateDefaultImage(void)
         pBitmapBtn[i]->Height   = nH;
     }
 
-    CreateColorImage(pBitmapBtn[IB_STATE_UP],       FDefaultColor,      50, 5, 20);
-    CreateColorImage(pBitmapBtn[IB_STATE_DISABLE],  clSilver,           20, 1, 20);
-    CreateColorImage(pBitmapBtn[IB_STATE_DOWN],     clAqua,             50, 5, 23);
-    CreateColorImage(pBitmapBtn[IB_STATE_SELECT],   (TColor)0xFF8000,   50, 5, 23);
+    CreateColorImage(pBitmapBtn[IB_STATE_UP],       FDefaultColor,          50, 5, 20);
+    CreateColorImage(pBitmapBtn[IB_STATE_DISABLE],  clSilver,               20, 1, 20);
+    CreateColorImage(pBitmapBtn[IB_STATE_DOWN],     FDefaultDownColor,      50, 5, 23);
+    CreateColorImage(pBitmapBtn[IB_STATE_SELECT],   FDefaultSelectColor,    50, 5, 23);
 
     m_pDefaultImage->Canvas->CopyRect(Rect(0,   0,nW,  nH), pBitmapBtn[IB_STATE_UP]->Canvas,        Rect(0, 0, nW, nH));
     m_pDefaultImage->Canvas->CopyRect(Rect(nW,  0,nW*2,nH), pBitmapBtn[IB_STATE_DISABLE]->Canvas,   Rect(0, 0, nW, nH));
@@ -493,6 +500,24 @@ void __fastcall TAZImageButton::SetDefaultColor(TColor c)
     }
 }
 
+void __fastcall TAZImageButton::SetDefaultSelectColor(TColor c)
+{
+    if(FDefaultSelectColor != c) {
+        FDefaultSelectColor = c;
+        CreateDefaultImage();
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
+void __fastcall TAZImageButton::SetDefaultDownColor(TColor c)
+{
+    if(FDefaultDownColor != c) {
+        FDefaultDownColor = c;
+        CreateDefaultImage();
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
 void __fastcall TAZImageButton::SetDefaultLineColor(TColor c)
 {
     if(FDefaultLineColor != c) {
@@ -507,6 +532,38 @@ void __fastcall TAZImageButton::SetDefaultLine(bool b)
     if(FDefaultLine != b) {
         FDefaultLine = b;
         CreateDefaultImage();
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
+void  __fastcall TAZImageButton::SetShadowFont(bool b)
+{
+    if(FShadowFont != b) {
+        FShadowFont = b;
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
+void  __fastcall TAZImageButton::SetShadowFontColor(TColor c)
+{
+    if(FShadowFontColor != c) {
+        FShadowFontColor = c;
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
+void  __fastcall TAZImageButton::SetShadowFontLeft(int n)
+{
+    if(FShadowFontLeft != n) {
+        FShadowFontLeft = n;
+        DisplayUpdate(m_eButtonState);
+    }
+}
+
+void  __fastcall TAZImageButton::SetShadowFontTop(int n)
+{
+    if(FShadowFontTop != n) {
+        FShadowFontTop = n;
         DisplayUpdate(m_eButtonState);
     }
 }
@@ -597,6 +654,7 @@ void __fastcall TAZImageButton::DisplayUpdate(EImageButtonState eState)
         Picture->Bitmap->Canvas->Font->Color            = clGray;
     }
 
+
     nTxtW = Picture->Bitmap->Canvas->TextWidth(FCaption);
     nTxtH = Picture->Bitmap->Canvas->TextHeight(FCaption);
 
@@ -615,6 +673,26 @@ void __fastcall TAZImageButton::DisplayUpdate(EImageButtonState eState)
     nStartY = (nHeight - nTxtH) / 2 + FSpaceV;
 
     SetBkMode(Picture->Bitmap->Canvas->Handle, TRANSPARENT); //
+
+    // Shadow Font ±×¸®±â.
+    if(FShadowFont) {
+        if(Enabled) {
+            Picture->Bitmap->Canvas->Font->Color            = FShadowFontColor;
+        }
+        else {
+            Picture->Bitmap->Canvas->Font->Color            = clBlack;
+        }
+
+        Picture->Bitmap->Canvas->TextOutA(nStartX + FShadowFontLeft, nStartY + FShadowFontTop, FCaption);
+
+        if(Enabled) {
+            Picture->Bitmap->Canvas->Font->Color            = Font->Color;
+        }
+        else {
+            Picture->Bitmap->Canvas->Font->Color            = clGray;
+        }
+    }
+
     Picture->Bitmap->Canvas->TextOutA(nStartX, nStartY, FCaption);
 
     // Sub Caption -----------------------

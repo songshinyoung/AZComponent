@@ -371,12 +371,12 @@ __published:
     __property bool                 AZ_OldValueUnderline= { read = FOldValueUnderline,  write = SetOlfValueUnderline, default = true };
     __property int                  AZ_OldValueFontSize = { read = FOldValueFontSize ,  write = SetOlfValueFontSize,  default = 0 };
 
-    __property UnicodeString        AZ_Path             = { read = FPath,             write = SetPath };
-    __property System::Classes::TAlignment Alignment    = { read = FAlignment,        write = SetAlignment,         default = taRightJustify };
-    __property bool                 InvalidateUs        = { read = FInvalidateUse,    write = SetInvalidateUse,     default = false };
-    __property int                  EditWidth           = { read = FEditWidth,        write = SetEditWidth,         default = 100   };
-    __property int                  EditHeight          = { read = FEditHeight,       write = SetEditHeight,        default = 50    };
-    __property bool                 FixedDigit          = { read = FFixedDigitUse,      write = SetFixedDigit,      default = false };
+    __property UnicodeString        AZ_Path             = { read = FPath,               write = SetPath };
+    __property System::Classes::TAlignment Alignment    = { read = FAlignment,          write = SetAlignment,         default = taRightJustify };
+    __property bool                 InvalidateUs        = { read = FInvalidateUse,      write = SetInvalidateUse,     default = false };
+    __property int                  EditWidth           = { read = FEditWidth,          write = SetEditWidth,         default = 100   };
+    __property int                  EditHeight          = { read = FEditHeight,         write = SetEditHeight,        default = 50    };
+    __property bool                 FixedDigit          = { read = FFixedDigitUse,      write = SetFixedDigit,        default = false };
 
     // 재 지정한 Event ---------------------------
     __property TNumShapeClickEvent OnClick = {read = FOnClick, write = FOnClick};

@@ -20,6 +20,9 @@
 #include "SensorLabel.h"
 #include "DualSensorLabel.h"
 #include "ActuatorButton.h"
+#include "AZOnOffButton.h"
+#include "AZLabelImage.h"
+#include "AZLabelImageComponentEditor.h"
 
 //#include <PropertyCategories.hpp>    // Pascal unit
 #include <VCLEditors.hpp>
@@ -51,7 +54,9 @@ namespace Azpanel_reg
 										__classid(TAZDateTimeView),
 										__classid(TAZAnalogGauge),
                                         __classid(TActuatorButton),
-										__classid(TAZGauge)
+										__classid(TAZGauge),
+										__classid(TAZOnOffButton),
+                                        __classid(TAZLabelImage)
                                         };
 
         // Enabled 속성에 TBooleanProperty 속성 타입을 적용 시킴. (Object Inspector에서 bool속성 편집 시 체크 박스 표시되도록)
@@ -70,7 +75,9 @@ namespace Azpanel_reg
 
         // 직접 제작한 컴포넌트 에디터 등록.
         //RegisterComponentEditor(__classid(TAZPanel),    __classid(TAZPanelEditor));
-        RegisterComponentEditor(__classid(TAZNumShape), __classid(TAZNumShapeEditor));
+        RegisterComponentEditor(__classid(TAZNumShape),   __classid(TAZNumShapeEditor));
+        RegisterComponentEditor(__classid(TAZLabelImage), __classid(TAZLabelImageEditor));
+        
     }
 }
 

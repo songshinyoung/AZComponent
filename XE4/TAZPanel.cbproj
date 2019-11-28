@@ -143,6 +143,10 @@
             <DependentOn>AZImageButton.h</DependentOn>
             <BuildOrder>32</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZLabelImage.cpp">
+            <DependentOn>AZLabelImage.h</DependentOn>
+            <BuildOrder>154</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZNumberPad.cpp">
             <DependentOn>AZNumberPad.h</DependentOn>
             <BuildOrder>36</BuildOrder>
@@ -150,6 +154,10 @@
         <CppCompile Include="AZNumShape.cpp">
             <DependentOn>AZNumShape.h</DependentOn>
             <BuildOrder>16</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="AZOnOffButton.cpp">
+            <DependentOn>AZOnOffButton.h</DependentOn>
+            <BuildOrder>63</BuildOrder>
         </CppCompile>
         <CppCompile Include="AZServoState.cpp">
             <DependentOn>AZServoState.h</DependentOn>
@@ -307,6 +315,366 @@
         <RcItem Include="Images\Check_Indicator_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>CheckIndicatorDisable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_0_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_0_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_10_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_10_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_11_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_11_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_12_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_12_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_13_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_13_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_14_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_14_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_1_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_1_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_2_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_2_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_3_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_3_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_4_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_4_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_5_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_5_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_6_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_6_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_7_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_7_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_8_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_8_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_9_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_9_On_Down</ResourceId>
         </RcItem>
         <RcItem Include="Images\SensorLED_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>

@@ -57,4 +57,81 @@ enum DECLSPEC_DENUM TSensorLedType : unsigned char { slCircle, slRect };
 
 //-----------------------------------------------------------------------
 
+// TAZOnOffButton 
+enum DECLSPEC_DENUM TOnOffButtonType : unsigned char { ofBtnOn, ofBtnOff, ofBtnOnDisable, ofBtnOffDisable, ofBtnOnDown, ofBtnOffDown, ofBtnMax };
+//-----------------------------------------------------------------------
+
+
+
+
+//---------------------------------------------------------------------------
+class TMyPoint {
+public:
+    int x;
+    int y;
+
+public:
+    __fastcall TMyPoint() {
+        x = 0;
+        y = 0;
+    };
+} ;
+
+class TMyLine {
+public:
+    TMyPoint Start;
+    TMyPoint End;
+    bool     Selected;      // 현재 선택된 경우
+    bool     SelectStart;   // 선택된 상태에서 Start 부분을 클릭하여 드래그 할 경우
+    bool     SelectEnd;     // 선택된 상태에서 End 부분을 클릭하여 드래그 할 경우
+
+public:
+    __fastcall TMyLine() {
+        Selected    = false;
+        SelectStart = false;
+        SelectEnd   = false;
+    };
+
+    double   __fastcall GetLen() {
+        double x    = End.x - Start.x;
+        double y    = End.y - Start.y;
+        double len  = sqrt(x*x + y*y);
+        return len;
+    };
+
+    int     __fastcall GetLenX() {
+        int n = End.x - Start.x;
+        n = n < 0 ? -n : n;
+        return n;
+    };
+
+    int     __fastcall GetLenY() {
+        int n = End.y - Start.y;
+        n = n < 0 ? -n : n;
+        return n;
+    };
+};
+//---------------------------------------------------------------------------
+class TMyLabel {
+public:
+    TMyPoint Pos;
+    bool     Selected;
+    int      Index;
+
+public:
+    __fastcall TMyLabel() {
+        Selected = false;
+        Index = 0;
+    };
+};
+
+
+
+//---------------------------------------------------------------------------
+
+
+
+
+
+
 #endif

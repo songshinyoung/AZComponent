@@ -1,8 +1,13 @@
 //---------------------------------------------------------------------------
 #include <vcl.h>
+#include <Clipbrd.hpp>
+#include <memory>                   //for STL auto_ptr class
+
 #pragma hdrstop
 
 #include "AZLabelImage_Dsgn.h"
+#include "frmInputImageSize.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -15,6 +20,8 @@ namespace gdp = Gdiplus;            // GDI+
 ULONG_PTR    gdpToken;              // GDI+
 Gdiplus::GdiplusStartupInput gdpSI; // GDI+
 
+#define PI 3.14159265359
+
 TfmAZLabelImageEditor *fmAZLabelImageEditor;
 //---------------------------------------------------------------------------
 __fastcall TfmAZLabelImageEditor::TfmAZLabelImageEditor(TComponent* Owner)
@@ -23,6 +30,7 @@ __fastcall TfmAZLabelImageEditor::TfmAZLabelImageEditor(TComponent* Owner)
     Init();
 
     m_pBitmap           = new Vcl::Graphics::TBitmap;
+    m_pBitmapCopy       = new Vcl::Graphics::TBitmap;
 }
 //---------------------------------------------------------------------------
 __fastcall TfmAZLabelImageEditor::TfmAZLabelImageEditor(TComponent* Owner, Vcl::Graphics::TBitmap * pBitmap, int nW, int nH)
@@ -33,6 +41,7 @@ __fastcall TfmAZLabelImageEditor::TfmAZLabelImageEditor(TComponent* Owner, Vcl::
     m_ParentWidth  = nW;
     m_ParentHeight = nH;
 
+    m_pBitmapCopy       = new Vcl::Graphics::TBitmap;
     m_pBitmap           = new Vcl::Graphics::TBitmap;
     if(m_pBitmap) m_pBitmap->Assign(pBitmap);
 }
@@ -53,11 +62,12 @@ void __fastcall TfmAZLabelImageEditor::Init()
     m_bLineEdegSelected = false;
 
     m_LabelSize         = 25;
-    m_LabelOuterSize    = 3;
+    m_LabelOuterSize    = 2;
 
     m_LabelStyle        = 0;
     m_LineStyle         = 0;
     m_LineWidth         = 2;
+    m_LineObjStyle      = 0;
 
     m_LineStartCapStyle = 4;
     m_LineEndCapStyle   = 1;
@@ -69,11 +79,15 @@ void __fastcall TfmAZLabelImageEditor::Init()
     m_FrameView         = true;
     m_FrameWidth        = 1;
     m_FrameColor        = clBlack;
+
+    m_CopyImageExist        = false;
+    m_bCopyImageSelected    = false;
 }
 //---------------------------------------------------------------------------
 void __fastcall TfmAZLabelImageEditor::FormDestroy(TObject *Sender)
 {
-    if(m_pBitmap) delete m_pBitmap;
+    if(m_pBitmap)       delete m_pBitmap;
+    if(m_pBitmapCopy)   delete m_pBitmapCopy;
     m_listLine.clear();
     m_listLabel.clear();
 
@@ -111,7 +125,30 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseDown(TObject *Sender, TMouseBu
 
         m_bLMouseDown       = true;
 
-        if(IsSelectLine() && FindSelectLineEdge(X, Y)) {
+        m_bLabelSelected        = false;
+        m_bLineSelected         = false;
+        m_bLineEdegSelected     = false;
+        m_bCopyImageSelected    = false;
+
+        if(m_CopyImageExist) {
+            if(X > m_CopyImagePos.x
+            && Y > m_CopyImagePos.y
+            && X < (m_CopyImagePos.x + m_pBitmapCopy->Width)
+            && Y < (m_CopyImagePos.y + m_pBitmapCopy->Height)) {
+                m_bCopyImageSelected = true;
+            }
+            else {
+                m_CopyImageExist        = false;
+                m_pBitmap->Canvas->Draw(m_CopyImagePos.x, m_CopyImagePos.y, m_pBitmapCopy);
+                m_pBitmapCopy->Width  = 0;
+                m_pBitmapCopy->Height = 0;
+                m_bLMouseDown           = false;
+
+                DrawMyLine();
+                DrawLabel();
+            }
+        }
+        else if(IsSelectLine() && FindSelectLineEdge(X, Y)) {
             m_bLineEdegSelected = true;
             Caption = "Select Edge";
         }
@@ -120,9 +157,6 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseDown(TObject *Sender, TMouseBu
             ResetSelectLine();
 
             m_bLabelSelected    = true;
-            m_bLineSelected     = false;
-            m_bLineEdegSelected = false;
-
             Caption = "Select Label";
 
             DrawMyLine();
@@ -134,9 +168,6 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseDown(TObject *Sender, TMouseBu
             ResetSelectLabel();
 
             m_bLineSelected     = true;
-            m_bLabelSelected    = false;
-            m_bLineEdegSelected = false;
-
             Caption = "Select Line";
 
             DrawMyLine();
@@ -145,11 +176,6 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseDown(TObject *Sender, TMouseBu
         else {
             ResetSelectLine();
             ResetSelectLabel();
-
-            m_bLabelSelected    = false;
-            m_bLineSelected     = false;
-            m_bLineEdegSelected = false;
-
         }
 
         m_LineTemp.Start.x  = X;
@@ -198,7 +224,22 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseMove(TObject *Sender, TShiftSt
 
     if(m_bLMouseDown) {
 
-        if(m_bLineEdegSelected) {
+        if(m_bCopyImageSelected) {
+            int deltaX = X - m_LineTemp.Start.x;
+            int deltaY = Y - m_LineTemp.Start.y;
+
+            m_CopyImagePos.x += deltaX;
+            m_CopyImagePos.y += deltaY;
+
+            m_LineTemp.Start.x  = X;
+            m_LineTemp.Start.y  = Y;
+
+
+            DrawMyLine();
+            DrawLabel();
+
+        }
+        else if(m_bLineEdegSelected) {
 
             m_LineTemp.End.x  = X;
             m_LineTemp.End.y  = Y;
@@ -266,8 +307,23 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseMove(TObject *Sender, TShiftSt
             DrawMyLine();
             DrawLabel();
 
-            Image1->Picture->Bitmap->Canvas->MoveTo(m_LineTemp.Start.x, m_LineTemp.Start.y);
-            Image1->Picture->Bitmap->Canvas->LineTo(X, Y);
+            switch(m_LineObjStyle) {
+                case 0:
+                    Image1->Picture->Bitmap->Canvas->MoveTo(m_LineTemp.Start.x, m_LineTemp.Start.y);
+                    Image1->Picture->Bitmap->Canvas->LineTo(X, Y);
+                    break;
+
+                case 1:
+                    Image1->Picture->Bitmap->Canvas->Brush->Style = bsClear;
+                    Image1->Picture->Bitmap->Canvas->Rectangle(m_LineTemp.Start.x, m_LineTemp.Start.y, X, Y);
+                    break;
+
+                case 2:
+                    Image1->Picture->Bitmap->Canvas->Brush->Style = bsClear;
+                    Image1->Picture->Bitmap->Canvas->Ellipse(m_LineTemp.Start.x, m_LineTemp.Start.y, X, Y);
+                    break;
+            }
+
         }
 
         Image1->Repaint();      // 화면 갱신 속도 향상.
@@ -316,6 +372,31 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseUp(TObject *Sender, TMouseButt
 
             if(m_LineTemp.GetLen() > 10.0) {
                 // 길이가 최소 10 이상은 되어야 등록 한다.
+                m_LineTemp.ObjType          = m_LineObjStyle;
+                m_LineTemp.Color            = m_LineColor.GetValue();
+                m_LineTemp.DashStyle        = m_LineStyle;
+                m_LineTemp.CapStartStyle    = m_LineStartCapStyle;
+                m_LineTemp.CapEndStyle      = m_LineEndCapStyle;
+                m_LineTemp.LineWidth        = m_LineWidth;
+                m_LineTemp.Selected         = true;
+
+                m_bLineSelected             = true;
+
+                switch(m_LineObjStyle) {
+                    case 0: // Line
+                        break;
+
+                    case 1: // Rect
+                        if(m_LineTemp.End.x < m_LineTemp.Start.x) swap(m_LineTemp.End.x, m_LineTemp.Start.x);
+                        if(m_LineTemp.End.y < m_LineTemp.Start.y) swap(m_LineTemp.End.y, m_LineTemp.Start.y);
+                        break;
+
+                    case 2: // Circle
+                        if(m_LineTemp.End.x < m_LineTemp.Start.x) swap(m_LineTemp.End.x, m_LineTemp.Start.x);
+                        if(m_LineTemp.End.y < m_LineTemp.Start.y) swap(m_LineTemp.End.y, m_LineTemp.Start.y);
+                        break;
+                }
+
                 m_listLine.push_back(m_LineTemp);
             }
         }
@@ -403,13 +484,49 @@ void __fastcall TfmAZLabelImageEditor::DrawMyLine()
     gp.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);           // Anti-Aliasing
 
     while(iter != m_listLine.end()) {
-       if(iter->Selected) {
-            gp.SetSmoothingMode(Gdiplus::SmoothingModeDefault);
 
-            Gdiplus::Pen            penSelected(Gdiplus::Color(255, 255, 0, 255), 3);
-            penSelected.SetDashStyle(DashStyleDashDot);
-            gp.DrawLine(&penSelected, iter->Start.x, iter->Start.y, iter->End.x, iter->End.y);
+        gp.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+        pen.SetColor(Gdiplus::Color(iter->Color));
+        pen.SetDashStyle(iter->DashStyle);
+        pen.SetWidth(iter->LineWidth);
 
+        // 시작 부분 화살표 모양
+        switch(iter->CapStartStyle) {
+            case 0:  pen.SetStartCap(LineCapNoAnchor);       break;
+            case 1:  pen.SetStartCap(LineCapSquareAnchor);   break;
+            case 2:  pen.SetStartCap(LineCapRoundAnchor);    break;
+            case 3:  pen.SetStartCap(LineCapDiamondAnchor);  break;
+            case 4:  pen.SetStartCap(LineCapArrowAnchor);    break;
+            default: pen.SetStartCap(LineCapNoAnchor);       break;
+        }
+
+        // 끝 부분 화살표 모양
+        switch(iter->CapEndStyle) {
+            case 0:  pen.SetEndCap(LineCapNoAnchor);       break;
+            case 1:  pen.SetEndCap(LineCapSquareAnchor);   break;
+            case 2:  pen.SetEndCap(LineCapRoundAnchor);    break;
+            case 3:  pen.SetEndCap(LineCapDiamondAnchor);  break;
+            case 4:  pen.SetEndCap(LineCapArrowAnchor);    break;
+            default: pen.SetEndCap(LineCapNoAnchor);       break;
+        }
+
+        switch(iter->ObjType) {
+            case 0: // Line
+                gp.DrawLine(&pen, iter->Start.x, iter->Start.y, iter->End.x, iter->End.y);
+                break;
+
+            case 1: // Rect
+                gp.DrawRectangle(&pen, iter->Start.x, iter->Start.y, iter->GetLenX(), iter->GetLenY());
+                break;
+
+            case 2: // Circle
+                gp.DrawEllipse(&pen, iter->Start.x, iter->Start.y, iter->GetLenX(), iter->GetLenY());
+                break;
+        }
+
+        // 선택된 라인인 경우 외고가 선택 선 보이기.
+        if(iter->Selected) {
+            // 끝점 사각형 -----------------
             Gdiplus::Pen            penEdge(Gdiplus::Color(255, 0, 0, 0), 1);
             Gdiplus::SolidBrush     brushEdge(Gdiplus::Color(255, 255, 255, 0));
             Gdiplus::RectF          rectStart(iter->Start.x-3, iter->Start.y-3, 6,6);
@@ -420,14 +537,83 @@ void __fastcall TfmAZLabelImageEditor::DrawMyLine()
 
             gp.FillRectangle(&brushEdge, rectEnd);
             gp.DrawRectangle(&penEdge,   rectEnd);
-       }
-       else {
-            gp.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
-            gp.DrawLine(&pen, iter->Start.x, iter->Start.y, iter->End.x, iter->End.y);
-       }
 
-       iter++;
+            // 외곽 점선 라인.--------------
+            penEdge.SetWidth(1);
+            penEdge.SetDashStyle(DashStyleSolid);
+            penEdge.SetColor(Gdiplus::Color(255, 0, 0, 0));
+
+            switch(iter->ObjType) {
+                case 0: // Line
+                    {
+                        double dTheta = 0;
+                        if((iter->End.x - iter->Start.x) == 0) {
+                            dTheta = PI / 2.0;
+                        }
+                        else {
+                            dTheta = atan(((iter->End.y - iter->Start.y))/(double)(iter->End.x - iter->Start.x));
+                        }
+
+                        dTheta = dTheta + (PI / 2.0);
+
+                        int n90X1       = cos(dTheta)    * 6.0;
+                        int n90Y1       = sin(dTheta)    * 6.0;
+                        int n90X2       = -n90X1;
+                        int n90Y2       = -n90Y1;
+
+                        int nStartX1    = iter->Start.x + n90X1;
+                        int nStartY1    = iter->Start.y + n90Y1;
+                        int nStartX2    = iter->Start.x + n90X2;
+                        int nStartY2    = iter->Start.y + n90Y2;
+
+                        int nEndX1      = iter->End.x + n90X1;
+                        int nEndY1      = iter->End.y + n90Y1;
+                        int nEndX2      = iter->End.x + n90X2;
+                        int nEndY2      = iter->End.y + n90Y2;
+
+
+
+                        gp.DrawLine(&penEdge, nStartX1, nStartY1, nStartX2, nStartY2);
+                        gp.DrawLine(&penEdge, nStartX1, nStartY1, nEndX1, nEndY1);
+                        gp.DrawLine(&penEdge, nEndX1, nEndY1, nEndX2, nEndY2);
+                        gp.DrawLine(&penEdge, nEndX2, nEndY2, nStartX2, nStartY2);
+
+                        penEdge.SetDashStyle(DashStyleDash);
+                        penEdge.SetColor(Gdiplus::Color(255, 0, 255, 255));
+
+                        gp.DrawLine(&penEdge, nStartX1, nStartY1, nStartX2, nStartY2);
+                        gp.DrawLine(&penEdge, nStartX1, nStartY1, nEndX1, nEndY1);
+                        gp.DrawLine(&penEdge, nEndX1, nEndY1, nEndX2, nEndY2);
+                        gp.DrawLine(&penEdge, nEndX2, nEndY2, nStartX2, nStartY2);
+                    }
+                    break;
+
+                case 1: // Rect
+                    gp.DrawRectangle(&penEdge, iter->Start.x-3, iter->Start.y-3, iter->GetLenX()+6, iter->GetLenY()+6);
+
+                    penEdge.SetDashStyle(DashStyleDash);
+                    penEdge.SetColor(Gdiplus::Color(255, 0, 255, 255));
+                    gp.DrawRectangle(&penEdge, iter->Start.x-3, iter->Start.y-3, iter->GetLenX()+6, iter->GetLenY()+6);
+                    break;
+
+                case 2: // Circle
+                    gp.DrawEllipse(&penEdge, iter->Start.x-3, iter->Start.y-3, iter->GetLenX()+6, iter->GetLenY()+6);
+
+                    penEdge.SetDashStyle(DashStyleDash);
+                    penEdge.SetColor(Gdiplus::Color(255, 0, 255, 255));
+                    gp.DrawEllipse(&penEdge, iter->Start.x-3, iter->Start.y-3, iter->GetLenX()+6, iter->GetLenY()+6);
+                    break;
+            }
+
+
+
+        }
+
+        iter++;
     }
+
+
+    StatusBar1->Panels->Items[1]->Text = "Line Obj : " + IntToStr((int)m_listLine.size());
 
 }
 //---------------------------------------------------------------------------
@@ -441,12 +627,14 @@ bool __fastcall TfmAZLabelImageEditor::FindSelectLabel(int X, int Y)
 
     while(iter != m_listLabel.end()) {
 
-        if(X > iter->Pos.x - (m_LabelSize / 2)
+        if(!bRet
+        && X > iter->Pos.x - (m_LabelSize / 2)
         && X < (iter->Pos.x + (m_LabelSize / 2) - 1)
         && Y > iter->Pos.y - (m_LabelSize / 2)
         && Y < (iter->Pos.y + (m_LabelSize / 2) - 1)) {
             iter->Selected = true;
             bRet = true;
+
         }
         else {
             iter->Selected = false;
@@ -545,8 +733,21 @@ bool __fastcall TfmAZLabelImageEditor::FindSelectLine(int X, int Y)
 		GraphicsPath path;
         Pen strokePen(Gdiplus::Color(200, 255, 0, 0), 5);
 
-        path.AddLine(iter->Start.x, iter->Start.y, iter->End.x, iter->End.y);
-        if(path.IsOutlineVisible(X, Y, &strokePen)) {
+        switch(iter->ObjType) {
+            case 0:     // Line
+                path.AddLine(iter->Start.x, iter->Start.y, iter->End.x, iter->End.y);
+                break;
+
+            case 1:     // Rect
+                path.AddRectangle(Gdiplus::RectF(iter->Start.x, iter->Start.y, iter->GetLenX(), iter->GetLenY()));
+                break;
+
+            case 2:     // Circle
+                path.AddEllipse(iter->Start.x, iter->Start.y, iter->GetLenX(), iter->GetLenY());
+                break;
+        }
+
+        if(!bRet && path.IsOutlineVisible(X, Y, &strokePen)) {
             iter->Selected = true;
             bRet = true;
         }
@@ -738,7 +939,7 @@ bool __fastcall TfmAZLabelImageEditor::FindSelectLineEdge(int X, int Y)
 }
 //---------------------------------------------------------------------------
 
-bool __fastcall TfmAZLabelImageEditor::IsSelectLine()
+bool __fastcall TfmAZLabelImageEditor::IsSelectLine(__out TMyLine ** ppLineObj)
 {
 
     list<TMyLine>::iterator iter = m_listLine.begin();
@@ -746,6 +947,7 @@ bool __fastcall TfmAZLabelImageEditor::IsSelectLine()
     while(iter != m_listLine.end()) {
 
         if(iter->Selected) {
+            if(ppLineObj != NULL) *ppLineObj = (TMyLine *)&(*iter);
             return true;
         }
 
@@ -848,6 +1050,9 @@ void __fastcall FillRoundRectangle(Gdiplus::Graphics* g, Brush *p, Gdiplus::Rect
 	g->FillPath(p, &path);
 }
 
+
+//---------------------------------------------------------------------------
+// LABEL 그리기  ////////////////////////////////////////////////////////////
 //---------------------------------------------------------------------------
 void __fastcall TfmAZLabelImageEditor::DrawLabel()
 {
@@ -863,9 +1068,37 @@ void __fastcall TfmAZLabelImageEditor::DrawLabel()
        iter++;
     }
 
+    // Copy Paste Image가 존재할 경우.
+    if(m_CopyImageExist) {
+        // 복사한 이미지가 더클 경우 복사한 이미지 크기에 맞춘다.
+        if(m_pBitmap->Width == 0 && m_pBitmap->Height == 0) {
+            m_pBitmap->Width  = m_pBitmapCopy->Width;
+            m_pBitmap->Height = m_pBitmapCopy->Height;
+            Image1->Picture->Bitmap->Width  = m_pBitmapCopy->Width;
+            Image1->Picture->Bitmap->Height = m_pBitmapCopy->Height;
+        }
+
+        Image1->Picture->Bitmap->Canvas->Draw(m_CopyImagePos.x, m_CopyImagePos.y, m_pBitmapCopy);
+
+        // 복사된 이미지란 것을 인지시키기 위해 이미지 주위에 점선을 그려 준다.
+        //gp.SetSmoothingMode(Gdiplus::SmoothingModeDefault);
+        gp.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+
+        Gdiplus::Pen    penSelected(Gdiplus::Color(255, 0, 0, 0), 1);
+        penSelected.SetDashStyle(0);
+        gp.DrawRectangle(&penSelected,m_CopyImagePos.x, m_CopyImagePos.y, m_pBitmapCopy->Width-1, m_pBitmapCopy->Height-1 );
+
+        penSelected.SetDashStyle(1);
+        penSelected.SetColor(Gdiplus::Color(255, 0, 255, 255));
+        gp.DrawRectangle(&penSelected, m_CopyImagePos.x, m_CopyImagePos.y, m_pBitmapCopy->Width-1, m_pBitmapCopy->Height-1 );
+
+        gp.SetSmoothingMode(Gdiplus::SmoothingModeAntiAlias);
+
+    }
+
+    StatusBar1->Panels->Items[2]->Text = "Label Obj : " + IntToStr((int)m_listLabel.size());
+
 }
-//---------------------------------------------------------------------------
-// LABEL 그리기  ////////////////////////////////////////////////////////////
 //---------------------------------------------------------------------------
 void __fastcall TfmAZLabelImageEditor::DrawLabel(Gdiplus::Graphics * pGP, int index, int nX, int nY, bool bSelected)
 {
@@ -1056,6 +1289,12 @@ void __fastcall TfmAZLabelImageEditor::SpeedButton_LineStyle_1Click(TObject *Sen
 
     m_LineStyle = pBtn->Tag;
 
+    TMyLine * pSelectLine = NULL;
+
+    if(IsSelectLine(&pSelectLine)) {
+        if(pSelectLine) pSelectLine->DashStyle = m_LineStyle;
+    }
+
     DrawMyLine();
     DrawLabel();
 }
@@ -1068,6 +1307,12 @@ void __fastcall TfmAZLabelImageEditor::SpeedButton_LineCapStart_1Click(TObject *
 
     m_LineStartCapStyle = pBtn->Tag;
 
+    TMyLine * pSelectLine = NULL;
+
+    if(IsSelectLine(&pSelectLine)) {
+        if(pSelectLine) pSelectLine->CapStartStyle = m_LineStartCapStyle;
+    }
+
     DrawMyLine();
     DrawLabel();
 }
@@ -1079,6 +1324,12 @@ void __fastcall TfmAZLabelImageEditor::SpeedButton_LineCapEnd_1Click(TObject *Se
     if(pBtn == NULL) return;
 
     m_LineEndCapStyle = pBtn->Tag;
+
+    TMyLine * pSelectLine = NULL;
+
+    if(IsSelectLine(&pSelectLine)) {
+        if(pSelectLine) pSelectLine->CapEndStyle = m_LineEndCapStyle;
+    }
 
     DrawMyLine();
     DrawLabel();
@@ -1123,6 +1374,12 @@ void __fastcall TfmAZLabelImageEditor::Edit_LineWidthChange(TObject *Sender)
 
     if(nSize >= 1 && nSize <= 10) {
         m_LineWidth = nSize;
+
+        TMyLine * pSelectLine = NULL;
+
+        if(IsSelectLine(&pSelectLine)) {
+            if(pSelectLine) pSelectLine->LineWidth = m_LineWidth;
+        }
 
         DrawMyLine();
         DrawLabel();
@@ -1171,6 +1428,12 @@ void __fastcall TfmAZLabelImageEditor::Button_LineColorClick(TObject *Sender)
         m_LineColor = Gdiplus::Color(GetRValue(cl), GetGValue(cl), GetBValue(cl));
         Panel_LineColor->Color = cl;
 
+        TMyLine * pSelectLine = NULL;
+
+        if(IsSelectLine(&pSelectLine)) {
+            if(pSelectLine) pSelectLine->Color = m_LineColor.GetValue();
+        }
+
         DrawMyLine();
         DrawLabel();
     }
@@ -1196,16 +1459,20 @@ void __fastcall TfmAZLabelImageEditor::DisplaySettings()
     Edit_LineWidth->Text            = m_LineWidth;
     Edit_LineWidth->OnChange        = Edit_LineWidthChange;
 
-    Edit_Reset_W->Text              = Image1->Width;
-    Edit_Reset_H->Text              = Image1->Height;
-
-    Edit_ParentSize_W->Text         = m_ParentWidth;
-    Edit_ParentSize_H->Text         = m_ParentHeight;
+    Edit_Reset_W->Text              = m_pBitmap->Width;
+    Edit_Reset_H->Text              = m_pBitmap->Height;
 
     CheckBox_Magnetic->OnClick      = NULL;
     CheckBox_Magnetic->Checked      = m_LabelMagnetic;
     CheckBox_Magnetic->OnClick      = CheckBox_MagneticClick;
 
+    switch(m_LineObjStyle) {
+        case 0: SpeedButton_ObjStyle_0->Down = true; break;
+        case 1: SpeedButton_ObjStyle_1->Down = true; break;
+        case 2: SpeedButton_ObjStyle_2->Down = true; break;
+    }
+
+    StatusBar1->Panels->Items[3]->Text = "Parent Component Size ( Width : " + IntToStr(m_ParentWidth) + ", Height : " + IntToStr(m_ParentHeight) + ")";
 }
 //---------------------------------------------------------------------------
 
@@ -1232,6 +1499,7 @@ void __fastcall TfmAZLabelImageEditor::LoadImageFile1Click(TObject *Sender)
 
         DrawMyLine();
         DrawLabel();
+        DisplaySettings();
     }
 }
 //---------------------------------------------------------------------------
@@ -1285,11 +1553,8 @@ void __fastcall TfmAZLabelImageEditor::Button_ImageSizeClick(TObject *Sender)
     int nRet = MessageDlg("모든 작업을 Image화 한 후 Image Size를 변경하시겠습니까?", mtConfirmation, TMsgDlgButtons() << mbYes<<mbNo, 0);
 
     if(nRet == mrYes) {
-        ResetSelectLine();
-        ResetSelectLabel();
 
-        DrawMyLine();
-        DrawLabel();
+        DeselectAction();
 
         // 현재까지 작업하던것을 모두 이미지하 하고 Object를 삭제 한다.
         m_pBitmap->Assign(Image1->Picture->Graphic);
@@ -1316,6 +1581,40 @@ void __fastcall TfmAZLabelImageEditor::Button_ImageSizeClick(TObject *Sender)
 
         delete pDestBitmap;
     }
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmAZLabelImageEditor::Button_CanvasSizeClick(TObject *Sender)
+{
+    int nRet = MessageDlg("Canvas Size를 변경하시겠습니까?", mtConfirmation, TMsgDlgButtons() << mbYes<<mbNo, 0);
+
+    if(nRet == mrYes) {
+
+        int nWidth  = Edit_Reset_W->Text.ToIntDef(0);
+        int nHeight = Edit_Reset_H->Text.ToIntDef(0);
+
+        Vcl::Graphics::TBitmap * pBitmapTemp = new Vcl::Graphics::TBitmap;
+
+        int nDeltaSizeW = nWidth  - m_pBitmap->Width;
+        int nDeltaSizeH = nHeight - m_pBitmap->Height;
+
+        pBitmapTemp->Width  = m_pBitmap->Width  + nDeltaSizeW;
+        pBitmapTemp->Height = m_pBitmap->Height + nDeltaSizeH;
+
+        pBitmapTemp->Canvas->Brush->Color = clWhite;
+        pBitmapTemp->Canvas->Brush->Style = bsSolid;
+        pBitmapTemp->Canvas->FillRect(Rect(0,0,pBitmapTemp->Width, pBitmapTemp->Height));
+        pBitmapTemp->Canvas->Draw(nDeltaSizeW/2, nDeltaSizeH/2, m_pBitmap);
+
+        m_pBitmap->Assign(pBitmapTemp);
+
+        DrawMyLine();
+        DrawLabel();
+        DisplaySettings();
+
+        delete pBitmapTemp;
+    }
+
+    delete fmInputImageSize;
 }
 //---------------------------------------------------------------------------
 
@@ -1442,6 +1741,8 @@ int nRet = MessageDlg("모든 작업을 Image화 한 후 Image Size를 변경하시겠습니까?"
 
 void __fastcall TfmAZLabelImageEditor::ObjectAllMergeClick(TObject *Sender)
 {
+    DeselectAction();
+
     m_pBitmap->Assign(Image1->Picture->Graphic);
 
     m_listLine.clear();
@@ -1496,5 +1797,222 @@ void __fastcall TfmAZLabelImageEditor::FrameWidth1Click(TObject *Sender)
     DrawLabel();
 }
 //---------------------------------------------------------------------------
+void __fastcall TfmAZLabelImageEditor::DeselectAction()
+{
+    ResetSelectLine();
+    ResetSelectLabel();
 
+    if(m_CopyImageExist) {
+        m_CopyImageExist        = false;
+        m_pBitmap->Canvas->Draw(m_CopyImagePos.x, m_CopyImagePos.y, m_pBitmapCopy);
+        m_pBitmapCopy->Width  = 0;
+        m_pBitmapCopy->Height = 0;
+    }
+
+    DrawMyLine();
+    DrawLabel();
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmAZLabelImageEditor::FormKeyPress(TObject *Sender, System::WideChar &Key)
+{
+    if(Key == 0x16) // Ctrl + V
+    {
+        TClipboard *cb = Clipboard();
+        if (cb->HasFormat(CF_BITMAP))
+        {
+            try
+            {
+                m_pBitmapCopy->LoadFromClipboardFormat(CF_BITMAP, cb->GetAsHandle(CF_BITMAP), 0);
+
+                if(m_pBitmapCopy->Width > m_pBitmap->Width || m_pBitmapCopy->Height > m_pBitmap->Height) {
+
+                    int nRet = mrYes;
+                    
+                    if(m_pBitmap->Width > 0) {
+                        nRet = MessageDlg("복사된 이미지가 Canvas보다 큽니다. \nCanvas를 키우시겠습니까?", mtConfirmation, TMsgDlgButtons() << mbYes<<mbNo, 0);
+                    }
+
+                    if(nRet == mrYes) {
+                        Vcl::Graphics::TBitmap * pBitmapTemp = new Vcl::Graphics::TBitmap;
+
+                        int nDeltaSizeW = m_pBitmapCopy->Width  > m_pBitmap->Width  ? m_pBitmapCopy->Width  - m_pBitmap->Width  : 0;
+                        int nDeltaSizeH = m_pBitmapCopy->Height > m_pBitmap->Height ? m_pBitmapCopy->Height - m_pBitmap->Height : 0;
+
+                        pBitmapTemp->Width  = m_pBitmapCopy->Width   > m_pBitmap->Width   ? m_pBitmapCopy->Width   : m_pBitmap->Width;
+                        pBitmapTemp->Height = m_pBitmapCopy->Height  > m_pBitmap->Height  ? m_pBitmapCopy->Height  : m_pBitmap->Height;
+
+                        pBitmapTemp->Canvas->Brush->Color = clWhite;
+                        pBitmapTemp->Canvas->Brush->Style = bsSolid;
+                        pBitmapTemp->Canvas->FillRect(Rect(0,0,pBitmapTemp->Width, pBitmapTemp->Height));
+                        pBitmapTemp->Canvas->Draw(0, 0, m_pBitmap);
+
+                        m_pBitmap->Assign(pBitmapTemp);
+
+                        delete pBitmapTemp;
+                    }
+                }
+
+                m_CopyImageExist = true;
+                m_CopyImagePos.x = 0;
+                m_CopyImagePos.y = 0;
+
+                DrawMyLine();
+                DrawLabel();
+                DisplaySettings();
+            }
+            catch (...)
+            {
+                MessageBeep(0);
+                ShowMessage("Error reading image from clipboard!");
+            }
+            cb->Clear();
+        }
+        else
+        {
+            MessageBeep(0);
+            ShowMessage("Cannot find image in clipboard!");
+        }
+    }
+    else if(Key == 0x1B) { // ESC Key
+        DeselectAction();
+    }
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmAZLabelImageEditor::FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift)
+{
+    switch(Key)
+    {
+        case 0x2E:
+        { // Delete Key
+            if(m_CopyImageExist) {
+                m_CopyImageExist        = false;
+
+                m_pBitmapCopy->Width  = 0;
+                m_pBitmapCopy->Height = 0;
+
+                DrawMyLine();
+                DrawLabel();
+            }
+            // 삭제 여부 확인 팝업창 출력.
+            if(m_bLabelSelected) {
+                DeleteSelectLabel();
+
+                m_bLabelSelected = false;
+                m_bLMouseDown    = false;
+
+                DrawMyLine();
+                DrawLabel();
+            }
+            else if(m_bLineSelected) {
+                DeleteSelectLine();
+
+                m_bLineSelected = false;
+                m_bLMouseDown   = false;
+
+                DrawMyLine();
+                DrawLabel();
+            }
+        }
+        break;
+
+    }
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmAZLabelImageEditor::ScrollBox1Click(TObject *Sender)
+{
+    DeselectAction();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TfmAZLabelImageEditor::ImageSize1Click(TObject *Sender)
+{
+    fmInputImageSize = new TfmInputImageSize(this, m_pBitmap->Width, m_pBitmap->Height);
+
+    if(fmInputImageSize->ShowModal() == mrOk) {
+        ResetSelectLine();
+        ResetSelectLabel();
+
+        DrawMyLine();
+        DrawLabel();
+
+        // 현재까지 작업하던것을 모두 이미지하 하고 Object를 삭제 한다.
+        m_pBitmap->Assign(Image1->Picture->Graphic);
+
+        m_listLine.clear();
+        m_listLabel.clear();
+
+        // Image Size를 변경.
+        int nWidth  = fmInputImageSize->m_nSizeWidth;
+        int nHeight = fmInputImageSize->m_nSizeHeight;
+
+        Vcl::Graphics::TBitmap * pDestBitmap = new Vcl::Graphics::TBitmap;
+
+        if(ChangeImageSize(m_pBitmap, pDestBitmap, nWidth, nHeight)) {
+
+            Image1->Picture->Bitmap->Width  = pDestBitmap->Width;
+            Image1->Picture->Bitmap->Height = pDestBitmap->Height;
+
+            Image1->Picture->Bitmap->Assign(pDestBitmap);
+
+            Image1->Repaint();
+            m_pBitmap->Assign(pDestBitmap);
+        }
+
+        delete pDestBitmap;
+
+        DisplaySettings();
+        
+    }
+
+    delete fmInputImageSize;
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TfmAZLabelImageEditor::CanvasSize1Click(TObject *Sender)
+{
+    fmInputImageSize = new TfmInputImageSize(this, m_pBitmap->Width, m_pBitmap->Height);
+
+    fmInputImageSize->Caption = "Canvas Size";
+
+    if(fmInputImageSize->ShowModal() == mrOk) {
+        Vcl::Graphics::TBitmap * pBitmapTemp = new Vcl::Graphics::TBitmap;
+
+        int nDeltaSizeW = fmInputImageSize->m_nSizeWidth  - m_pBitmap->Width;
+        int nDeltaSizeH = fmInputImageSize->m_nSizeHeight - m_pBitmap->Height;
+
+        pBitmapTemp->Width  = m_pBitmap->Width  + nDeltaSizeW;
+        pBitmapTemp->Height = m_pBitmap->Height + nDeltaSizeH;
+
+        pBitmapTemp->Canvas->Brush->Color = clWhite;
+        pBitmapTemp->Canvas->Brush->Style = bsSolid;
+        pBitmapTemp->Canvas->FillRect(Rect(0,0,pBitmapTemp->Width, pBitmapTemp->Height));
+        pBitmapTemp->Canvas->Draw(nDeltaSizeW/2, nDeltaSizeH/2, m_pBitmap);
+
+        m_pBitmap->Assign(pBitmapTemp);
+
+        DrawMyLine();
+        DrawLabel();
+        DisplaySettings();
+
+        delete pBitmapTemp;
+    }
+
+    delete fmInputImageSize;
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TfmAZLabelImageEditor::SpeedButton_ObjStyle_0Click(TObject *Sender)
+{
+    TSpeedButton * pBtn = dynamic_cast<TSpeedButton *>(Sender);
+    if(pBtn == NULL) return;
+
+    m_LineObjStyle = pBtn->Tag;
+
+}
+//---------------------------------------------------------------------------
 

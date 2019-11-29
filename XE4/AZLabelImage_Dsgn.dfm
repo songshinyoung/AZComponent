@@ -10,10 +10,14 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   Menu = MainMenu1
   OldCreateOrder = False
+  Position = poMainFormCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -633,10 +637,17 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
           Margins.Bottom = 1
           Align = alRight
           Alignment = taCenter
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumbersOnly = True
+          ParentFont = False
           TabOrder = 0
           Text = '30'
           OnChange = Edit_LabelSizeChange
-          ExplicitHeight = 21
+          ExplicitHeight = 24
         end
       end
       object Panel3: TPanel
@@ -713,10 +724,17 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
           Margins.Bottom = 1
           Align = alRight
           Alignment = taCenter
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumbersOnly = True
+          ParentFont = False
           TabOrder = 0
           Text = '0'
           OnChange = Edit_LabelStartNumChange
-          ExplicitHeight = 21
+          ExplicitHeight = 24
         end
       end
       object Panel9: TPanel
@@ -844,10 +862,17 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
           Margins.Bottom = 1
           Align = alRight
           Alignment = taCenter
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumbersOnly = True
+          ParentFont = False
           TabOrder = 0
-          Text = '3'
+          Text = '2'
           OnChange = Edit_LabelOuterLineChange
-          ExplicitHeight = 21
+          ExplicitHeight = 24
         end
       end
     end
@@ -892,10 +917,17 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
           Height = 23
           Align = alRight
           Alignment = taCenter
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          NumbersOnly = True
+          ParentFont = False
           TabOrder = 0
           Text = '2'
           OnChange = Edit_LineWidthChange
-          ExplicitHeight = 21
+          ExplicitHeight = 24
         end
       end
       object Panel6: TPanel
@@ -2223,11 +2255,12 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
       Color = clWhite
       ParentColor = False
       TabOrder = 0
+      OnClick = ScrollBox1Click
       object Image1: TImage
         Left = 3
         Top = 3
-        Width = 576
-        Height = 445
+        Width = 22
+        Height = 19
         AutoSize = True
         OnDblClick = Image1DblClick
         OnMouseDown = Image1MouseDown
@@ -2265,152 +2298,125 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
       end
       object Label6: TLabel
         AlignWithMargins = True
-        Left = 97
+        Left = 86
         Top = 3
         Width = 31
         Height = 30
-        Margins.Left = 5
         Align = alLeft
         AutoSize = False
         Caption = 'Height'
         Layout = tlCenter
-        ExplicitLeft = 95
-        ExplicitHeight = 13
-      end
-      object Label7: TLabel
-        AlignWithMargins = True
-        Left = 302
-        Top = 3
-        Width = 150
-        Height = 30
-        Margins.Left = 10
-        Align = alLeft
-        AutoSize = False
-        Caption = 'Parent Component Size ( Width'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGray
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-        ExplicitLeft = 295
-        ExplicitHeight = 13
-      end
-      object Label8: TLabel
-        AlignWithMargins = True
-        Left = 518
-        Top = 3
-        Width = 31
-        Height = 30
-        Margins.Left = 5
-        Align = alLeft
-        AutoSize = False
-        Caption = 'Height'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGray
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-        ExplicitLeft = 486
+        ExplicitLeft = 90
         ExplicitTop = 5
-      end
-      object Label9: TLabel
-        AlignWithMargins = True
-        Left = 612
-        Top = 3
-        Width = 21
-        Height = 30
-        Margins.Left = 2
-        Align = alLeft
-        AutoSize = False
-        Caption = ')'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGray
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
       end
       object Edit_Reset_W: TEdit
         AlignWithMargins = True
-        Left = 37
-        Top = 8
-        Width = 52
-        Height = 20
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Left = 35
+        Top = 6
+        Width = 45
+        Height = 24
+        Margins.Left = 1
+        Margins.Top = 6
+        Margins.Bottom = 6
         Align = alLeft
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
         TabOrder = 0
         Text = '0'
-        ExplicitHeight = 21
       end
       object Edit_Reset_H: TEdit
         AlignWithMargins = True
-        Left = 134
-        Top = 8
-        Width = 52
-        Height = 20
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Left = 121
+        Top = 6
+        Width = 45
+        Height = 24
+        Margins.Left = 1
+        Margins.Top = 6
+        Margins.Bottom = 6
         Align = alLeft
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        NumbersOnly = True
+        ParentFont = False
         TabOrder = 1
         Text = '0'
-        ExplicitHeight = 21
       end
       object Button_ImageSize: TButton
         AlignWithMargins = True
-        Left = 192
+        Left = 172
         Top = 3
-        Width = 97
+        Width = 69
         Height = 30
         Align = alLeft
-        Caption = 'Image Size '#48320#44221
+        Caption = 'Image Size'
         TabOrder = 2
         OnClick = Button_ImageSizeClick
       end
-      object Edit_ParentSize_W: TEdit
+      object Button_CanvasSize: TButton
         AlignWithMargins = True
-        Left = 458
-        Top = 8
-        Width = 52
-        Height = 20
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Left = 247
+        Top = 3
+        Width = 69
+        Height = 30
         Align = alLeft
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGray
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        ReadOnly = True
+        Caption = 'Canvas Size'
         TabOrder = 3
-        Text = '0'
-        ExplicitHeight = 21
+        OnClick = Button_CanvasSizeClick
       end
-      object Edit_ParentSize_H: TEdit
+      object Panel12: TPanel
         AlignWithMargins = True
-        Left = 555
-        Top = 8
-        Width = 52
-        Height = 20
-        Margins.Top = 8
-        Margins.Bottom = 8
+        Left = 322
+        Top = 3
+        Width = 175
+        Height = 30
         Align = alLeft
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clGray
-        Font.Height = -11
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        ReadOnly = True
+        BevelOuter = bvNone
+        Caption = 'Panel12'
+        ShowCaption = False
         TabOrder = 4
-        Text = '0'
-        ExplicitHeight = 21
+        object SpeedButton_ObjStyle_0: TSpeedButton
+          Left = 0
+          Top = 0
+          Width = 56
+          Height = 30
+          Align = alLeft
+          GroupIndex = 1
+          Caption = 'Line'
+          OnClick = SpeedButton_ObjStyle_0Click
+          ExplicitTop = 2
+        end
+        object SpeedButton_ObjStyle_1: TSpeedButton
+          Tag = 1
+          Left = 56
+          Top = 0
+          Width = 56
+          Height = 30
+          Align = alLeft
+          GroupIndex = 1
+          Caption = 'Rect'
+          OnClick = SpeedButton_ObjStyle_0Click
+          ExplicitTop = 1
+        end
+        object SpeedButton_ObjStyle_2: TSpeedButton
+          Tag = 2
+          Left = 112
+          Top = 0
+          Width = 56
+          Height = 30
+          Align = alLeft
+          GroupIndex = 1
+          Caption = 'Circle'
+          OnClick = SpeedButton_ObjStyle_0Click
+          ExplicitTop = 2
+        end
       end
     end
     object StatusBar1: TStatusBar
@@ -2424,11 +2430,16 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
           Width = 100
         end
         item
-          Width = 50
+          Width = 100
+        end
+        item
+          Width = 100
         end
         item
           Width = 50
         end>
+      ExplicitLeft = 3
+      ExplicitTop = 518
     end
   end
   object FontDialog1: TFontDialog
@@ -2481,10 +2492,6 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
       object N3: TMenuItem
         Caption = '-'
       end
-      object ComponentSizeImage: TMenuItem
-        Caption = 'Component Size'#50640' '#47582#44172' Image '#51312#51208
-        OnClick = ComponentSizeImageClick
-      end
     end
     object Frame1: TMenuItem
       Caption = 'Frame'
@@ -2525,6 +2532,24 @@ object fmAZLabelImageEditor: TfmAZLabelImageEditor
         GroupIndex = 1
         RadioItem = True
         OnClick = FrameWidth1Click
+      end
+    end
+    object Size1: TMenuItem
+      Caption = 'Size'
+      object ImageSize1: TMenuItem
+        Caption = 'Image Size '
+        OnClick = ImageSize1Click
+      end
+      object CanvasSize1: TMenuItem
+        Caption = 'Canvas Size'
+        OnClick = CanvasSize1Click
+      end
+      object N5: TMenuItem
+        Caption = '-'
+      end
+      object ComponentSizeImage1: TMenuItem
+        Caption = 'Component Size'#50640' '#47582#44172' Image '#51312#51208
+        OnClick = ComponentSizeImageClick
       end
     end
   end

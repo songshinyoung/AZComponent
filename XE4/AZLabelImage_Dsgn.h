@@ -19,7 +19,17 @@
 #include "Common\\Define.h"
 
 using namespace std;
-//
+
+
+
+
+
+
+
+
+
+
+
 ////---------------------------------------------------------------------------
 //class TMyPoint {
 //public:
@@ -152,11 +162,6 @@ __published:	// IDE-managed Components
     TLabel *Label6;
     TEdit *Edit_Reset_H;
     TButton *Button_ImageSize;
-    TLabel *Label7;
-    TEdit *Edit_ParentSize_W;
-    TLabel *Label8;
-    TEdit *Edit_ParentSize_H;
-    TLabel *Label9;
     TMenuItem *N1;
     TMenuItem *SaveExit1;
     TMenuItem *Cancel_Exit;
@@ -165,7 +170,6 @@ __published:	// IDE-managed Components
     TMenuItem *ObjectAllClear;
     TMenuItem *ObjectAllMerge;
     TMenuItem *N3;
-    TMenuItem *ComponentSizeImage;
     TStatusBar *StatusBar1;
     TMenuItem *Frame1;
     TMenuItem *FrameView;
@@ -177,6 +181,16 @@ __published:	// IDE-managed Components
     TPanel *Panel8;
     TLabel *Label10;
     TEdit *Edit_LabelOuterLine;
+    TMenuItem *Size1;
+    TMenuItem *ImageSize1;
+    TMenuItem *CanvasSize1;
+    TMenuItem *N5;
+    TMenuItem *ComponentSizeImage1;
+    TButton *Button_CanvasSize;
+    TPanel *Panel12;
+    TSpeedButton *SpeedButton_ObjStyle_0;
+    TSpeedButton *SpeedButton_ObjStyle_1;
+    TSpeedButton *SpeedButton_ObjStyle_2;
     void __fastcall Image1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
           int X, int Y);
     void __fastcall Image1MouseLeave(TObject *Sender);
@@ -210,15 +224,28 @@ __published:	// IDE-managed Components
     void __fastcall FrameColorClick(TObject *Sender);
     void __fastcall FrameWidth1Click(TObject *Sender);
     void __fastcall Edit_LabelOuterLineChange(TObject *Sender);
+    void __fastcall FormKeyPress(TObject *Sender, System::WideChar &Key);
+    void __fastcall FormKeyDown(TObject *Sender, WORD &Key, TShiftState Shift);
+    void __fastcall ImageSize1Click(TObject *Sender);
+    void __fastcall CanvasSize1Click(TObject *Sender);
+    void __fastcall ScrollBox1Click(TObject *Sender);
+    void __fastcall Button_CanvasSizeClick(TObject *Sender);
+    void __fastcall SpeedButton_ObjStyle_0Click(TObject *Sender);
 
 private:
     void __fastcall Init();
     void __fastcall DisplaySettings();
+    void __fastcall DeselectAction();
+
     int         m_ParentWidth;
     int         m_ParentHeight;
 
 public:	// User declarations
     Vcl::Graphics::TBitmap * m_pBitmap;
+    Vcl::Graphics::TBitmap * m_pBitmapCopy;
+
+    bool        m_CopyImageExist;
+    TMyPoint    m_CopyImagePos;
 
     bool        m_bLMouseDown;
     bool        m_bRMouseDown;
@@ -232,6 +259,7 @@ public:	// User declarations
     int         m_LineWidth;
     int         m_LineStartCapStyle;
     int         m_LineEndCapStyle;
+    int         m_LineObjStyle;         // 0:Line, 1:Rect, 2:Circle
     Gdiplus::Color m_LabelBaseColor;    // 라벨 안쪽 배경 색상
     Gdiplus::Color m_LabelOutRecColor;  // 라벨 외곽 색상.
     Gdiplus::Color m_LineColor;         // Line Color
@@ -245,6 +273,7 @@ public:	// User declarations
     bool        m_bLineSelected;        // Line이 선택된  상태다
     bool        m_bLineEdegSelected;    // Line Edge 선택
     bool        m_bLabelSelected;       // Label이 선택된 상태다
+    bool        m_bCopyImageSelected;   // 복사한 이미지 선택 상태.
 
     list<TMyLine>   m_listLine;
     list<TMyLabel>  m_listLabel;
@@ -264,7 +293,7 @@ public:	// User declarations
     bool __fastcall MoveSelectLine(int dX, int dY);
     bool __fastcall MoveSelectLineEdge(int dX, int dY, bool bShiftKeyDown);
     bool __fastcall MoveSelectLineEdgeShift(int X, int Y, bool bShift);
-    bool __fastcall IsSelectLine();
+    bool __fastcall IsSelectLine(__out TMyLine ** pLineObj = NULL);
     bool __fastcall FindSelectLineEdge(int X, int Y);
     void __fastcall ResetSelectLine();
     void __fastcall ResetSelectLineEdge();
@@ -274,6 +303,7 @@ public:	// User declarations
                                     Vcl::Graphics::TBitmap * pDestBitmap,
                                     int nDestW,
                                     int nDestH);
+
 
 
 public:		// User declarations

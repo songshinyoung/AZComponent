@@ -81,15 +81,27 @@ class TMyLine {
 public:
     TMyPoint Start;
     TMyPoint End;
+    int      ObjType;       // 0 : Line, 1:Rect, 2:Circle
     bool     Selected;      // 현재 선택된 경우
     bool     SelectStart;   // 선택된 상태에서 Start 부분을 클릭하여 드래그 할 경우
     bool     SelectEnd;     // 선택된 상태에서 End 부분을 클릭하여 드래그 할 경우
+    DWORD    Color;         // ARGB
+    int      DashStyle;     // Line Dash Style
+    int      CapStartStyle;
+    int      CapEndStyle;
+    int      LineWidth;
 
 public:
     __fastcall TMyLine() {
-        Selected    = false;
-        SelectStart = false;
-        SelectEnd   = false;
+        Selected        = false;
+        SelectStart     = false;
+        SelectEnd       = false;
+        ObjType         = 0;
+        Color           = 0xFFFFFFFF;
+        DashStyle       = 0;
+        CapStartStyle   = 0;
+        CapEndStyle     = 0;
+        LineWidth       = 1;
     };
 
     double   __fastcall GetLen() {

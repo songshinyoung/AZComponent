@@ -2,9 +2,10 @@
 
 #include <System.hpp>
 #pragma hdrstop
+USEFORM("AZLabelImage_Dsgn.cpp", fmAZLabelImageEditor);
 USEFORM("AZNumShape_Dsgn.cpp", fmAZNumShapeEditor);
 USEFORM("Common\frmNumPad_AZ.cpp", fmNumPad_AZ);
-USEFORM("AZLabelImage_Dsgn.cpp", fmAZLabelImageEditor);
+USEFORM("frmInputImageSize.cpp", fmInputImageSize);
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 //---------------------------------------------------------------------------

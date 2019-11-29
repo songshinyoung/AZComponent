@@ -204,6 +204,12 @@
             <DependentOn>DualSensorLabel.h</DependentOn>
             <BuildOrder>46</BuildOrder>
         </CppCompile>
+        <CppCompile Include="frmInputImageSize.cpp">
+            <Form>fmInputImageSize</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>frmInputImageSize.h</DependentOn>
+            <BuildOrder>56</BuildOrder>
+        </CppCompile>
         <RcItem Include="Images\AZAnalogGauge.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZANALOGGAUGE</ResourceId>
@@ -321,6 +327,7 @@
             <BuildOrder>36</BuildOrder>
         </PackageImport>
         <FormResources Include="AZLabelImage_Dsgn.dfm"/>
+        <FormResources Include="frmInputImageSize.dfm"/>
         <FormResources Include="AZNumShape_Dsgn.dfm"/>
         <FormResources Include="Common\frmNumPad_AZ.dfm"/>
         <BuildConfiguration Include="Release">

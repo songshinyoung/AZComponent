@@ -44,8 +44,8 @@ private:
 
     int              FGlyphType;            // 화살표 모양
 
-    Vcl::Graphics::TBitmap* FGlyph;
-    TNumGlyphs              FNumGlyphs;
+    Vcl::Graphics::TBitmap*     FGlyph;
+    Vcl::Buttons::TNumGlyphs    FNumGlyphs;
 
     TAZEditBoxProperty * FInputEdit;
 

@@ -147,6 +147,10 @@
             <DependentOn>AZLabelImage.h</DependentOn>
             <BuildOrder>154</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZLabelPanel.cpp">
+            <DependentOn>AZLabelPanel.h</DependentOn>
+            <BuildOrder>155</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZNumberPad.cpp">
             <DependentOn>AZNumberPad.h</DependentOn>
             <BuildOrder>36</BuildOrder>

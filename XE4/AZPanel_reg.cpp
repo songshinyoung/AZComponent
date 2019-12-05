@@ -23,6 +23,7 @@
 #include "AZOnOffButton.h"
 #include "AZLabelImage.h"
 #include "AZLabelImageComponentEditor.h"
+// #include "AZLabelPanel.h"
 
 //#include <PropertyCategories.hpp>    // Pascal unit
 #include <VCLEditors.hpp>
@@ -57,6 +58,7 @@ namespace Azpanel_reg
 										__classid(TAZGauge),
 										__classid(TAZOnOffButton),
                                         __classid(TAZLabelImage)
+                                        // __classid(TAZLabelPanel)
                                         };
 
         // Enabled 속성에 TBooleanProperty 속성 타입을 적용 시킴. (Object Inspector에서 bool속성 편집 시 체크 박스 표시되도록)

@@ -147,6 +147,10 @@
             <DependentOn>AZLabelImage_Dsgn.h</DependentOn>
             <BuildOrder>54</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZLabelPanel.cpp">
+            <DependentOn>AZLabelPanel.h</DependentOn>
+            <BuildOrder>58</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZNumberPad.cpp">
             <DependentOn>AZNumberPad.h</DependentOn>
             <BuildOrder>26</BuildOrder>
@@ -210,6 +214,12 @@
             <DependentOn>frmInputImageSize.h</DependentOn>
             <BuildOrder>56</BuildOrder>
         </CppCompile>
+        <CppCompile Include="frmInputStrings.cpp">
+            <Form>fmInputStrBox</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>frmInputStrings.h</DependentOn>
+            <BuildOrder>57</BuildOrder>
+        </CppCompile>
         <RcItem Include="Images\AZAnalogGauge.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZANALOGGAUGE</ResourceId>
@@ -245,6 +255,10 @@
         <RcItem Include="Images\AZLabell.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TNUMPANEL</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\AZLabelPanel.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TAZLABELPANEL</ResourceId>
         </RcItem>
         <RcItem Include="Images\AZNumberPad.bmp">
             <ResourceType>BITMAP</ResourceType>
@@ -328,6 +342,7 @@
         </PackageImport>
         <FormResources Include="AZLabelImage_Dsgn.dfm"/>
         <FormResources Include="frmInputImageSize.dfm"/>
+        <FormResources Include="frmInputStrings.dfm"/>
         <FormResources Include="AZNumShape_Dsgn.dfm"/>
         <FormResources Include="Common\frmNumPad_AZ.dfm"/>
         <BuildConfiguration Include="Release">

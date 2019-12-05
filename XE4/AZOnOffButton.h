@@ -27,7 +27,7 @@ private:
     bool                        FOn;
     int                         FButtonStyle;           // 버튼 종류 선택 
     Vcl::Graphics::TBitmap*     FGlyph;                 // 사용자 이미지 등록 
-    TNumGlyphs                  FNumGlyphs;
+    Vcl::Buttons::TNumGlyphs    FNumGlyphs;
     int                         FGroupIndex;
     bool                        FAllowAllUp;
     bool                        FSmoothResize;      
@@ -40,8 +40,8 @@ private:
     
     void                    __fastcall SetGlyph(Vcl::Graphics::TBitmap* Value);
     Vcl::Graphics::TBitmap* __fastcall GetGlyph(void);
-    void                    __fastcall SetNumGlyphs(TNumGlyphs Value);
-    TNumGlyphs              __fastcall GetNumGlyphs(void);
+    void                    __fastcall SetNumGlyphs(Vcl::Buttons::TNumGlyphs Value);
+    Vcl::Buttons::TNumGlyphs __fastcall GetNumGlyphs(void);
     void                    __fastcall SetGroupIndex(int n);
     void                    __fastcall SetAllowAllUp(bool b);
     void                    __fastcall SetSmoothResize(bool b);
@@ -87,7 +87,7 @@ __published:
     __property bool                     On              = { read = FOn,                 write = SetOn,                          default = false     };
     __property int                      ButtonStyle     = { read = FButtonStyle,        write = SetButtonStyle,                 default = 0         };
     __property Vcl::Graphics::TBitmap*  Glyph           = { read = GetGlyph,            write = SetGlyph                                };
-    __property TNumGlyphs               NumGlyphs       = { read = GetNumGlyphs,        write = SetNumGlyphs,                   default = 4         };
+    __property Vcl::Buttons::TNumGlyphs NumGlyphs       = { read = GetNumGlyphs,        write = SetNumGlyphs,                   default = 4         };
     __property int                      GroupIndex      = { read = FGroupIndex,         write = SetGroupIndex,                  default = 0         };
     __property bool                     AllowAllUp      = { read = FAllowAllUp,         write = SetAllowAllUp,                  default = false     };
     __property bool                     SmoothResize    = { read = FSmoothResize,       write = SetSmoothResize,                default = false     };

@@ -74,7 +74,7 @@ private:
 
     // Property value. --------------------------
     Vcl::Graphics::TBitmap*     FGlyph;
-    TNumGlyphs                  FNumGlyphs;
+    Vcl::Buttons::TNumGlyphs    FNumGlyphs;
     String                      FCaption;
     TImageBtnSubCaptionProperty * FCaptionSub;
     System::Classes::TAlignment FAlignment;
@@ -99,8 +99,8 @@ private:
     void                    __fastcall SetCaptionSub(TImageBtnSubCaptionProperty * p);
     void                    __fastcall SetGlyph(Vcl::Graphics::TBitmap* Value);
     Vcl::Graphics::TBitmap* __fastcall GetGlyph(void);
-    void                    __fastcall SetNumGlyphs(TNumGlyphs Value);
-    TNumGlyphs              __fastcall GetNumGlyphs(void);
+    void                    __fastcall SetNumGlyphs(Vcl::Buttons::TNumGlyphs Value);
+    Vcl::Buttons::TNumGlyphs __fastcall GetNumGlyphs(void);
     void                    __fastcall SetAlignment(System::Classes::TAlignment Value);
     void                    __fastcall SetSpace(int Index, int Value );
     void                    __fastcall SetGroupIndex(int n);
@@ -192,7 +192,7 @@ __published:
 
 
     __property Vcl::Graphics::TBitmap*      Glyph       = { read = GetGlyph,        write = SetGlyph                            };
-    __property TNumGlyphs                   NumGlyphs   = { read = GetNumGlyphs,    write = SetNumGlyphs,   default=4           };
+    __property Vcl::Buttons::TNumGlyphs     NumGlyphs   = { read = GetNumGlyphs,    write = SetNumGlyphs,   default=4           };
     
     __property Font;
 

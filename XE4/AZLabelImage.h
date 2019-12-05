@@ -7,7 +7,7 @@
 #include <Classes.hpp>
 #include <Vcl.Controls.hpp>
 #include <Vcl.ExtCtrls.hpp>
-#include <gdiplus.h>                // GDI+
+//#include <gdiplus.h>                // GDI+
 #include <list>
 
 #include "Common\\Define.h"
@@ -85,71 +85,71 @@ public:
     list<TMyLabel>  m_listLabel;
 
 private:
-    Vcl::Graphics::TBitmap * m_pBitmap;
+//    Vcl::Graphics::TBitmap * m_pBitmap;
 
     bool        bLoaded;
-    bool        m_bLMouseDown;
-    bool        m_bRMouseDown;
-    TMyLine     m_LineTemp;
-    TMyLabel    m_LabelTemp;
-
-    bool        m_bLineSelected;        // Line이 선택된  상태다
-    bool        m_bLineEdegSelected;    // Line Edge 선택
-    bool        m_bLabelSelected;       // Label이 선택된 상태다
-
-
-
-
-    int         FLabelSize;
-    int         FLabelLastIndex;
-    int         FLabelStyle;           // 0 : Round Rec, 1 : Rec, 2 : Circle
-    int         FLineStyle;            // 0 : 직선, 1 : 긴 점선, 2 : 작은 점선 3 : 긴/작은 점선
-    bool        FLabelMagnetic;        // Object를 10 픽셀 단위로 자석모드로 이동 한다.
-
-    void        __fastcall SetLabelSize(int n);
-    void        __fastcall SetLabelLastIndex(int n);
-    void        __fastcall SetLabelStyle(int n);         
-    void        __fastcall SetLineStyle(int n);          
-    void        __fastcall SetLabelMagnetic(bool b);     
-
-
-
-    void __fastcall DrawMyLine();
-    void __fastcall DrawLabel();
-    void __fastcall DrawLabel(Gdiplus::Graphics * pGP, int n, int nX, int nY, bool bSelected = false);
-    void __fastcall DrawOverlayText();
-
-    bool __fastcall FindSelectLabel(int X, int Y);
-    bool __fastcall MoveSelectLabel(int X, int Y);
-    bool __fastcall IsSelectLabel();
-    void __fastcall ResetSelectLabel();
-    bool __fastcall DeleteSelectLabel();
-
-    bool __fastcall FindSelectLine(int X, int Y);
-    bool __fastcall MoveSelectLine(int dX, int dY);
-    bool __fastcall MoveSelectLineEdge(int dX, int dY, bool bShiftKeyDown);
-    bool __fastcall MoveSelectLineEdgeShift(int X, int Y, bool bShift);
-    bool __fastcall IsSelectLine();
-    bool __fastcall FindSelectLineEdge(int X, int Y);
-    void __fastcall ResetSelectLine();
-    void __fastcall ResetSelectLineEdge();
-    bool __fastcall DeleteSelectLine();
+//    bool        m_bLMouseDown;
+//    bool        m_bRMouseDown;
+//    TMyLine     m_LineTemp;
+//    TMyLabel    m_LabelTemp;
+//
+//    bool        m_bLineSelected;        // Line이 선택된  상태다
+//    bool        m_bLineEdegSelected;    // Line Edge 선택
+//    bool        m_bLabelSelected;       // Label이 선택된 상태다
+//
+//
+//
+//
+//    int         FLabelSize;
+//    int         FLabelLastIndex;
+//    int         FLabelStyle;           // 0 : Round Rec, 1 : Rec, 2 : Circle
+//    int         FLineStyle;            // 0 : 직선, 1 : 긴 점선, 2 : 작은 점선 3 : 긴/작은 점선
+//    bool        FLabelMagnetic;        // Object를 10 픽셀 단위로 자석모드로 이동 한다.
+//
+//    void        __fastcall SetLabelSize(int n);
+//    void        __fastcall SetLabelLastIndex(int n);
+//    void        __fastcall SetLabelStyle(int n);         
+//    void        __fastcall SetLineStyle(int n);          
+//    void        __fastcall SetLabelMagnetic(bool b);     
 
 
-	TMouseEvent                     FOnMouseDown;
-	TMouseMoveEvent                 FOnMouseMove;
-	TMouseEvent                     FOnMouseUp;
-	System::Classes::TNotifyEvent   FOnDblClick;
+
+//    void __fastcall DrawMyLine();
+//    void __fastcall DrawLabel();
+//    void __fastcall DrawLabel(int n, int nX, int nY, bool bSelected = false);
+//    void __fastcall DrawOverlayText();
+//
+//    bool __fastcall FindSelectLabel(int X, int Y);
+//    bool __fastcall MoveSelectLabel(int X, int Y);
+//    bool __fastcall IsSelectLabel();
+//    void __fastcall ResetSelectLabel();
+//    bool __fastcall DeleteSelectLabel();
+//
+//    bool __fastcall FindSelectLine(int X, int Y);
+//    bool __fastcall MoveSelectLine(int dX, int dY);
+//    bool __fastcall MoveSelectLineEdge(int dX, int dY, bool bShiftKeyDown);
+//    bool __fastcall MoveSelectLineEdgeShift(int X, int Y, bool bShift);
+//    bool __fastcall IsSelectLine();
+//    bool __fastcall FindSelectLineEdge(int X, int Y);
+//    void __fastcall ResetSelectLine();
+//    void __fastcall ResetSelectLineEdge();
+//    bool __fastcall DeleteSelectLine();
+
+
+//	TMouseEvent                     FOnMouseDown;
+//	TMouseMoveEvent                 FOnMouseMove;
+//	TMouseEvent                     FOnMouseUp;
+//	System::Classes::TNotifyEvent   FOnDblClick;
     
-    void __fastcall MyMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
-    void __fastcall MyMouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
-    void __fastcall MyMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
-    void __fastcall MyDblClick(TObject *Sender);
+//    void __fastcall MyMouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
+//    void __fastcall MyMouseMove(TObject *Sender, TShiftState Shift, int X, int Y);
+//    void __fastcall MyMouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift, int X, int Y);
+//    void __fastcall MyDblClick(TObject *Sender);
 
     void __fastcall OnPicktureChanged(System::TObject* Sender);
 
 protected:
-    virtual void    __fastcall WndProc(TMessage& Message);          ///< WndProc 함수 오버라이드.
+//    virtual void    __fastcall WndProc(TMessage& Message);          ///< WndProc 함수 오버라이드.
     virtual void    __fastcall Loaded(void);                        ///< Loaded 함수 오버라이드.
 
     

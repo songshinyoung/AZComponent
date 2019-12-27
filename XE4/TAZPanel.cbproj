@@ -139,6 +139,10 @@
             <DependentOn>AZFlowShape.h</DependentOn>
             <BuildOrder>24</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZGroupBox.cpp">
+            <DependentOn>AZGroupBox.h</DependentOn>
+            <BuildOrder>156</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZImageButton.cpp">
             <DependentOn>AZImageButton.h</DependentOn>
             <BuildOrder>32</BuildOrder>
@@ -703,6 +707,30 @@
         <RcItem Include="Images\SquareLED_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SquareLED_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Black.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Black</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Blue.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Blue</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Disable.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Gray.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Gray</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Green.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Green</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Title_Label_Red.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TitleLabel_Red</ResourceId>
         </RcItem>
         <CppCompile Include="IndexButton.cpp">
             <DependentOn>IndexButton.h</DependentOn>

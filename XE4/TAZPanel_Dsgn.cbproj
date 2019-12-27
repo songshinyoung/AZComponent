@@ -129,6 +129,10 @@
             <DependentOn>AZGauges.h</DependentOn>
             <BuildOrder>42</BuildOrder>
         </CppCompile>
+        <CppCompile Include="AZGroupBox.cpp">
+            <DependentOn>AZGroupBox.h</DependentOn>
+            <BuildOrder>60</BuildOrder>
+        </CppCompile>
         <CppCompile Include="AZImageButton.cpp">
             <DependentOn>AZImageButton.h</DependentOn>
             <BuildOrder>39</BuildOrder>
@@ -243,6 +247,10 @@
         <RcItem Include="Images\AZGauge.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>TAZGAUGE</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\AZGroupBox.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>TAZGROUPBOX</ResourceId>
         </RcItem>
         <RcItem Include="Images\AZIndexButton.bmp">
             <ResourceType>BITMAP</ResourceType>

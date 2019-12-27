@@ -284,12 +284,7 @@ void __fastcall TAZOnOffButton::CreateDefaultImage(void)
             }
             
             for(int i=0; i<ofBtnMax; i++) {
-                if(FConstProportions) {
-                    SmoothResizePNG(m_pPNGBtnImage[i], nWidth, nHeight);
-                }
-                else {
-                    SmoothResizePNG(m_pPNGBtnImage[i], nWidth, nHeight);
-                }
+                SmoothResizePNG(m_pPNGBtnImage[i], nWidth, nHeight);
             }
         }
     }

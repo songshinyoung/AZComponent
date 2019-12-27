@@ -359,7 +359,7 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseMove(TObject *Sender, TShiftSt
 
             bool bSelected = MoveSelectLabel(X, Y);
 
-            Gdiplus::Graphics       gp(Image1->Picture->Bitmap->Canvas->Handle);
+//            Gdiplus::Graphics       gp(Image1->Picture->Bitmap->Canvas->Handle);
 
             DrawMyLine();
             DrawLabel();
@@ -400,7 +400,7 @@ void __fastcall TfmAZLabelImageEditor::Image1MouseMove(TObject *Sender, TShiftSt
 
             m_LineTemp.MoveEndEdgeShift(X, Y, Shift.Contains(ssShift));
 
-            Gdiplus::Graphics       gp(Image1->Picture->Bitmap->Canvas->Handle);
+//            Gdiplus::Graphics       gp(Image1->Picture->Bitmap->Canvas->Handle);
 
             DrawMyLine();
             DrawLabel();
@@ -622,7 +622,7 @@ void __fastcall TfmAZLabelImageEditor::DrawMyLine()
     list<TMyLine>::iterator iter = m_listLine.begin();
 
     // GDI+를 이용하여 Angi-Aliasing Line 구현
-    Gdiplus::Graphics gp(Image1->Picture->Bitmap->Canvas->Handle);
+//    Gdiplus::Graphics gp(Image1->Picture->Bitmap->Canvas->Handle);
     Gdiplus::Pen      pen(m_LineColor, m_LineWidth);
 
     // 기존 Line Object 그리기.

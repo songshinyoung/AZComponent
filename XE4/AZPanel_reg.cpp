@@ -23,6 +23,7 @@
 #include "AZOnOffButton.h"
 #include "AZLabelImage.h"
 #include "AZLabelImageComponentEditor.h"
+#include "AZGroupBox.h"
 // #include "AZLabelPanel.h"
 
 //#include <PropertyCategories.hpp>    // Pascal unit
@@ -57,7 +58,8 @@ namespace Azpanel_reg
                                         __classid(TActuatorButton),
 										__classid(TAZGauge),
 										__classid(TAZOnOffButton),
-                                        __classid(TAZLabelImage)
+                                        __classid(TAZLabelImage),
+                                        __classid(TAZGroupBox)
                                         // __classid(TAZLabelPanel)
                                         };
 

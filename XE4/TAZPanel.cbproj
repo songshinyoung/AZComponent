@@ -468,6 +468,126 @@
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ofBtn_14_On_Down</ResourceId>
         </RcItem>
+        <RcItem Include="Images\ofBtn_15_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_15_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_15_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_15_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_15_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_15_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_15_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_16_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_16_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_17_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_17_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_18_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_18_On_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_19_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_19_On_Down</ResourceId>
+        </RcItem>
         <RcItem Include="Images\ofBtn_1_Off.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ofBtn_1_Off</ResourceId>

@@ -31,7 +31,8 @@ private:
     int                         FGroupIndex;
     bool                        FAllowAllUp;
     bool                        FSmoothResize;      
-    bool                        FConstProportions;      // 확대 축소시 Width - Hieght 비율제한  
+    bool                        FConstProportions;      // 확대 축소시 Width - Hieght 비율제한
+    bool                        FAutoToggle;
     
     System::Classes::TNotifyEvent FOnResize;
 
@@ -47,6 +48,7 @@ private:
     void                    __fastcall SetSmoothResize(bool b);
     void                    __fastcall SetStretch(bool b);                  ///< SetStretch 함수는 오버라이드가 안되어 속성을 다시 만드는 방식 사용 
     void                    __fastcall SetConstProportions(bool b);
+    void                    __fastcall SetAutoToggle(bool b);
 
     bool                        m_bButtonDown;
     TPngImage *                 m_pPNGBtnImage[ofBtnMax]; // Image Button PNG Image 저장 (On, Off, On-Disable, Off-Disalbe)
@@ -92,7 +94,7 @@ __published:
     __property bool                     AllowAllUp      = { read = FAllowAllUp,         write = SetAllowAllUp,                  default = false     };
     __property bool                     SmoothResize    = { read = FSmoothResize,       write = SetSmoothResize,                default = false     };
     __property bool                     ConstProportions= { read = FConstProportions,   write = SetConstProportions,            default = false     };
-
+    __property bool                     AutoToggle      = { read = FAutoToggle,         write = SetAutoToggle,                  default = true      };
     
     
 

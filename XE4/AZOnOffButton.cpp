@@ -33,6 +33,7 @@ __fastcall TAZOnOffButton::TAZOnOffButton(TComponent* Owner)
     FGroupIndex         = 0;
     FAllowAllUp         = false;
     FConstProportions   = false;
+    FAutoToggle         = true;
 
     FGlyph              = new Vcl::Graphics::TBitmap;
     FGlyph->OnChange    = GlyphChanged;
@@ -116,7 +117,7 @@ void __fastcall TAZOnOffButton::WndProc(TMessage& Message)
     switch(Message.Msg) {
          case WM_LBUTTONDOWN:
             if(ComponentState.Contains(csDesigning) != true) { // 
-                if(Enabled) {
+                if(Enabled && FAutoToggle) {
                     m_bButtonDown = true;
                     DisplayUpdate();
                 }
@@ -125,7 +126,7 @@ void __fastcall TAZOnOffButton::WndProc(TMessage& Message)
 
          case WM_LBUTTONUP:
             if(ComponentState.Contains(csDesigning) != true) { //
-                if(Enabled) {
+                if(Enabled && FAutoToggle) {
                     if(m_bButtonDown){
 
                         FOn = !FOn;
@@ -652,7 +653,13 @@ void __fastcall TAZOnOffButton::SetConstProportions(bool b)
         DisplayUpdate();
     }
 }
-
+//---------------------------------------------------------------------------
+void __fastcall TAZOnOffButton::SetAutoToggle(bool b)
+{
+    if(FAutoToggle != b) {
+        FAutoToggle = b;
+    }
+}
 
 //---------------------------------------------------------------------------
 void __fastcall  TAZOnOffButton::MyClick(TObject *Sender)

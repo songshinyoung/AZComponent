@@ -29,11 +29,15 @@ __fastcall TAZOnOffButton::TAZOnOffButton(TComponent* Owner)
 
     FOn                 = false;
     FButtonStyle        = 0; 
-    FNumGlyphs          = 4;
+	FNumGlyphs          = 4;
     FGroupIndex         = 0;
     FAllowAllUp         = false;
     FConstProportions   = false;
-    FAutoToggle         = true;
+	FAutoToggle         = true;
+
+	FCaption     		= "";
+	FCaptionOn       	= "ON";
+	FCaptionOff        	= "OFF";
 
     FGlyph              = new Vcl::Graphics::TBitmap;
     FGlyph->OnChange    = GlyphChanged;
@@ -202,7 +206,7 @@ void __fastcall TAZOnOffButton::CreateDefaultImage(void)
     if((FGlyph->Width > 0) && (FGlyph->Height > 0) && (FNumGlyphs > 0)) {
         // User Define Bitmap Image »ç¿ë -----------------
         int nWidth  = FGlyph->Width / FNumGlyphs;
-        int nHeight = FGlyph->Height;
+		int nHeight = FGlyph->Height;
         int nStartX = 0;
 
         nWidth = nWidth <= 0 ? 1 : nWidth;
@@ -699,7 +703,7 @@ void __fastcall TAZOnOffButton::OtherGroupButtonUp()
     //---------------------------------------------
     TWinControl *WndCtrl = this->Parent;
 
-    while(WndCtrl == NULL) {
+	while(WndCtrl == NULL) {
         return;
     }
     //---------------------------------------------
@@ -720,3 +724,23 @@ void __fastcall TAZOnOffButton::OtherGroupButtonUp()
 }
 //---------------------------------------------------------------------------
 
+void __fastcall TAZOnOffButton::SetCaption(TCaption s)
+{
+	if(FCaption != s) {
+		FCaption = s;
+	}
+}
+
+void __fastcall TAZOnOffButton::SetCaptionOn(TCaption s)
+{
+	if(FCaptionOn != s) {
+		FCaptionOn = s;
+	}
+}
+
+void __fastcall TAZOnOffButton::SetCaptionOff(TCaption s)
+{
+	if(FCaptionOff != s) {
+		FCaptionOff = s;
+	}
+}

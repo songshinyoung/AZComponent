@@ -32,7 +32,11 @@ private:
     bool                        FAllowAllUp;
     bool                        FSmoothResize;      
     bool                        FConstProportions;      // 확대 축소시 Width - Hieght 비율제한
-    bool                        FAutoToggle;
+	bool                        FAutoToggle;
+
+	TCaption            		FCaption;
+	TCaption            		FCaptionOn;
+	TCaption            		FCaptionOff;
     
     System::Classes::TNotifyEvent FOnResize;
 
@@ -48,10 +52,14 @@ private:
     void                    __fastcall SetSmoothResize(bool b);
     void                    __fastcall SetStretch(bool b);                  ///< SetStretch 함수는 오버라이드가 안되어 속성을 다시 만드는 방식 사용 
     void                    __fastcall SetConstProportions(bool b);
-    void                    __fastcall SetAutoToggle(bool b);
+	void                    __fastcall SetAutoToggle(bool b);
 
-    bool                        m_bButtonDown;
-    TPngImage *                 m_pPNGBtnImage[ofBtnMax]; // Image Button PNG Image 저장 (On, Off, On-Disable, Off-Disalbe)
+	void                	__fastcall SetCaption(TCaption s);
+	void                	__fastcall SetCaptionOn(TCaption s);
+	void                	__fastcall SetCaptionOff(TCaption s);
+
+	bool                        m_bButtonDown;
+	TPngImage *                 m_pPNGBtnImage[ofBtnMax]; // Image Button PNG Image 저장 (On, Off, On-Disable, Off-Disalbe)
     Graphics::TBitmap*          m_pBMPBtnImage[ofBtnMax];
     bool                        m_bPNGImageExist[ofBtnMax];
 
@@ -95,8 +103,10 @@ __published:
     __property bool                     SmoothResize    = { read = FSmoothResize,       write = SetSmoothResize,                default = false     };
     __property bool                     ConstProportions= { read = FConstProportions,   write = SetConstProportions,            default = false     };
     __property bool                     AutoToggle      = { read = FAutoToggle,         write = SetAutoToggle,                  default = true      };
-    
-    
+
+	__property TCaption         		Caption  		= { read = FCaption,   	write = SetCaption };
+	__property TCaption         		CaptionOn     	= { read = FCaptionOn,	write = SetCaptionOn };
+	__property TCaption         		CaptionOff    	= { read = FCaptionOff,	write = SetCaptionOff };
 
 
     // 재 정의 Property---------------------------

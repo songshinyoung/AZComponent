@@ -289,8 +289,10 @@ void __fastcall TAZImageButton::CreateColorImage(Vcl::Graphics::TBitmap* pBitmap
 //---------------------------------------------------------------------------
 void __fastcall TAZImageButton::SetEnabled(bool b)
 {
-    TGraphicControl::SetEnabled(b);
-    DisplayUpdate(m_eButtonState);
+    if(Enabled != b) {
+        TGraphicControl::SetEnabled(b);
+        DisplayUpdate(m_eButtonState);
+    }
 }
 
 //-----------------------------------------------------------------------

@@ -31,6 +31,8 @@ __fastcall TAZImageButton::TAZImageButton(TComponent* Owner)
     FAlignment  = taCenter;
     FGroupIndex = 0;
     FAllowAllUp = false;
+
+    FAutoToggle = true;
     
     FOnFontChangeOrg = Font->OnChange;
     Font->OnChange = FontChanged;
@@ -96,7 +98,7 @@ void __fastcall TAZImageButton::WndProc(TMessage& Message)
          case WM_LBUTTONDOWN:
             if(ComponentState.Contains(csDesigning) != true) { // 
 
-                if(Enabled) {
+                if(Enabled && FAutoToggle) {
                     m_bButtonDown = true;
                     DisplayUpdate(IB_STATE_DOWN);
                 }
@@ -106,7 +108,7 @@ void __fastcall TAZImageButton::WndProc(TMessage& Message)
          case WM_LBUTTONUP:
             if(ComponentState.Contains(csDesigning) != true) { //
             
-                if(Enabled && m_bButtonDown) {
+                if(Enabled && m_bButtonDown && FAutoToggle) {
                     if(FGroupIndex != 0) {
 
                         if(FDown) {
@@ -567,6 +569,14 @@ void  __fastcall TAZImageButton::SetShadowFontTop(int n)
     if(FShadowFontTop != n) {
         FShadowFontTop = n;
         DisplayUpdate(m_eButtonState);
+    }
+}
+
+void  __fastcall TAZImageButton::SetAutoToggle(bool b)
+{
+    if(FAutoToggle != b) {
+        FAutoToggle = b;
+        // DisplayUpdate(m_eButtonState);
     }
 }
 

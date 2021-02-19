@@ -267,8 +267,8 @@ void __fastcall TAZGroupBox::DisplayUpdate(void)
                 unsigned int grayColorStart = AZ_RGB_TO_GRAY(GetRValue(FGradientStartColor), GetGValue(FGradientStartColor), GetBValue(FGradientStartColor));
                 unsigned int grayColorEnd   = AZ_RGB_TO_GRAY(GetRValue(FGradientEndColor), GetGValue(FGradientEndColor), GetBValue(FGradientEndColor));
 
-                clStartColor = grayColorStart << 16 | grayColorStart << 8 | grayColorStart;
-                clEndColor   = grayColorEnd << 16 | grayColorEnd << 8 | grayColorEnd;
+                clStartColor = (TColor)(grayColorStart << 16 | grayColorStart << 8 | grayColorStart);
+                clEndColor   = (TColor)(grayColorEnd << 16 | grayColorEnd << 8 | grayColorEnd);
             }
 
             GradientFillCanvas(pBitMap->Canvas, clStartColor, clEndColor, Rect(0, 0, pBitMap->Width, pBitMap->Height), gdVertical);

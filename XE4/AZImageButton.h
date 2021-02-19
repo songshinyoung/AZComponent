@@ -94,6 +94,7 @@ private:
     TColor                      FShadowFontColor;
     int                         FShadowFontLeft;
     int                         FShadowFontTop;
+    bool                        FAutoToggle;
 
     void                    __fastcall SetCaption(String s);
     void                    __fastcall SetCaptionSub(TImageBtnSubCaptionProperty * p);
@@ -116,6 +117,7 @@ private:
     void                    __fastcall SetShadowFontColor(TColor c);
     void                    __fastcall SetShadowFontLeft(int n);
     void                    __fastcall SetShadowFontTop(int n);
+    void                    __fastcall SetAutoToggle(bool b);
 
     // Private value.----------------------------
     EImageButtonState   m_eButtonState;
@@ -188,6 +190,7 @@ __published:
     __property TColor              ShadowFontColor      = { read = FShadowFontColor,      write = SetShadowFontColor,     default = clBlack   };
     __property int                 ShadowFontColorLeft  = { read = FShadowFontLeft,       write = SetShadowFontLeft,      default = -1        };
     __property int                 ShadowFontColorTop   = { read = FShadowFontTop,        write = SetShadowFontTop,       default = -1        };
+    __property bool                AutoToggle           = { read = FAutoToggle,           write = SetAutoToggle,          default = true      };
 
 
 

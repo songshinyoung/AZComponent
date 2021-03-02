@@ -95,6 +95,17 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenFont->OnChange  = SenFontChanged; // Font가 변경될 경우 이를 감지할 Call Back 함수를 등록한다.
 
 
+    FGlyph_Left             = new Vcl::Graphics::TBitmap;
+    FGlyph_Right            = new Vcl::Graphics::TBitmap;
+    FGlyph_Left->OnChange   = GlyphChanged;
+    FGlyph_Right->OnChange  = GlyphChanged;
+    FGlyph_Left->Width      = 0;
+    FGlyph_Left->Height     = 0;
+    FGlyph_Right->Width     = 0;
+    FGlyph_Right->Height    = 0;
+
+    FNumGlyphs = 4;
+
     //--------------------------
     if(ComponentState.Contains(csDesigning)) {
         bLoaded = true;
@@ -109,6 +120,8 @@ __fastcall TActuatorButton::~TActuatorButton()
     if(FSBLeft)                 delete FSBLeft;
     if(FSBRight)                delete FSBRight;
     if(BMP_Indicator)           delete BMP_Indicator;
+    if(FGlyph_Left)             delete FGlyph_Left;
+    if(FGlyph_Right)            delete FGlyph_Right;
     
 }
 //---------------------------------------------------------------------------
@@ -224,8 +237,24 @@ void __fastcall TActuatorButton::CreateIndicatorImage()
     BMP_Indicator->Canvas->Brush->Color = FColorSelect;     // Selected
     BMP_Indicator->Canvas->RoundRect(nImg1Width*3 + 1,  1, nImg1Width*4 -2, nImg1Height-1, FGlyphRound, FGlyphRound);
 
-    FSBLeft->Glyph->Assign(BMP_Indicator);
-    FSBRight->Glyph->Assign(BMP_Indicator);
+
+    if(FGlyph_Left != NULL && ((FGlyph_Left->Width > 0) && (FGlyph_Left->Height > 0))) {
+        FSBLeft->Glyph->Assign(FGlyph_Left);
+        FSBLeft->NumGlyphs = FNumGlyphs;
+    }
+    else {
+        FSBLeft->Glyph->Assign(BMP_Indicator);
+        FSBLeft->NumGlyphs = 4;
+    }
+
+    if(FGlyph_Right != NULL && ((FGlyph_Right->Width > 0) && (FGlyph_Right->Height > 0))) {
+        FSBRight->Glyph->Assign(FGlyph_Right);
+    }
+    else {
+        FSBRight->Glyph->Assign(BMP_Indicator);
+        FSBRight->NumGlyphs = 4;
+    }    
+
 }
 //---------------------------------------------------------------------------
 void __fastcall TActuatorButton::DisplayUpdate()
@@ -578,5 +607,61 @@ void     __fastcall TActuatorButton::SenFontChanged(System::TObject* Sender)
     FDualSenLabel->Paint();
 }
 
+//---------------------------------------------------------------------------
+void __fastcall TActuatorButton::SetGlyph(int Index, Vcl::Graphics::TBitmap* Value)
+{
+    if(Value == NULL) {
+        if(Index == 1) {
+            FGlyph_Left->Width  = 0;
+            FGlyph_Left->Height = 0;
+        }
+        else {
+            FGlyph_Right->Width  = 0;
+            FGlyph_Right->Height = 0;
+        }
+    }
+    else {
+        if(Index == 1) {
+            FGlyph_Left->Assign(Value);
+        }
+        else {
+            FGlyph_Right->Assign(Value);
+        }        
+    }
+
+    DisplayUpdate();
+}
+
+Vcl::Graphics::TBitmap* __fastcall TActuatorButton::GetGlyph(int Index)
+{
+    if(Index == 1) {
+        return FGlyph_Left;
+    }
+    else {
+        return FGlyph_Right;
+    }
+
+}
+
+TNumGlyphs __fastcall TActuatorButton::GetNumGlyphs(void)
+{
+    return FNumGlyphs;
+}
+
+void __fastcall TActuatorButton::SetNumGlyphs(TNumGlyphs Value)
+{
+    if(FNumGlyphs != Value) {
+        FNumGlyphs = Value;
+        //CreateIndicatorImage();
+        DisplayUpdate();
+    }
+}
+
+
+void __fastcall TActuatorButton::GlyphChanged(System::TObject* Sender)
+{
+    //CreateIndicatorImage();
+    DisplayUpdate();
+}
 //---------------------------------------------------------------------------
 

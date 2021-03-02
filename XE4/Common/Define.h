@@ -59,7 +59,8 @@ enum DECLSPEC_DENUM TIndexButtonLayout : unsigned char { ibVertical, ibHorizonta
 //-----------------------------------------------------------------------
 
 
-enum DECLSPEC_DENUM TSensorLedType : unsigned char { slCircle, slRect };
+enum DECLSPEC_DENUM TSensorLedType      : unsigned char { slCircle, slRect };
+enum DECLSPEC_DENUM TSensorLedColorType  : unsigned char { slColorGreen, slColorRed, slColorBlue };
 
 //-----------------------------------------------------------------------
 

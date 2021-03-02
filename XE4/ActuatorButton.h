@@ -23,6 +23,10 @@ private:
     TSpeedButton *      FSBLeft;
     TSpeedButton *      FSBRight;
 
+    Vcl::Graphics::TBitmap*     FGlyph_Left;
+    Vcl::Graphics::TBitmap*     FGlyph_Right;
+    Vcl::Buttons::TNumGlyphs    FNumGlyphs;
+
     TColor              FColorUp;               ///< 선택되지 않은 상태 색상. ( Enable)
     TColor              FColorDisable;          ///< Disable 상태 색상.
     TColor              FColorDown;             ///< 사용자가 Mouse Down 중인 상태 색상.
@@ -105,6 +109,13 @@ private:
     void                __fastcall SetMyCaption(TCaption v);
     void                __fastcall SetSenFont(Vcl::Graphics::TFont * p);
 
+    void                        __fastcall SetGlyph(int Index, Vcl::Graphics::TBitmap* Value);
+    Vcl::Graphics::TBitmap*     __fastcall GetGlyph(int Index);
+    void                        __fastcall SetNumGlyphs(Vcl::Buttons::TNumGlyphs Value);
+    Vcl::Buttons::TNumGlyphs    __fastcall GetNumGlyphs(void);
+
+    void                        __fastcall GlyphChanged(System::TObject* Sender);
+
     //-------------------------------
     Graphics::TBitmap* BMP_Indicator;
 
@@ -178,6 +189,10 @@ __published:
 
     __property TDualButtonLayout Layout         = { read = FLayout,        write = SetLayout,       default = dbHorizontal };
     __property TButtonLayout     GlyphLayout    = { read = FGlyphLayout,   write = SetGlyphLayout,  default = blGlyphTop };
+
+    __property Vcl::Graphics::TBitmap *     Glyph_Left  = { read = GetGlyph,        write = SetGlyph,   index = 1       };
+    __property Vcl::Graphics::TBitmap *     Glyph_Right = { read = GetGlyph,        write = SetGlyph,   index = 2       };
+    __property Vcl::Buttons::TNumGlyphs     NumGlyphs   = { read = GetNumGlyphs,    write = SetNumGlyphs,   default=4   };
 
     __property Font;
     __property Enabled  = {default = 1};

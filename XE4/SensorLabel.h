@@ -27,16 +27,17 @@ private:
 
     //--------------------------------
     // Sensor Led 
-    TColor          FSenLineColor;
-    TColor          FSenOnColor;
-    TColor          FSenOffColor;
-    TSensorLedType  FSenType;
-    int             FSenWidth;
-    int             FSenHeight;
-    int             FSenRectRound;
-    bool            FSenOn;         ///< true일 경우 On Color, false일 경우 Off Color를 적용 
-    int             FSenSpace;
-    bool            FSenLEDImage;   ///< true일 경우 기본 Default LED Image사용 
+    TColor              FSenLineColor;
+    TColor              FSenOnColor;
+    TColor              FSenOffColor;
+    TSensorLedType      FSenType;
+    TSensorLedColorType FSenColorType;
+    int                 FSenWidth;
+    int                 FSenHeight;
+    int                 FSenRectRound;
+    bool                FSenOn;         ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    int                 FSenSpace;
+    bool                FSenLEDImage;   ///< true일 경우 기본 Default LED Image사용 
 
     Graphics::TBitmap* pBmpSenOn;
     Graphics::TBitmap* pBmpSenOff;
@@ -66,12 +67,15 @@ private:
     void            __fastcall SetSenOnColor(TColor v);
     void            __fastcall SetSenOffColor(TColor v);
     void            __fastcall SetSenType(TSensorLedType  v);
+    void            __fastcall SetSenColorType(TSensorLedColorType  v);
     void            __fastcall SetSenWidth(int    v);
     void            __fastcall SetSenHeight(int    v);
     void            __fastcall SetSenRectRound(int v);
     void            __fastcall SetSenOn(bool   v);
     void            __fastcall SetSenSpace(int    v);
     void            __fastcall SetSenLEDImage(bool v);
+
+    void            __fastcall LoadLEDImage(void);
 
     void            __fastcall  NumFontChanged(System::TObject* Sender);   ///< Font의 속성이 변경된 것을 Call Back 받기 위한 Event 함수.
 
@@ -99,16 +103,18 @@ __published:
     __property  int             NumWidth        = { read = FNumWidth,       write = SetNumWidth,        default = 25};
     __property  int             NumSpace        = { read = FNumSpace,       write = SetNumSpace,        default = 5 };
 
-    __property  TColor          SenLineColor    = { read = FSenLineColor,   write = SetSenLineColor,    default = clBlack };
-    __property  TColor          SenOnColor      = { read = FSenOnColor,     write = SetSenOnColor,      default = clLime };
-    __property  TColor          SenOffColor     = { read = FSenOffColor,    write = SetSenOffColor,     default = clSilver };
-    __property  TSensorLedType  SenType         = { read = FSenType,        write = SetSenType,         default = slCircle };
-    __property  int             SenWidth        = { read = FSenWidth,       write = SetSenWidth,        default = 20 };
-    __property  int             SenHeight       = { read = FSenHeight,      write = SetSenHeight,       default = 20 };
-    __property  int             SenRectRound    = { read = FSenRectRound,   write = SetSenRectRound,    default = 3  };
-    __property  bool            SenOn           = { read = FSenOn,          write = SetSenOn,           default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
-    __property  int             SenSpace        = { read = FSenSpace,       write = SetSenSpace,        default = 5 };
-    __property  bool            SenLEDImage     = { read = FSenLEDImage,    write = SetSenLEDImage,     default = true };
+    __property  TColor              SenLineColor    = { read = FSenLineColor,   write = SetSenLineColor,    default = clBlack       };
+    __property  TColor              SenOnColor      = { read = FSenOnColor,     write = SetSenOnColor,      default = clLime        };
+    __property  TColor              SenOffColor     = { read = FSenOffColor,    write = SetSenOffColor,     default = clSilver      };
+    __property  TSensorLedType      SenType         = { read = FSenType,        write = SetSenType,         default = slCircle      };
+    __property  TSensorLedColorType SenColorType    = { read = FSenColorType,   write = SetSenColorType,    default = slColorGreen  };
+
+    __property  int                 SenWidth        = { read = FSenWidth,       write = SetSenWidth,        default = 20    };
+    __property  int                 SenHeight       = { read = FSenHeight,      write = SetSenHeight,       default = 20    };
+    __property  int                 SenRectRound    = { read = FSenRectRound,   write = SetSenRectRound,    default = 3     };
+    __property  bool                SenOn           = { read = FSenOn,          write = SetSenOn,           default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    __property  int                 SenSpace        = { read = FSenSpace,       write = SetSenSpace,        default = 5     };
+    __property  bool                SenLEDImage     = { read = FSenLEDImage,    write = SetSenLEDImage,     default = true  };
 
 
     //---------------------------------------

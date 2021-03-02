@@ -804,6 +804,14 @@
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ofBtn_9_On_Down</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Blue_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Blue_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Blue_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Blue_On</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Disable</ResourceId>
@@ -816,6 +824,22 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_On</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Red_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Red_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Red_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Red_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Blue_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Blue_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Blue_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Blue_On</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SquareLED_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SquareLED_Disable</ResourceId>
@@ -827,6 +851,14 @@
         <RcItem Include="Images\SquareLED_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SquareLED_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Red_Off.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Red_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SquareLED_Red_On.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Red_On</ResourceId>
         </RcItem>
         <RcItem Include="Images\Title_Label_Black.bmp">
             <ResourceType>BITMAP</ResourceType>

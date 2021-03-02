@@ -21,6 +21,10 @@ private:
     TSpeedButton *      FSBLeft;
     TSpeedButton *      FSBRight;
 
+    Vcl::Graphics::TBitmap*     FGlyph_Left;
+    Vcl::Graphics::TBitmap*     FGlyph_Right;
+    Vcl::Buttons::TNumGlyphs    FNumGlyphs;
+
     TColor              FColorUp;               ///< 선택되지 않은 상태 색상. ( Enable)
     TColor              FColorDisable;          ///< Disable 상태 색상.
     TColor              FColorDisableSelected;  ///< Disable 상태 색상.(선택된 버튼)
@@ -54,16 +58,24 @@ private:
     Graphics::TBitmap* BMP_Indicator;
     Graphics::TBitmap* BMP_IndicatorSelected;
 
-    void __fastcall DisplayUpdate();
-    void __fastcall CreateIndicatorImage();
+    void    __fastcall DisplayUpdate();
+    void    __fastcall CreateIndicatorImage();
 
-    void __fastcall MyResize(TObject *Sender);
+    void    __fastcall MyResize(TObject *Sender);
     System::Classes::TNotifyEvent FOnResize;
 
     TDualBtnClickEvent FOnClick;
-    void __fastcall MyClick(TObject *Sender);
+    void    __fastcall MyClick(TObject *Sender);
 
-    void __fastcall SetBtnIndicatorImg(TDualButtonState eState);
+    void    __fastcall SetBtnIndicatorImg(TDualButtonState eState);
+
+
+    void                        __fastcall SetGlyph(int Index, Vcl::Graphics::TBitmap* Value);
+    Vcl::Graphics::TBitmap*     __fastcall GetGlyph(int Index);
+    void                        __fastcall SetNumGlyphs(Vcl::Buttons::TNumGlyphs Value);
+    Vcl::Buttons::TNumGlyphs    __fastcall GetNumGlyphs(void);
+
+    void                        __fastcall GlyphChanged(System::TObject* Sender);
 
 protected:
     virtual void     __fastcall Loaded(void);                ///< Loaded 함수 오버라이드.
@@ -99,6 +111,10 @@ __published:
 
     __property TDualButtonLayout Layout         = { read = FLayout,        write = SetLayout,       default = dbHorizontal };
     __property TButtonLayout     GlyphLayout    = { read = FGlyphLayout,   write = SetGlyphLayout,  default = blGlyphTop };
+
+    __property Vcl::Graphics::TBitmap *     Glyph_Left  = { read = GetGlyph,        write = SetGlyph,   index = 1       };
+    __property Vcl::Graphics::TBitmap *     Glyph_Right = { read = GetGlyph,        write = SetGlyph,   index = 2       };
+    __property Vcl::Buttons::TNumGlyphs     NumGlyphs   = { read = GetNumGlyphs,    write = SetNumGlyphs,   default=4   };
 
     __property Font;
     __property Enabled  = {default = 1};

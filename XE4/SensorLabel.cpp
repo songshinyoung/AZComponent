@@ -46,6 +46,7 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     FSenOnColor     = clLime ;
     FSenOffColor    = clSilver ;
     FSenType        = slCircle ;
+    FSenColorType   = slColorGreen;
     FSenWidth       = 20 ;
     FSenHeight      = 20 ;
     FSenRectRound   = 3;
@@ -95,10 +96,60 @@ void __fastcall TSensorLabel::Loaded(void)
     TGraphicControl::Loaded();
 
     bLoaded = true;
+
+    LoadLEDImage();
     
     Invalidate();
 }
 
+void __fastcall TSensorLabel::LoadLEDImage(void)
+{
+    if(FSenType == slCircle) {
+        switch(FSenColorType) {
+            case slColorGreen:
+            default:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+                
+            case slColorRed:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Red_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Red_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+                
+            case slColorBlue:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+        }
+    }
+    else {
+        switch(FSenColorType) {
+            case slColorGreen:
+            default:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+                
+            case slColorRed:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Red_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Red_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+                
+            case slColorBlue:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+        }
+    }
+
+}
 
 void     __fastcall TSensorLabel::SetEnabled(bool Value)
 {
@@ -421,6 +472,9 @@ void __fastcall TSensorLabel::SetSenType(TSensorLedType  v)
 {
     if(FSenType != v) {
         FSenType = v;
+
+        LoadLEDImage(); 
+    
         if(!ComponentState.Contains(csDesigning) && !Visible) return;
         Invalidate();
     }
@@ -479,4 +533,16 @@ void  __fastcall TSensorLabel::SetSenLEDImage(bool v)
         Invalidate();
     }
 }
+
+void __fastcall TSensorLabel::SetSenColorType(TSensorLedColorType  v)
+{
+    if(FSenColorType != v) {
+        FSenColorType = v;
+
+        LoadLEDImage(); 
+    
+        DrawSensor();
+    }
+}
+
 

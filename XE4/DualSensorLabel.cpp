@@ -34,7 +34,8 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     FSenLineColor   = clBlack ;
     FSenOnColor     = clLime ;
     FSenOffColor    = clSilver ;
-    FSenType        = slCircle ;
+    FSenType        = slCircle;
+    FSenColorType   = slColorGreen;
     FSenWidth       = 15 ;
     FSenHeight      = 15 ;
     FSenRectRound   = 3;
@@ -54,9 +55,7 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     pBmpSenOff      = new Graphics::TBitmap;
     pBmpSenDisable  = new Graphics::TBitmap;
 
-    pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
-    pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
-    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+    LoadLEDImage();
 
     //--------------------------
     if(ComponentState.Contains(csDesigning)) {
@@ -91,6 +90,8 @@ void __fastcall TDualSensorLabel::Loaded(void)
 
     bLoaded = true;
 
+    LoadLEDImage();
+
     Invalidate();
 }
 
@@ -107,7 +108,6 @@ void     __fastcall TDualSensorLabel::SetEnabled(bool Value)
     }
 
 }
-
 void __fastcall TDualSensorLabel::Paint()
 {
     DrawOutLine();
@@ -120,6 +120,57 @@ void __fastcall TDualSensorLabel::Paint()
 }
 
 //---------------------------------------------------------------------------
+void __fastcall TDualSensorLabel::LoadLEDImage(void)
+{
+    if(FSenType == slCircle) {
+        switch(FSenColorType) {
+            case slColorGreen:
+            default:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+                
+            case slColorRed:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Red_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Red_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+                
+            case slColorBlue:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+                break;
+        }
+    }
+    else {
+        switch(FSenColorType) {
+            case slColorGreen:
+            default:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+                
+            case slColorRed:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Red_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Red_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+                
+            case slColorBlue:
+                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_On");
+                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_Off");
+                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                break;
+        }
+    }
+
+}
+
+//---------------------------------------------------------------------------
+
 void __fastcall TDualSensorLabel::DrawOutLine()
 {
     if(!ComponentState.Contains(csDesigning) && !Visible) return;
@@ -433,6 +484,9 @@ void __fastcall TDualSensorLabel::SetSenType(TSensorLedType  v)
 {
     if(FSenType != v) {
         FSenType = v;
+
+        LoadLEDImage(); 
+    
         Invalidate();
     }
 }
@@ -542,4 +596,14 @@ void __fastcall TDualSensorLabel::SetSenOutSpace(int       v)
     }
 }
 
+void __fastcall TDualSensorLabel::SetSenColorType(TSensorLedColorType  v)
+{
+    if(FSenColorType != v) {
+        FSenColorType = v;
+
+        LoadLEDImage(); 
+    
+        Invalidate();
+    }
+}
 

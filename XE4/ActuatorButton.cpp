@@ -75,6 +75,7 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenOnColor         = clLime ;
     FSenOffColor        = clSilver ;
     FSenType            = slCircle ;
+    FSenColorType       = slColorGreen;
     FSenWidth           = 15 ;
     FSenHeight          = 15 ;
     FSenRectRound       = 3;
@@ -303,6 +304,7 @@ void __fastcall TActuatorButton::DisplayUpdate()
     FDualSenLabel->SenOnColor         = FSenOnColor         ;
     FDualSenLabel->SenOffColor        = FSenOffColor        ;
     FDualSenLabel->SenType            = FSenType            ;
+    FDualSenLabel->SenColorType       = FSenColorType       ;
     FDualSenLabel->SenWidth           = FSenWidth           ;
     FDualSenLabel->SenHeight          = FSenHeight          ;
     FDualSenLabel->SenRectRound       = FSenRectRound       ;
@@ -470,6 +472,14 @@ void __fastcall TActuatorButton::SetSenType(TSensorLedType  v)
     if(FSenType != v) {
         FSenType = v;
         FDualSenLabel->SenType = v;
+    }
+}
+
+void __fastcall TActuatorButton::SetSenColorType(TSensorLedColorType  v)
+{
+    if(FSenColorType != v) {
+        FSenColorType = v;
+        FDualSenLabel->SenColorType = v;
     }
 }
 

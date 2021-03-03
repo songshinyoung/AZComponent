@@ -57,10 +57,12 @@ __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     pBmpSenOn       = new Graphics::TBitmap;
     pBmpSenOff      = new Graphics::TBitmap;
     pBmpSenDisable  = new Graphics::TBitmap;
-
-    pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
-    pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
-    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+    
+    LoadLEDImage();
+    
+//    pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
+//    pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+//    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
 
     //--------------------------
     if(ComponentState.Contains(csDesigning)) {

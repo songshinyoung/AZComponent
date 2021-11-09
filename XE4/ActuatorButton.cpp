@@ -74,7 +74,7 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenLineColor       = clBlack ;
     FSenOnColor         = clLime ;
     FSenOffColor        = clSilver ;
-    FSenType            = slCircle ;
+    FSenType            = slRect ;
     FSenColorType       = slColorGreen;
     FSenWidth           = 15 ;
     FSenHeight          = 15 ;
@@ -86,10 +86,16 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenVisibleL        = true;
     FSenVisibleR        = true;
 
+    FSenOnL2            = false;
+    FSenOnR2            = false;
+    FSenVisibleL2       = false;
+    FSenVisibleR2       = false;
+
     FSenOutLine         = true;
     FSenOutLineColor    = clBlack;
     FSenOutLineRound    = 0;
     FSenOutSpace        = 5;
+    FSenBetweenSpace    = 3;
     FHeightTitle        = 30;
 
     FSenFont            = new Vcl::Graphics::TFont;
@@ -250,6 +256,7 @@ void __fastcall TActuatorButton::CreateIndicatorImage()
 
     if(FGlyph_Right != NULL && ((FGlyph_Right->Width > 0) && (FGlyph_Right->Height > 0))) {
         FSBRight->Glyph->Assign(FGlyph_Right);
+        FSBRight->NumGlyphs = FNumGlyphs;
     }
     else {
         FSBRight->Glyph->Assign(BMP_Indicator);
@@ -286,37 +293,40 @@ void __fastcall TActuatorButton::DisplayUpdate()
         FSBRight->Height = (this->Height - FDualSenLabel->Height) / 2;
     }
 
-    FSBLeft->Layout  = FGlyphLayout;
-    FSBRight->Layout = FGlyphLayout;
+    FSBLeft->Layout     = FGlyphLayout;
+    FSBRight->Layout    = FGlyphLayout;
 
-    FSBLeft->NumGlyphs  = 4;
-    FSBRight->NumGlyphs = 4;
+//    FSBLeft->NumGlyphs  = 4;
+//    FSBRight->NumGlyphs = 4;
 
-    FSBLeft->Caption  =  FCaptionLeft;
-    FSBRight->Caption =  FCaptionRight;
+    FSBLeft->Caption    =  FCaptionLeft;
+    FSBRight->Caption   =  FCaptionRight;
 
     CreateIndicatorImage();
 
     // -------------------------------------
     FDualSenLabel->Font               = FSenFont;
     FDualSenLabel->Color              = FSenBGColor;
-    FDualSenLabel->SenLineColor       = FSenLineColor       ;
-    FDualSenLabel->SenOnColor         = FSenOnColor         ;
-    FDualSenLabel->SenOffColor        = FSenOffColor        ;
-    FDualSenLabel->SenType            = FSenType            ;
-    FDualSenLabel->SenColorType       = FSenColorType       ;
-    FDualSenLabel->SenWidth           = FSenWidth           ;
-    FDualSenLabel->SenHeight          = FSenHeight          ;
-    FDualSenLabel->SenRectRound       = FSenRectRound       ;
-    FDualSenLabel->SenOnL             = FSenOnL             ;
-    FDualSenLabel->SenOnR             = FSenOnR             ;
-    FDualSenLabel->SenSpace           = FSenSpace           ;    
-    FDualSenLabel->SenLEDImage        = FSenLEDImage        ;
+    FDualSenLabel->SenLineColor       = FSenLineColor;
+    FDualSenLabel->SenOnColor         = FSenOnColor;
+    FDualSenLabel->SenOffColor        = FSenOffColor;
+    FDualSenLabel->SenType            = FSenType;
+    FDualSenLabel->SenColorType       = FSenColorType;
+    FDualSenLabel->SenWidth           = FSenWidth;
+    FDualSenLabel->SenHeight          = FSenHeight;
+    FDualSenLabel->SenRectRound       = FSenRectRound;
+    FDualSenLabel->SenOnL             = FSenOnL;
+    FDualSenLabel->SenOnR             = FSenOnR;
+    FDualSenLabel->SenOnL2            = FSenOnL2;
+    FDualSenLabel->SenOnR2            = FSenOnR2;
+    FDualSenLabel->SenSpace           = FSenSpace;
+    FDualSenLabel->SenLEDImage        = FSenLEDImage;
 
     FDualSenLabel->SenOutLine         = FSenOutLine;
     FDualSenLabel->SenOutLineColor    = FSenOutLineColor;
     FDualSenLabel->SenOutLineRound    = FSenOutLineRound;
     FDualSenLabel->SenOutSpace        = FSenOutSpace;
+    FDualSenLabel->SenBetweenSpace    = FSenBetweenSpace;
     FDualSenLabel->Caption            = Caption;
     FDualSenLabel->Height             = FHeightTitle;
 
@@ -507,20 +517,28 @@ void __fastcall TActuatorButton::SetSenRectRound(int v)
     }
 }
 
-void __fastcall TActuatorButton::SetSenOnL(bool   v)
+void __fastcall TActuatorButton::SetSenOnL(int Index, bool   v)
 {
-    if(FSenOnL != v) {
+    if((Index == 0) && (FSenOnL != v)) {
         FSenOnL = v;
         FDualSenLabel->SenOnL = v;
     }
+    else if((Index == 1) && FSenOnL2 != v) {
+        FSenOnL2 = v;
+        FDualSenLabel->SenOnL2 = v;
+    }
 }
 
-void __fastcall TActuatorButton::SetSenOnR(bool   v)
+void __fastcall TActuatorButton::SetSenOnR(int Index, bool   v)
 {
-    if(FSenOnR != v) {
+    if((Index == 0) && (FSenOnR != v)) {
         FSenOnR = v;
         FDualSenLabel->SenOnR = v;
     }
+    else if((Index == 1) && (FSenOnR2 != v)) {
+        FSenOnR2 = v;
+        FDualSenLabel->SenOnR2 = v;
+    }    
 }
 
 void __fastcall TActuatorButton::SetSenSpace(int    v)
@@ -539,20 +557,28 @@ void __fastcall TActuatorButton::SetSenLEDImage(bool v)
     }
 }
 
-void  __fastcall TActuatorButton::SetSenVisibleL(bool v)
+void  __fastcall TActuatorButton::SetSenVisibleL(int Index, bool v)
 {
-    if(FSenVisibleL != v) {
+    if((Index == 0) && (FSenVisibleL != v)) {
         FSenVisibleL = v;
         FDualSenLabel->SenVisibleL = v;
     }
+    else if((Index == 1) && (FSenVisibleL2 != v)) {
+        FSenVisibleL2 = v;
+        FDualSenLabel->SenVisibleL2 = v;
+    }    
 }
 
-void  __fastcall TActuatorButton::SetSenVisibleR(bool v)
+void  __fastcall TActuatorButton::SetSenVisibleR(int Index, bool v)
 {
-    if(FSenVisibleR != v) {
+    if((Index == 0) && (FSenVisibleR != v)) {
         FSenVisibleR = v;
         FDualSenLabel->SenVisibleR = v;
     }
+    else if((Index == 1) && (FSenVisibleR2 != v)) {
+        FSenVisibleR2 = v;
+        FDualSenLabel->SenVisibleR2 = v;
+    }    
 }
 
 
@@ -588,6 +614,13 @@ void __fastcall TActuatorButton::SetSenOutSpace(int       v)
     }
 }
 
+void __fastcall TActuatorButton::SetSenBetweenSpace(int       v)
+{
+    if(FSenBetweenSpace != v) {
+        FSenBetweenSpace = v;
+        FDualSenLabel->SenBetweenSpace = v;
+    }
+}
 
 void __fastcall TActuatorButton::SetHeightTitle(int v)
 {

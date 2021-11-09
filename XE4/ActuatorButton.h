@@ -64,7 +64,8 @@ private:
     TColor              FSenOutLineColor;
     int                 FSenOutLineRound;
     int                 FSenOutSpace;
-
+    int                 FSenBetweenSpace;
+    
     int                 FHeightTitle;
 
     Vcl::Graphics::TFont    *   FSenFont;          ///< 迄飘 漂己
@@ -73,6 +74,10 @@ private:
     bool                FSenOnL;        ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
     bool                FSenOnR;        ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
     
+    bool                FSenOnL2; 
+    bool                FSenOnR2;
+    bool                FSenVisibleL2;
+    bool                FSenVisibleR2;
 
     void                __fastcall SetCaptionLeft(TCaption s);
     void                __fastcall SetCaptionRight(TCaption s);
@@ -94,18 +99,20 @@ private:
     void                __fastcall SetSenWidth(int    v);
     void                __fastcall SetSenHeight(int    v);
     void                __fastcall SetSenRectRound(int v);
-    void                __fastcall SetSenOnL(bool   v);
-    void                __fastcall SetSenOnR(bool   v);
+    void                __fastcall SetSenOnL(int Index, bool   v);
+    void                __fastcall SetSenOnR(int Index, bool   v);
     void                __fastcall SetSenSpace(int    v);
     void                __fastcall SetSenLEDImage(bool v);
-    void                __fastcall SetSenVisibleL(bool v);
-    void                __fastcall SetSenVisibleR(bool v);
+    void                __fastcall SetSenVisibleL(int Index, bool v);
+    void                __fastcall SetSenVisibleR(int Index, bool v);
     void                __fastcall SetSenColorType(TSensorLedColorType  v);
 
     void                __fastcall SetSenOutLine(bool  v);
     void                __fastcall SetSenOutLineColor(TColor    v);
     void                __fastcall SetSenOutLineRound(int       v);
     void                __fastcall SetSenOutSpace(int       v);
+    void                __fastcall SetSenBetweenSpace(int       v);
+    
 
     void                __fastcall SetHeightTitle(int v);
     void                __fastcall SetMyCaption(TCaption v);
@@ -154,22 +161,30 @@ __published:
     __property  TColor              SenLineColor    = { read = FSenLineColor,   write = SetSenLineColor,    default = clBlack };
     __property  TColor              SenOnColor      = { read = FSenOnColor,     write = SetSenOnColor,      default = clLime };
     __property  TColor              SenOffColor     = { read = FSenOffColor,    write = SetSenOffColor,     default = clSilver };
-    __property  TSensorLedType      SenType         = { read = FSenType,        write = SetSenType,         default = slCircle };
+    __property  TSensorLedType      SenType         = { read = FSenType,        write = SetSenType,         default = slRect };
     __property  int                 SenWidth        = { read = FSenWidth,       write = SetSenWidth,        default = 15 };
     __property  int                 SenHeight       = { read = FSenHeight,      write = SetSenHeight,       default = 15 };
     __property  int                 SenRectRound    = { read = FSenRectRound,   write = SetSenRectRound,    default = 3  };
-    __property  bool                SenOnL          = { read = FSenOnL,         write = SetSenOnL,          default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
-    __property  bool                SenOnR          = { read = FSenOnR,         write = SetSenOnR,          default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenOnL          = { read = FSenOnL,         write = SetSenOnL,          index=0, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenOnR          = { read = FSenOnR,         write = SetSenOnR,          index=0, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
     __property  int                 SenSpace        = { read = FSenSpace,       write = SetSenSpace,        default = 5 };
     __property  bool                SenLEDImage     = { read = FSenLEDImage,    write = SetSenLEDImage,     default = true };
-    __property  bool                SenVisibleL     = { read = FSenVisibleL,    write = SetSenVisibleL,     default = true };
-    __property  bool                SenVisibleR     = { read = FSenVisibleR,    write = SetSenVisibleR,     default = true };
+    __property  bool                SenVisibleL     = { read = FSenVisibleL,    write = SetSenVisibleL,     index=0, default = true };
+    __property  bool                SenVisibleR     = { read = FSenVisibleR,    write = SetSenVisibleR,     index=0, default = true };
     __property  TSensorLedColorType SenColorType    = { read = FSenColorType,   write = SetSenColorType,    default = slColorGreen  };
+
+    __property  bool                SenOnL2         = { read = FSenOnL2,        write = SetSenOnL,          index=1, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenOnR2         = { read = FSenOnR2,        write = SetSenOnR,          index=1, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenVisibleL2    = { read = FSenVisibleL2,   write = SetSenVisibleL,     index=1, default = false };
+    __property  bool                SenVisibleR2    = { read = FSenVisibleR2,   write = SetSenVisibleR,     index=1, default = false };
 
     __property  bool            SenOutLine      = { read = FSenOutLine,     write = SetSenOutLine,      default = true };
     __property  TColor          SenOutLineColor = { read = FSenOutLineColor,write = SetSenOutLineColor, default = clBlack };;
     __property  int             SenOutLineRound = { read = FSenOutLineRound,write = SetSenOutLineRound, default = 0 };
-    __property  int             SenOutSpace     = { read = FSenOutSpace,    write = SetSenOutSpace,     default = 5 };
+    __property  int             SenOutSpace     = { read = FSenOutSpace,        write = SetSenOutSpace,     default = 5 };
+    __property  int             SenBetweenSpace = { read = FSenBetweenSpace,    write = SetSenBetweenSpace, default = 3 };
+
+    
 
     __property  int             HeightTitle     = { read = FHeightTitle,    write = SetHeightTitle,     default = 30 };
     __property Vcl::Graphics::TFont * SenFont   = { read = FSenFont,        write = SetSenFont,         stored = true     };

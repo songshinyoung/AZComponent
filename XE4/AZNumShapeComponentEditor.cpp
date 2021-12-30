@@ -92,13 +92,20 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
         fmEditor->Panel_ColorOldValueSelect->Color  = clBtnFace;
 
         fmEditor->Panel_ColorUnitNormal->Color      = pNumShape->AZ_Unit->Font->Color;
-        fmEditor->Panel_ColorUnitSelect->Color      = clBtnFace;
+		fmEditor->Panel_ColorUnitSelect->Color      = clBtnFace;
 
         fmEditor->Panel_ColorLineNormal->Color      = pNumShape->ColorSet->RectColor;
-        fmEditor->Panel_ColorLineSelect->Color      = pNumShape->ColorSet->ClickRectColor;
+		fmEditor->Panel_ColorLineSelect->Color      = pNumShape->ColorSet->ClickRectColor;
 
-        fmEditor->RadioGroup_Valuetype->ItemIndex   = pNumShape->InputEdit->Type;
-        fmEditor->Edit_DecimalPlaces->Text          = IntToStr(pNumShape->InputEdit->DecimalPlaces);
+		fmEditor->Panel_ColorValueShadow->Color     = pNumShape->ColorSet->FontShadowColor;
+
+		fmEditor->RadioGroup_Valuetype->ItemIndex   = pNumShape->InputEdit->Type;
+		fmEditor->RadioGroup_FixedDigit->ItemIndex  = pNumShape->FixedDigit ? 1 : 0;
+		fmEditor->Edit_DecimalPlaces->Text          = IntToStr(pNumShape->InputEdit->DecimalPlaces);
+		fmEditor->Edit_UpDecimals->Text          	= IntToStr(pNumShape->InputEdit->UpNumberOfDecimals);
+		fmEditor->Edit_DigitGap->Text          		= IntToStr(pNumShape->InputEdit->DigitGap);
+		fmEditor->Edit_DigitSize->Text          	= IntToStr(pNumShape->InputEdit->DigitSize);
+
         fmEditor->Edit_Space->Text                  = IntToStr(pNumShape->AZ_Space);
         fmEditor->Edit_OutlineRound->Text           = IntToStr(pNumShape->AZ_Round);
 
@@ -140,20 +147,31 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
             pNumShape->ColorSet->FontColor          = fmEditor->Panel_ColorValueNormal->Color;
             pNumShape->ColorSet->ClickFontColor     = fmEditor->Panel_ColorValueSelect->Color;
             pNumShape->ColorSet->ChangedFontColor   = fmEditor->Panel_ColorValueChanged->Color;
-
-            pNumShape->ColorSet->BGColor            = fmEditor->Panel_ColorBGNormal->Color;
+			pNumShape->ColorSet->BGColor            = fmEditor->Panel_ColorBGNormal->Color;
             pNumShape->ColorSet->ClickBGColor       = fmEditor->Panel_ColorBGSelect->Color;
+			pNumShape->ColorSet->OldValueColor      = fmEditor->Panel_ColorOldValueNormal->Color;
+			pNumShape->ColorSet->RectColor          = fmEditor->Panel_ColorLineNormal->Color;
+			pNumShape->ColorSet->ClickRectColor     = fmEditor->Panel_ColorLineSelect->Color;
+			pNumShape->ColorSet->FontShadowColor	= fmEditor->Panel_ColorValueShadow->Color;
+			pNumShape->AZ_Unit->Font->Color         = fmEditor->Panel_ColorUnitNormal->Color;
 
-            pNumShape->ColorSet->OldValueColor      = fmEditor->Panel_ColorOldValueNormal->Color;
-            pNumShape->AZ_Unit->Font->Color         = fmEditor->Panel_ColorUnitNormal->Color;
-            pNumShape->ColorSet->RectColor          = fmEditor->Panel_ColorLineNormal->Color;
-            pNumShape->ColorSet->ClickRectColor     = fmEditor->Panel_ColorLineSelect->Color;
+			AnsiString sTemp;
 
-            AnsiString sTemp;
 			pNumShape->InputEdit->Type          = (TInputNumType)fmEditor->RadioGroup_Valuetype->ItemIndex;
+			pNumShape->FixedDigit				= fmEditor->RadioGroup_FixedDigit->ItemIndex == 0 ? false : true;
 
-            sTemp = fmEditor->Edit_DecimalPlaces->Text;
-            pNumShape->InputEdit->DecimalPlaces = sTemp.ToIntDef(0);
+			sTemp = fmEditor->Edit_DecimalPlaces->Text;
+			pNumShape->InputEdit->DecimalPlaces = sTemp.ToIntDef(0);
+
+			sTemp = fmEditor->Edit_UpDecimals->Text;
+			pNumShape->InputEdit->UpNumberOfDecimals = sTemp.ToIntDef(0);
+
+			sTemp = fmEditor->Edit_DigitGap->Text;
+			pNumShape->InputEdit->DigitGap = sTemp.ToIntDef(0);
+
+			sTemp = fmEditor->Edit_DigitSize->Text;
+			pNumShape->InputEdit->DigitSize = sTemp.ToIntDef(0);
+
 
             sTemp = fmEditor->Edit_Space->Text;
             pNumShape->AZ_Space                 = sTemp.ToIntDef(0);

@@ -4,56 +4,58 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'AZ Num Shape Property Editor'
-  ClientHeight = 450
-  ClientWidth = 487
+  ClientHeight = 580
+  ClientWidth = 482
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poOwnerFormCenter
   OnCreate = FormCreate
   OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel25: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 415
-    Width = 481
+    Top = 545
+    Width = 476
     Height = 32
     Align = alBottom
     BevelOuter = bvNone
     TabOrder = 0
-    object Button2: TButton
-      Left = 321
+    object Button_Cancel: TButton
+      Left = 316
       Top = 0
       Width = 80
       Height = 32
       Align = alRight
       Caption = 'Cancel'
       TabOrder = 0
-      OnClick = Button2Click
+      OnClick = Button_CancelClick
     end
-    object Button1: TButton
-      Left = 401
+    object Button_Ok: TButton
+      Left = 396
       Top = 0
       Width = 80
       Height = 32
       Align = alRight
       Caption = 'OK'
       TabOrder = 1
-      OnClick = Button1Click
+      OnClick = Button_OkClick
     end
   end
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 487
-    Height = 412
+    Width = 482
+    Height = 542
     ActivePage = TabSheet1
     Align = alClient
     TabHeight = 25
@@ -65,8 +67,8 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         AlignWithMargins = True
         Left = 3
         Top = 1
-        Width = 473
-        Height = 213
+        Width = 468
+        Height = 243
         Margins.Top = 1
         Align = alTop
         BevelKind = bkFlat
@@ -74,10 +76,10 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         TabOrder = 0
         object ColorListBox1: TColorListBox
           AlignWithMargins = True
-          Left = 330
+          Left = 325
           Top = 26
           Width = 136
-          Height = 180
+          Height = 210
           Align = alRight
           TabOrder = 0
           OnClick = ColorListBox1Click
@@ -87,15 +89,15 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           AlignWithMargins = True
           Left = 3
           Top = 26
-          Width = 321
-          Height = 180
+          Width = 316
+          Height = 210
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
           object Panel2: TPanel
             Left = 0
             Top = 0
-            Width = 321
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
@@ -103,7 +105,7 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             object Panel7: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -120,9 +122,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
               TabOrder = 0
             end
             object Panel8: TPanel
-              Left = 80
+              Left = 90
               Top = 0
-              Width = 80
+              Width = 75
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -139,9 +141,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
               TabOrder = 1
             end
             object Panel10: TPanel
-              Left = 160
+              Left = 165
               Top = 0
-              Width = 80
+              Width = 75
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -160,7 +162,7 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             object Panel15: TPanel
               Left = 240
               Top = 0
-              Width = 80
+              Width = 75
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -180,20 +182,22 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           object Panel3: TPanel
             Left = 0
             Top = 30
-            Width = 321
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
             TabOrder = 1
             object Panel6: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
               BevelOuter = bvNone
-              Caption = 'Value'
+              Caption = 'Font'
               Color = clMedGray
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWhite
@@ -205,12 +209,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
               TabOrder = 0
             end
             object Panel_ColorValueNormal: TPanel
-              Left = 80
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Normal'
               ParentBiDiMode = False
@@ -220,12 +229,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorValueSelect: TPanel
               Tag = 2
-              Left = 160
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Selected'
               ParentBiDiMode = False
@@ -235,12 +249,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorValueChanged: TPanel
               Tag = 2
-              Left = 240
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Changed'
               ParentBiDiMode = False
@@ -251,16 +270,18 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           end
           object Panel16: TPanel
             Left = 0
-            Top = 60
-            Width = 321
+            Top = 90
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
             TabOrder = 2
             object Panel17: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -278,12 +299,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorBGSelect: TPanel
               Tag = 22
-              Left = 160
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Selected'
               Font.Charset = DEFAULT_CHARSET
@@ -299,32 +325,71 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorBGNormal: TPanel
               Tag = 20
-              Left = 80
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Normal'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
               ParentBiDiMode = False
               ParentBackground = False
+              ParentFont = False
               TabOrder = 2
+              OnClick = Panel_ColorValueNormalClick
+            end
+            object Panel30: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
               OnClick = Panel_ColorValueNormalClick
             end
           end
           object Panel4: TPanel
             Left = 0
-            Top = 90
-            Width = 321
+            Top = 120
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
             TabOrder = 3
             object Panel11: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -342,14 +407,18 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorOldValueSelect: TPanel
               Tag = 12
-              Left = 160
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
-              Caption = 'Selected'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clGray
@@ -364,12 +433,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorOldValueNormal: TPanel
               Tag = 10
-              Left = 80
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Normal'
               ParentBiDiMode = False
@@ -377,19 +451,47 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
               TabOrder = 2
               OnClick = Panel_ColorValueNormalClick
             end
+            object Panel31: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
+              OnClick = Panel_ColorValueNormalClick
+            end
           end
           object Panel5: TPanel
             Left = 0
-            Top = 120
-            Width = 321
+            Top = 150
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
             TabOrder = 4
             object Panel12: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -407,14 +509,18 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorUnitSelect: TPanel
               Tag = 22
-              Left = 160
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
-              Caption = 'Selected'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clGray
@@ -429,12 +535,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorUnitNormal: TPanel
               Tag = 20
-              Left = 80
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Normal'
               ParentBiDiMode = False
@@ -442,19 +553,47 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
               TabOrder = 2
               OnClick = Panel_ColorValueNormalClick
             end
+            object Panel34: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
+              OnClick = Panel_ColorValueNormalClick
+            end
           end
           object Panel13: TPanel
             Left = 0
-            Top = 150
-            Width = 321
+            Top = 180
+            Width = 316
             Height = 30
             Align = alTop
             BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
             TabOrder = 5
             object Panel14: TPanel
               Left = 0
               Top = 0
-              Width = 80
+              Width = 90
               Height = 30
               Align = alLeft
               BevelKind = bkFlat
@@ -472,12 +611,17 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorLineSelect: TPanel
               Tag = 32
-              Left = 160
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 28
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 1
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Selected'
               Font.Charset = DEFAULT_CHARSET
@@ -493,17 +637,150 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             end
             object Panel_ColorLineNormal: TPanel
               Tag = 30
-              Left = 80
-              Top = 0
-              Width = 80
-              Height = 30
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 28
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 1
               Align = alLeft
-              BevelWidth = 2
+              BevelOuter = bvNone
               BiDiMode = bdLeftToRight
               Caption = 'Normal'
               ParentBiDiMode = False
               ParentBackground = False
               TabOrder = 2
+              OnClick = Panel_ColorValueNormalClick
+            end
+            object Panel44: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 28
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 1
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
+              OnClick = Panel_ColorValueNormalClick
+            end
+          end
+          object Panel32: TPanel
+            Left = 0
+            Top = 60
+            Width = 316
+            Height = 30
+            Align = alTop
+            BevelOuter = bvNone
+            Color = clGray
+            ParentBackground = False
+            TabOrder = 6
+            object Panel33: TPanel
+              Left = 0
+              Top = 0
+              Width = 90
+              Height = 30
+              Align = alLeft
+              BevelKind = bkFlat
+              BevelOuter = bvNone
+              Caption = 'Font Shadow'
+              Color = clMedGray
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWhite
+              Font.Height = -13
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 0
+            end
+            object Panel_ColorValueShadow_Select: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 166
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 1
+              OnClick = Panel_ColorValueNormalClick
+            end
+            object Panel_ColorValueShadow: TPanel
+              Tag = 20
+              AlignWithMargins = True
+              Left = 91
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Caption = 'Normal'
+              ParentBiDiMode = False
+              ParentBackground = False
+              TabOrder = 2
+              OnClick = Panel_ColorValueNormalClick
+            end
+            object Panel29: TPanel
+              Tag = 22
+              AlignWithMargins = True
+              Left = 241
+              Top = 1
+              Width = 74
+              Height = 29
+              Margins.Left = 1
+              Margins.Top = 1
+              Margins.Right = 0
+              Margins.Bottom = 0
+              Align = alLeft
+              BevelOuter = bvNone
+              BiDiMode = bdLeftToRight
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlack
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentBiDiMode = False
+              ParentBackground = False
+              ParentFont = False
+              TabOrder = 3
               OnClick = Panel_ColorValueNormalClick
             end
           end
@@ -512,7 +789,7 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 463
+          Width = 458
           Height = 20
           Margins.Bottom = 0
           Align = alTop
@@ -533,39 +810,45 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
       object Panel19: TPanel
         AlignWithMargins = True
         Left = 307
-        Top = 220
-        Width = 169
-        Height = 154
+        Top = 250
+        Width = 164
+        Height = 254
         Align = alClient
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 1
         object Label1: TLabel
-          Left = 16
+          Left = 8
           Top = 31
-          Width = 56
-          Height = 13
+          Width = 80
+          Height = 21
+          AutoSize = False
           Caption = 'Max. Value '
+          Layout = tlCenter
         end
         object Label2: TLabel
-          Left = 16
+          Left = 8
           Top = 58
-          Width = 52
-          Height = 13
+          Width = 80
+          Height = 21
+          AutoSize = False
           Caption = 'Min. Value '
+          Layout = tlCenter
         end
         object Label3: TLabel
-          Left = 16
+          Left = 8
           Top = 85
-          Width = 73
-          Height = 13
+          Width = 80
+          Height = 21
+          AutoSize = False
           Caption = 'Up/Down Value'
+          Layout = tlCenter
         end
         object Panel20: TPanel
           AlignWithMargins = True
           Left = 3
           Top = 3
-          Width = 159
+          Width = 154
           Height = 20
           Margins.Bottom = 0
           Align = alTop
@@ -583,9 +866,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           TabOrder = 0
         end
         object Edit_MaxValue: TEdit
-          Left = 103
+          Left = 87
           Top = 31
-          Width = 60
+          Width = 68
           Height = 21
           ImeName = 'Microsoft IME 2010'
           NumbersOnly = True
@@ -593,9 +876,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Text = '1000'
         end
         object Edit_MinValue: TEdit
-          Left = 103
+          Left = 87
           Top = 58
-          Width = 60
+          Width = 68
           Height = 21
           ImeName = 'Microsoft IME 2010'
           NumbersOnly = True
@@ -603,9 +886,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Text = '-1000'
         end
         object Edit_UpDownValue: TEdit
-          Left = 103
+          Left = 87
           Top = 85
-          Width = 60
+          Width = 68
           Height = 21
           ImeName = 'Microsoft IME 2010'
           NumbersOnly = True
@@ -614,44 +897,51 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         end
         object CheckBox_ReadOnly: TCheckBox
           Left = 16
-          Top = 112
+          Top = 113
           Width = 97
           Height = 17
           Caption = 'Read Only'
           TabOrder = 4
         end
+        object Panel24: TPanel
+          AlignWithMargins = True
+          Left = 3
+          Top = 148
+          Width = 159
+          Height = 20
+          Margins.Bottom = 0
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Old Value Setting'
+          Color = clGray
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 5
+        end
+        object CheckBox_OldValueVisible: TCheckBox
+          Left = 16
+          Top = 173
+          Width = 97
+          Height = 17
+          Caption = 'Old Value Visible'
+          TabOrder = 6
+        end
       end
       object Panel21: TPanel
         AlignWithMargins = True
         Left = 3
-        Top = 220
+        Top = 250
         Width = 144
-        Height = 154
+        Height = 254
         Align = alLeft
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 2
-        object Label4: TLabel
-          Left = 8
-          Top = 81
-          Width = 69
-          Height = 13
-          Caption = 'Decimal Places'
-        end
-        object Label5: TLabel
-          Left = 8
-          Top = 129
-          Width = 77
-          Height = 13
-          Caption = 'Out Line Round '
-        end
-        object Label6: TLabel
-          Left = 8
-          Top = 105
-          Width = 29
-          Height = 13
-          Caption = 'Space'
-        end
         object Panel22: TPanel
           AlignWithMargins = True
           Left = 3
@@ -676,9 +966,9 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         object RadioGroup_Valuetype: TRadioGroup
           AlignWithMargins = True
           Left = 5
-          Top = 26
+          Top = 72
           Width = 130
-          Height = 49
+          Height = 40
           Margins.Left = 5
           Margins.Right = 5
           Align = alTop
@@ -690,112 +980,261 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             'Float')
           TabOrder = 1
         end
-        object Edit_DecimalPlaces: TEdit
-          Left = 95
-          Top = 81
-          Width = 26
-          Height = 21
-          ImeName = 'Microsoft IME 2010'
-          MaxLength = 1
-          NumbersOnly = True
+        object RadioGroup_FixedDigit: TRadioGroup
+          AlignWithMargins = True
+          Left = 5
+          Top = 26
+          Width = 130
+          Height = 40
+          Margins.Left = 5
+          Margins.Right = 5
+          Align = alTop
+          Caption = 'Fixed Digit'
+          Columns = 2
+          ItemIndex = 0
+          Items.Strings = (
+            'false'
+            'true')
           TabOrder = 2
-          Text = '3'
         end
-        object Edit_OutlineRound: TEdit
-          Left = 95
-          Top = 129
-          Width = 38
-          Height = 21
-          ImeName = 'Microsoft IME 2010'
-          MaxLength = 2
-          NumbersOnly = True
+        object Panel35: TPanel
+          Left = 0
+          Top = 115
+          Width = 102
+          Height = 135
+          Align = alLeft
+          BevelOuter = bvNone
+          ShowCaption = False
           TabOrder = 3
-          Text = '5'
+          object Label4: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 1
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Decimal Places'
+            Layout = tlCenter
+            ExplicitWidth = 96
+          end
+          object Label6: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 89
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Space'
+            Layout = tlCenter
+            ExplicitLeft = 2
+            ExplicitTop = 145
+          end
+          object Label5: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 111
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Out Line Round '
+            Layout = tlCenter
+            ExplicitLeft = 2
+            ExplicitTop = 167
+          end
+          object Label21: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 45
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Digit Gap'
+            Layout = tlCenter
+            ExplicitTop = 47
+            ExplicitWidth = 96
+          end
+          object Label22: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 67
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Digit Size'
+            Layout = tlCenter
+            ExplicitTop = 70
+            ExplicitWidth = 96
+          end
+          object Label23: TLabel
+            AlignWithMargins = True
+            Left = 5
+            Top = 23
+            Width = 94
+            Height = 20
+            Margins.Left = 5
+            Margins.Top = 1
+            Margins.Bottom = 1
+            Align = alTop
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = 'Up Decimals'
+            Layout = tlCenter
+            ExplicitTop = 24
+            ExplicitWidth = 96
+          end
         end
-        object Edit_Space: TEdit
-          Left = 95
-          Top = 105
+        object Panel36: TPanel
+          Left = 102
+          Top = 115
           Width = 38
-          Height = 21
-          ImeName = 'Microsoft IME 2010'
-          MaxLength = 3
-          NumbersOnly = True
+          Height = 135
+          Align = alClient
+          BevelOuter = bvNone
+          Caption = 'Panel36'
+          ShowCaption = False
           TabOrder = 4
-          Text = '3'
+          object Edit_DecimalPlaces: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 1
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 1
+            NumbersOnly = True
+            TabOrder = 0
+            Text = '3'
+          end
+          object Edit_Space: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 89
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 3
+            NumbersOnly = True
+            TabOrder = 1
+            Text = '3'
+          end
+          object Edit_OutlineRound: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 111
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 2
+            NumbersOnly = True
+            TabOrder = 2
+            Text = '5'
+          end
+          object Edit_UpDecimals: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 23
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 3
+            NumbersOnly = True
+            TabOrder = 3
+          end
+          object Edit_DigitSize: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 67
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 3
+            NumbersOnly = True
+            TabOrder = 4
+          end
+          object Edit_DigitGap: TEdit
+            AlignWithMargins = True
+            Left = 1
+            Top = 45
+            Width = 36
+            Height = 20
+            Margins.Left = 1
+            Margins.Top = 1
+            Margins.Right = 1
+            Margins.Bottom = 1
+            Align = alTop
+            AutoSize = False
+            ImeName = 'Microsoft IME 2010'
+            MaxLength = 3
+            NumbersOnly = True
+            TabOrder = 5
+          end
         end
       end
       object Panel23: TPanel
         AlignWithMargins = True
         Left = 153
-        Top = 220
+        Top = 250
         Width = 148
-        Height = 154
+        Height = 254
         Align = alLeft
         BevelKind = bkFlat
         BevelOuter = bvNone
         TabOrder = 3
-        object Label_UnitWidth: TLabel
-          Left = 8
-          Top = 60
-          Width = 50
-          Height = 13
-          Caption = 'Unit Width'
-        end
-        object Label7: TLabel
-          Left = 8
-          Top = 79
-          Width = 49
-          Height = 13
-          Caption = 'Unit Name'
-        end
-        object Panel24: TPanel
-          AlignWithMargins = True
-          Left = 3
-          Top = 106
-          Width = 138
-          Height = 20
-          Margins.Bottom = 0
-          Alignment = taLeftJustify
-          BevelOuter = bvNone
-          Caption = '  Old Value Setting'
-          Color = clGray
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -13
-          Font.Name = 'Arial'
-          Font.Style = [fsBold]
-          ParentBackground = False
-          ParentFont = False
-          TabOrder = 0
-        end
-        object Edit_UnitWidth: TEdit
-          Left = 64
-          Top = 55
-          Width = 57
-          Height = 21
-          ImeName = 'Microsoft IME 2010'
-          MaxLength = 3
-          NumbersOnly = True
-          TabOrder = 1
-          Text = '3'
-        end
-        object CheckBox_UnitVisible: TCheckBox
-          Left = 8
-          Top = 32
-          Width = 97
-          Height = 17
-          Caption = 'Unit Visible'
-          TabOrder = 2
-        end
-        object Edit_Unit: TEdit
-          Left = 63
-          Top = 79
-          Width = 58
-          Height = 21
-          ImeName = 'Microsoft IME 2010'
-          TabOrder = 3
-          Text = 'unit'
-        end
         object Panel26: TPanel
           AlignWithMargins = True
           Left = 3
@@ -815,15 +1254,228 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Font.Style = [fsBold]
           ParentBackground = False
           ParentFont = False
-          TabOrder = 4
+          TabOrder = 0
         end
-        object CheckBox_OldValueVisible: TCheckBox
-          Left = 8
-          Top = 131
-          Width = 97
-          Height = 17
-          Caption = 'Old Value Visible'
-          TabOrder = 5
+        object Panel37: TPanel
+          AlignWithMargins = True
+          Left = 3
+          Top = 149
+          Width = 138
+          Height = 20
+          Margins.Bottom = 0
+          Align = alTop
+          Alignment = taLeftJustify
+          BevelOuter = bvNone
+          Caption = '  Edit Box Setting'
+          Color = clGray
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentBackground = False
+          ParentFont = False
+          TabOrder = 1
+        end
+        object Panel38: TPanel
+          Left = 0
+          Top = 23
+          Width = 144
+          Height = 123
+          Align = alTop
+          BevelOuter = bvNone
+          Caption = 'Panel38'
+          ShowCaption = False
+          TabOrder = 2
+          object CheckBox_UnitVisible: TCheckBox
+            AlignWithMargins = True
+            Left = 10
+            Top = 5
+            Width = 131
+            Height = 17
+            Margins.Left = 10
+            Margins.Top = 5
+            Align = alTop
+            Caption = 'Unit Visible'
+            TabOrder = 0
+          end
+          object Panel42: TPanel
+            Left = 0
+            Top = 25
+            Width = 89
+            Height = 98
+            Align = alLeft
+            BevelOuter = bvNone
+            Caption = 'Panel42'
+            ShowCaption = False
+            TabOrder = 1
+            object Label_UnitWidth: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 83
+              Height = 21
+              Margins.Bottom = 1
+              Align = alTop
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'Unit Width'
+              ExplicitLeft = 4
+              ExplicitTop = 4
+              ExplicitWidth = 73
+            end
+            object Label7: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 28
+              Width = 83
+              Height = 21
+              Margins.Bottom = 1
+              Align = alTop
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'Unit Name'
+              ExplicitLeft = 4
+              ExplicitTop = 31
+              ExplicitWidth = 73
+            end
+          end
+          object Panel43: TPanel
+            Left = 89
+            Top = 25
+            Width = 55
+            Height = 98
+            Align = alClient
+            BevelOuter = bvNone
+            Caption = 'Panel43'
+            ShowCaption = False
+            TabOrder = 2
+            object Edit_UnitWidth: TEdit
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 49
+              Height = 21
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              ImeName = 'Microsoft IME 2010'
+              MaxLength = 3
+              NumbersOnly = True
+              TabOrder = 0
+              Text = '3'
+            end
+            object Edit_Unit: TEdit
+              AlignWithMargins = True
+              Left = 3
+              Top = 28
+              Width = 49
+              Height = 21
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              ImeName = 'Microsoft IME 2010'
+              TabOrder = 1
+              Text = 'unit'
+            end
+          end
+        end
+        object Panel39: TPanel
+          Left = 0
+          Top = 169
+          Width = 144
+          Height = 55
+          Align = alTop
+          BevelOuter = bvNone
+          ShowCaption = False
+          TabOrder = 3
+          object Panel40: TPanel
+            Left = 0
+            Top = 0
+            Width = 89
+            Height = 55
+            Align = alLeft
+            BevelOuter = bvNone
+            ShowCaption = False
+            TabOrder = 0
+            object Label18: TLabel
+              AlignWithMargins = True
+              Left = 3
+              Top = 3
+              Width = 83
+              Height = 21
+              Margins.Bottom = 1
+              Align = alTop
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'Edit Box Width'
+              Color = clSilver
+              ParentColor = False
+              Transparent = True
+              Layout = tlCenter
+              ExplicitLeft = 1
+              ExplicitTop = 1
+              ExplicitWidth = 87
+            end
+            object Label19: TLabel
+              AlignWithMargins = True
+              Left = 1
+              Top = 28
+              Width = 87
+              Height = 21
+              Margins.Left = 1
+              Margins.Right = 1
+              Margins.Bottom = 1
+              Align = alTop
+              Alignment = taCenter
+              AutoSize = False
+              Caption = 'Edit Box Height'
+              Color = clSilver
+              ParentColor = False
+              Transparent = True
+              Layout = tlCenter
+              ExplicitTop = 23
+            end
+          end
+          object Panel41: TPanel
+            Left = 89
+            Top = 0
+            Width = 55
+            Height = 55
+            Align = alClient
+            BevelOuter = bvNone
+            Caption = 'Panel41'
+            ShowCaption = False
+            TabOrder = 1
+            object Edit_EditWidth: TEdit
+              AlignWithMargins = True
+              Left = 1
+              Top = 3
+              Width = 51
+              Height = 21
+              Margins.Left = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              ImeName = 'Microsoft IME 2010'
+              NumbersOnly = True
+              TabOrder = 0
+            end
+            object Edit_EditHeight: TEdit
+              AlignWithMargins = True
+              Left = 1
+              Top = 28
+              Width = 51
+              Height = 21
+              Margins.Left = 1
+              Margins.Bottom = 1
+              Align = alTop
+              AutoSize = False
+              ImeName = 'Microsoft IME 2010'
+              NumbersOnly = True
+              TabOrder = 1
+            end
+          end
         end
       end
     end
@@ -835,14 +1487,13 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         Left = 3
         Top = 3
         Width = 97
-        Height = 272
+        Height = 501
         Margins.Right = 0
         Align = alLeft
         BevelOuter = bvNone
         Color = 7368816
         ParentBackground = False
         TabOrder = 0
-        ExplicitHeight = 271
         object Label8: TLabel
           AlignWithMargins = True
           Left = 1
@@ -1048,7 +1699,7 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
         Left = 100
         Top = 3
         Width = 137
-        Height = 272
+        Height = 501
         Margins.Left = 0
         Align = alLeft
         BevelKind = bkFlat
@@ -1076,7 +1727,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Height = 21
           Align = alTop
           TabOrder = 0
-          ExplicitWidth = 131
         end
         object Edit_Title_Caption: TEdit
           AlignWithMargins = True
@@ -1087,7 +1737,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Align = alTop
           ImeName = 'Microsoft IME 2010'
           TabOrder = 1
-          ExplicitWidth = 131
         end
         object Edit_Title_Round: TEdit
           AlignWithMargins = True
@@ -1099,7 +1748,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           ImeName = 'Microsoft IME 2010'
           NumbersOnly = True
           TabOrder = 2
-          ExplicitWidth = 131
         end
         object Edit_Title_Space: TEdit
           AlignWithMargins = True
@@ -1111,7 +1759,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           ImeName = 'Microsoft IME 2010'
           NumbersOnly = True
           TabOrder = 3
-          ExplicitWidth = 131
         end
         object CheckBox_Title_Transparent: TCheckBox
           AlignWithMargins = True
@@ -1121,7 +1768,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Height = 21
           Align = alTop
           TabOrder = 4
-          ExplicitWidth = 131
         end
         object CheckBox_Title_OutLineVisible: TCheckBox
           AlignWithMargins = True
@@ -1131,7 +1777,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           Height = 21
           Align = alTop
           TabOrder = 5
-          ExplicitWidth = 131
         end
         object ComboBox_Title_Align: TComboBox
           AlignWithMargins = True
@@ -1148,7 +1793,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             'Right'
             'Top'
             'Bottom')
-          ExplicitWidth = 131
         end
         object ComboBox_Title_Alignment: TComboBox
           AlignWithMargins = True
@@ -1164,7 +1808,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
             'Left'
             'Right'
             'Center')
-          ExplicitWidth = 131
         end
         object Panel_Title_Color: TPanel
           AlignWithMargins = True
@@ -1181,7 +1824,6 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           ParentBackground = False
           TabOrder = 8
           OnClick = Panel_Title_ColorClick
-          ExplicitWidth = 131
         end
         object Panel_Title_OutLineColor: TPanel
           AlignWithMargins = True
@@ -1198,150 +1840,19 @@ object fmAZNumShapeEditor: TfmAZNumShapeEditor
           ParentBackground = False
           TabOrder = 9
           OnClick = Panel_Title_ColorClick
-          ExplicitWidth = 131
         end
       end
       object ColorListBox2: TColorListBox
         AlignWithMargins = True
         Left = 243
         Top = 3
-        Width = 233
-        Height = 270
+        Width = 228
+        Height = 499
         Margins.Bottom = 5
         Align = alClient
         TabOrder = 2
         OnClick = ColorListBox2Click
         OnDblClick = ColorListBox2DblClick
-        ExplicitHeight = 269
-      end
-      object Panel29: TPanel
-        AlignWithMargins = True
-        Left = 3
-        Top = 278
-        Width = 473
-        Height = 99
-        Margins.Top = 0
-        Margins.Bottom = 0
-        Align = alBottom
-        BevelOuter = bvNone
-        BiDiMode = bdLeftToRight
-        ParentBiDiMode = False
-        ParentBackground = False
-        TabOrder = 3
-        object Panel30: TPanel
-          AlignWithMargins = True
-          Left = 0
-          Top = 3
-          Width = 97
-          Height = 93
-          Margins.Left = 0
-          Margins.Right = 0
-          Align = alLeft
-          BevelOuter = bvNone
-          Color = 7368816
-          ParentBackground = False
-          TabOrder = 0
-          ExplicitLeft = 4
-          ExplicitTop = 4
-          ExplicitHeight = 92
-          object Label18: TLabel
-            AlignWithMargins = True
-            Left = 1
-            Top = 1
-            Width = 95
-            Height = 26
-            Margins.Left = 1
-            Margins.Top = 1
-            Margins.Right = 1
-            Margins.Bottom = 0
-            Align = alTop
-            Alignment = taCenter
-            AutoSize = False
-            Caption = 'Edit Box Width'
-            Color = clSilver
-            ParentColor = False
-            Transparent = False
-            Layout = tlCenter
-          end
-          object Label19: TLabel
-            AlignWithMargins = True
-            Left = 1
-            Top = 28
-            Width = 95
-            Height = 26
-            Margins.Left = 1
-            Margins.Top = 1
-            Margins.Right = 1
-            Margins.Bottom = 0
-            Align = alTop
-            Alignment = taCenter
-            AutoSize = False
-            Caption = 'Edit Box Height'
-            Color = clSilver
-            ParentColor = False
-            Transparent = False
-            Layout = tlCenter
-          end
-          object Label20: TLabel
-            AlignWithMargins = True
-            Left = 1
-            Top = 55
-            Width = 95
-            Height = 37
-            Margins.Left = 1
-            Margins.Top = 1
-            Margins.Right = 1
-            Margins.Bottom = 1
-            Align = alClient
-            Alignment = taCenter
-            AutoSize = False
-            Color = clSilver
-            ParentColor = False
-            Transparent = False
-            Layout = tlCenter
-            ExplicitTop = 75
-            ExplicitHeight = 26
-          end
-        end
-        object Panel31: TPanel
-          AlignWithMargins = True
-          Left = 97
-          Top = 3
-          Width = 137
-          Height = 93
-          Margins.Left = 0
-          Align = alLeft
-          BevelKind = bkFlat
-          BevelOuter = bvNone
-          ParentBackground = False
-          TabOrder = 1
-          object Edit_EditWidth: TEdit
-            AlignWithMargins = True
-            Left = 3
-            Top = 3
-            Width = 127
-            Height = 21
-            Align = alTop
-            ImeName = 'Microsoft IME 2010'
-            NumbersOnly = True
-            TabOrder = 0
-            ExplicitTop = 1
-            ExplicitWidth = 131
-          end
-          object Edit_EditHeight: TEdit
-            AlignWithMargins = True
-            Left = 3
-            Top = 30
-            Width = 127
-            Height = 21
-            Align = alTop
-            ImeName = 'Microsoft IME 2010'
-            NumbersOnly = True
-            TabOrder = 1
-            ExplicitTop = 28
-            ExplicitWidth = 131
-          end
-        end
       end
     end
   end

@@ -33,16 +33,19 @@ void __fastcall TfmAZNumShapeEditor::FormCreate(TObject *Sender)
     m_pColorpanels[3] = Panel_ColorBGNormal;
     m_pColorpanels[4] = Panel_ColorBGSelect;
 
-    m_pColorpanels[5] = Panel_ColorOldValueNormal;
+	m_pColorpanels[5] = Panel_ColorOldValueNormal;
     m_pColorpanels[6] = Panel_ColorOldValueSelect;
 
     m_pColorpanels[7] = Panel_ColorUnitNormal;
     m_pColorpanels[8] = Panel_ColorUnitSelect;
 
-    m_pColorpanels[9] = Panel_ColorLineNormal;
-    m_pColorpanels[10] = Panel_ColorLineSelect;
+	m_pColorpanels[9] = Panel_ColorLineNormal;
+	m_pColorpanels[10] = Panel_ColorLineSelect;
 
-    for(int i=0; i<11; i++) m_pColorpanels[i]->Tag = i;
+	m_pColorpanels[11] = Panel_ColorValueShadow;
+	m_pColorpanels[12] = Panel_ColorValueShadow_Select;
+
+	for(int i=0; i<13; i++) m_pColorpanels[i]->Tag = i;
 
     //-----------------------
     // Title Property ฐüทร
@@ -65,14 +68,14 @@ void __fastcall TfmAZNumShapeEditor::FormDestroy(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
-void __fastcall TfmAZNumShapeEditor::Button1Click(TObject *Sender)
+void __fastcall TfmAZNumShapeEditor::Button_OkClick(TObject *Sender)
 {
-    ModalResult  = mrOk;
+	ModalResult  = mrOk;
 }
 //---------------------------------------------------------------------------
-void __fastcall TfmAZNumShapeEditor::Button2Click(TObject *Sender)
+void __fastcall TfmAZNumShapeEditor::Button_CancelClick(TObject *Sender)
 {
-    ModalResult = mrCancel;
+	ModalResult = mrCancel;
 }
 //---------------------------------------------------------------------------
 void __fastcall TfmAZNumShapeEditor::ColorListBox1DblClick(TObject *Sender)
@@ -92,9 +95,16 @@ void __fastcall TfmAZNumShapeEditor::Panel_ColorValueNormalClick(TObject *Sender
     m_pSelectPanel = dynamic_cast<TPanel *>(Sender);
 
     if(m_pSelectPanel) {
-        for(int i=0; i<11; i++) m_pColorpanels[i]->BevelOuter = bvRaised;
-        m_pSelectPanel->BevelOuter = bvLowered;
-    }
+		for(int i=0; i<13; i++) {
+			m_pColorpanels[i]->BevelKind  = bkNone;
+			m_pColorpanels[i]->BevelOuter = bvNone;
+			m_pColorpanels[i]->Font->Style = TFontStyles() >> fsBold;
+		}
+
+		m_pSelectPanel->BevelKind 	= bkFlat;
+		m_pSelectPanel->BevelOuter 	= bvLowered;
+		m_pSelectPanel->Font->Style = TFontStyles() << fsBold;
+	}
 }
 //---------------------------------------------------------------------------
 
@@ -138,4 +148,21 @@ void __fastcall TfmAZNumShapeEditor::ColorListBox2DblClick(TObject *Sender)
 }
 //---------------------------------------------------------------------------
 
+
+void __fastcall TfmAZNumShapeEditor::FormKeyPress(TObject *Sender, System::WideChar &Key)
+
+{
+	switch(Key) {
+		case  VK_ESCAPE:
+			Key = 0;
+			ModalResult = mrCancel;
+			break;
+
+		case VK_RETURN:
+			Key = 0;
+			ModalResult  = mrOk;
+			break;
+	}
+}
+//---------------------------------------------------------------------------
 

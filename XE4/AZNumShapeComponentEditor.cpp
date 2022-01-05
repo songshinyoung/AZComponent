@@ -111,9 +111,11 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
 
         fmEditor->CheckBox_UnitVisible->Checked     = pNumShape->AZ_Unit->Visible;
         fmEditor->Edit_UnitWidth->Text              = IntToStr(pNumShape->AZ_Unit->Width);
-        fmEditor->Edit_Unit->Text                   = pNumShape->AZ_Unit->Str;
+		fmEditor->Edit_Unit->Text                   = pNumShape->AZ_Unit->Str;
+		fmEditor->Panel_UnitFont->Font				= pNumShape->AZ_Unit->Font;
+		fmEditor->Panel_UnitFont->Color				= pNumShape->ColorSet->BGColor;
 
-        fmEditor->CheckBox_OldValueVisible->Checked = pNumShape->AZ_OldValueDisplay;
+		fmEditor->CheckBox_OldValueVisible->Checked = pNumShape->AZ_OldValueDisplay;
 
         fmEditor->Edit_MaxValue->Text               = FormatFloat("#0.000", pNumShape->InputEdit->Max);
         fmEditor->Edit_MinValue->Text               = FormatFloat("#0.000", pNumShape->InputEdit->Min);
@@ -135,7 +137,12 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
         fmEditor->Panel_Title_Color->Color              = pNumShape->Title->Color;
         fmEditor->Panel_Title_OutLineColor->Color       = pNumShape->Title->OutLineColor;
         fmEditor->Edit_EditWidth->Text                  = pNumShape->EditWidth;
-        fmEditor->Edit_EditHeight->Text                 = pNumShape->EditHeight;
+		fmEditor->Edit_EditHeight->Text                 = pNumShape->EditHeight;
+		fmEditor->BitBtn_TitleFont->Font				= pNumShape->Title->Font;
+
+		//--------------------
+		// Value Preview 생성.
+		fmEditor->Edit_UpDecimalsChange(NULL);
 
 
         // Editor Form 실행.
@@ -176,17 +183,19 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
             sTemp = fmEditor->Edit_Space->Text;
             pNumShape->AZ_Space                 = sTemp.ToIntDef(0);
 
-            sTemp = fmEditor->Edit_OutlineRound->Text;
+			sTemp = fmEditor->Edit_OutlineRound->Text;
             pNumShape->AZ_Round                 = sTemp.ToIntDef(0);
 
             pNumShape->AZ_Unit->Visible         = fmEditor->CheckBox_UnitVisible->Checked;
 
             sTemp = fmEditor->Edit_UnitWidth->Text;
-            pNumShape->AZ_Unit->Width           = sTemp.ToIntDef(0);
+			pNumShape->AZ_Unit->Width           = sTemp.ToIntDef(0);
 
-            pNumShape->AZ_Unit->Str             = fmEditor->Edit_Unit->Text;
+			pNumShape->AZ_Unit->Str             = fmEditor->Edit_Unit->Text;
 
-            pNumShape->AZ_OldValueDisplay       = fmEditor->CheckBox_OldValueVisible->Checked;
+			pNumShape->AZ_Unit->Font			= fmEditor->Panel_UnitFont->Font;
+
+			pNumShape->AZ_OldValueDisplay       = fmEditor->CheckBox_OldValueVisible->Checked;
 
             sTemp = fmEditor->Edit_MaxValue->Text;
             pNumShape->InputEdit->Max           = sTemp.ToDouble();
@@ -212,7 +221,9 @@ void __fastcall TAZNumShapeEditor::ShowEditor()
 			pNumShape->Title->Align         = (TCaptionAlign)fmEditor->ComboBox_Title_Align->ItemIndex;
 			pNumShape->Title->Alignment     = (System::Classes::TAlignment)fmEditor->ComboBox_Title_Alignment->ItemIndex;
             pNumShape->Title->Color         = fmEditor->Panel_Title_Color->Color;
-            pNumShape->Title->OutLineColor  = fmEditor->Panel_Title_OutLineColor->Color;
+			pNumShape->Title->OutLineColor  = fmEditor->Panel_Title_OutLineColor->Color;
+			pNumShape->Title->Font			= fmEditor->BitBtn_TitleFont->Font;
+
             sTemp = fmEditor->Edit_EditWidth->Text;
 			pNumShape->EditWidth            = sTemp.ToIntDef(0);
             sTemp = fmEditor->Edit_EditHeight->Text;

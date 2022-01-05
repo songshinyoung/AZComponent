@@ -10,6 +10,7 @@
 #include <Vcl.Dialogs.hpp>
 #include <Vcl.ExtCtrls.hpp>
 #include <Vcl.ComCtrls.hpp>
+#include <Vcl.Buttons.hpp>
 
 
 
@@ -91,7 +92,6 @@ __published:    // IDE-managed Components
     TPanel *Panel_Title_Color;
     TPanel *Panel_Title_OutLineColor;
     TColorListBox *ColorListBox2;
-    TBevel *Bevel2;
 	TPanel *Panel32;
 	TPanel *Panel33;
 	TPanel *Panel_ColorValueShadow_Select;
@@ -102,7 +102,6 @@ __published:    // IDE-managed Components
 	TLabel *Label6;
 	TLabel *Label5;
 	TPanel *Panel36;
-	TEdit *Edit_DecimalPlaces;
 	TEdit *Edit_Space;
 	TEdit *Edit_OutlineRound;
 	TLabel *Label21;
@@ -134,6 +133,19 @@ __published:    // IDE-managed Components
 	TPanel *Panel31;
 	TPanel *Panel34;
 	TPanel *Panel44;
+	TEdit *Edit_DecimalPlaces;
+	TBitBtn *BitBtn_UnitFont;
+	TFontDialog *FontDialog1;
+	TPanel *Panel_UnitFont;
+	TPanel *Panel_PreView;
+	TPanel *Panel45;
+	TPanel *Panel_Title_Align_Left;
+	TPanel *Panel_Caption_ValuePreview;
+	TPanel *Panel_Title_Align_Right;
+	TPanel *Panel_Title_Align_Top;
+	TPanel *Panel_Title_Align_Btm;
+	TLabel *Label20;
+	TBitBtn *BitBtn_TitleFont;
     void __fastcall Button_OkClick(TObject *Sender);
     void __fastcall Button_CancelClick(TObject *Sender);
     void __fastcall ColorListBox1DblClick(TObject *Sender);
@@ -146,13 +158,30 @@ __published:    // IDE-managed Components
     void __fastcall ColorListBox2Click(TObject *Sender);
     void __fastcall ColorListBox2DblClick(TObject *Sender);
 	void __fastcall FormKeyPress(TObject *Sender, System::WideChar &Key);
+	void __fastcall BitBtn_UnitFontClick(TObject *Sender);
+	void __fastcall Edit_UnitChange(TObject *Sender);
+	void __fastcall Panel_UnitFontClick(TObject *Sender);
+	void __fastcall Edit_UpDecimalsChange(TObject *Sender);
+	void __fastcall RadioGroup_ValuetypeClick(TObject *Sender);
+	void __fastcall PageControl1Change(TObject *Sender);
+	void __fastcall BitBtn_TitleFontClick(TObject *Sender);
+	void __fastcall ComboBox_Title_AlignChange(TObject *Sender);
+	void __fastcall ComboBox_Title_AlignmentChange(TObject *Sender);
+	void __fastcall CheckBox_Title_TransparentClick(TObject *Sender);
+	void __fastcall CheckBox_Title_OutLineVisibleClick(TObject *Sender);
+	void __fastcall Edit_Title_CaptionChange(TObject *Sender);
+	void __fastcall Panel_Title_Align_LeftClick(TObject *Sender);
+	void __fastcall CheckBox_Title_VisibleClick(TObject *Sender);
 private:    // User declarations
     TPanel * m_pSelectPanel;
 	TPanel * m_pColorpanels[13];
 
     //--------------------------
     TPanel * m_pTitleSelectPanel;
-    TPanel * m_pTitleColorPanels[2];
+	TPanel * m_pTitleColorPanels[2];
+	TPanel * m_pPanelTitleAlgin[4];
+
+	void __fastcall DisplayTitle(bool bAllUpdate = false);
 
 public:        // User declarations
     __fastcall TfmAZNumShapeEditor(TComponent* Owner);

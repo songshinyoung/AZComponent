@@ -935,6 +935,8 @@ void __fastcall TAZNumShape::PaintValue()
 
         BuffCanvas->Font->Assign(FUnit->Font);
 
+        if(!Enabled) BuffCanvas->Font->Color = clGray;
+
         nTxtW = BuffCanvas->TextWidth(FUnit->Str);
         nTxtH = BuffCanvas->TextHeight(FUnit->Str);
         // Unit Align CENTER.

@@ -3,7 +3,7 @@ object fmNumPad_AZ: TfmNumPad_AZ
   Top = 275
   BorderIcons = []
   Caption = 'Number Pad'
-  ClientHeight = 507
+  ClientHeight = 668
   ClientWidth = 379
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -2927,5 +2927,123 @@ object fmNumPad_AZ: TfmNumPad_AZ
     ParentBackground = False
     ParentFont = False
     TabOrder = 6
+  end
+  object GroupBox_Encoder: TGroupBox
+    Left = 8
+    Top = 520
+    Width = 361
+    Height = 143
+    Caption = '[ Current Encoder Value ] '
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 7
+    Visible = False
+    object SpeedButton_EnterEncoderValue: TSpeedButton
+      Left = 23
+      Top = 72
+      Width = 74
+      Height = 41
+      Caption = 'Enter Encoder Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 2333213
+      Font.Height = -19
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      NumGlyphs = 4
+      ParentFont = False
+      Spacing = 10
+      Visible = False
+      OnClick = SpeedButton_EnterEncoderValueClick
+    end
+    object Panel_Encoder_Title: TPanel
+      Left = 11
+      Top = 25
+      Width = 189
+      Height = 41
+      BevelKind = bkFlat
+      BevelOuter = bvNone
+      Caption = 'Encoder'
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 0
+    end
+    object Panel2: TPanel
+      Left = 200
+      Top = 25
+      Width = 151
+      Height = 41
+      BevelOuter = bvLowered
+      Caption = 'Panel1'
+      Color = clBlack
+      ParentBackground = False
+      ShowCaption = False
+      TabOrder = 1
+      object Label_Encoder_Value: TLabel
+        AlignWithMargins = True
+        Left = 4
+        Top = 4
+        Width = 107
+        Height = 33
+        Margins.Right = 1
+        Align = alLeft
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = '0000.000'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clLime
+        Font.Height = -21
+        Font.Name = 'Arial'
+        Font.Style = [fsBold]
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitTop = 5
+      end
+      object Label_Encoder_unit: TLabel
+        AlignWithMargins = True
+        Left = 113
+        Top = 4
+        Width = 34
+        Height = 33
+        Margins.Left = 1
+        Align = alClient
+        Alignment = taCenter
+        Caption = 'mm'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clSilver
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitWidth = 26
+        ExplicitHeight = 18
+      end
+    end
+    object BitBtn_EnterEncoderValue: TBitBtn
+      Left = 200
+      Top = 68
+      Width = 151
+      Height = 68
+      Caption = 'Enter Encoder Value'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 1467154
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      WordWrap = True
+      OnClick = BitBtn_EnterEncoderValueClick
+    end
   end
 end

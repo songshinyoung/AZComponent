@@ -260,6 +260,11 @@ private:
     int     m_nTitleWidth;      // Title 이 차지하는 전체 크기
     int     m_nTitleHeight;     // Title 이 차지하는 전체 크기
 
+    bool            m_bEncoderButtonEnable;
+    TAZNumShape *   m_pEncoderAZNumShape;
+    AnsiString      m_sEncoderTitle;
+    AnsiString      m_sEncoderUnit;
+
 
 private:
     void __fastcall DrawImageTrans(    Graphics::TBitmap* pDest,
@@ -335,11 +340,11 @@ public:
     void            __fastcall BeginUpdate();
     void            __fastcall EndUpdate();
 
-
+	void            __fastcall SetEncoderButton(bool bEnable, AnsiString sTitle, AnsiString unit, TAZNumShape * pAZNumShape);  // , TAZNumShape *pAZNumShape, , AnsiString sUnit
 
 __published:
 
-    // 속성 -----------------------
+	// 속성 -----------------------
     __property TNumUnitProperty       * AZ_Unit     = { read = FUnit,       write = SetUnit };
     __property TNumShapeColorProperty * ColorSet    = { read = FColorSet,   write = SetColorSet };
 	__property TAZEditBoxProperty     * InputEdit   = { read = FInputEdit,  write = SetInputEdit };

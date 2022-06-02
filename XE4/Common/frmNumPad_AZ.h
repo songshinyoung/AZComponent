@@ -52,6 +52,13 @@ __published:    // IDE-managed Components
     TPanel *Panel_Min;
     TPanel *Panel_Max;
     TPanel *Panel_OrgValue;
+	TGroupBox *GroupBox_Encoder;
+	TPanel *Panel_Encoder_Title;
+	TPanel *Panel2;
+	TLabel *Label_Encoder_Value;
+	TLabel *Label_Encoder_unit;
+	TSpeedButton *SpeedButton_EnterEncoderValue;
+	TBitBtn *BitBtn_EnterEncoderValue;
     void __fastcall SpeedButton1Click(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall FormCreate(TObject *Sender);
@@ -66,6 +73,8 @@ __published:    // IDE-managed Components
     void __fastcall FormKeyPress(TObject *Sender, wchar_t &Key);
     void __fastcall SpeedButton_UpClick(TObject *Sender);
     void __fastcall SpeedButton_DownClick(TObject *Sender);
+	void __fastcall SpeedButton_EnterEncoderValueClick(TObject *Sender);
+	void __fastcall BitBtn_EnterEncoderValueClick(TObject *Sender);
 private:    // User declarations
     AnsiString m_sInputNum;
     bool    m_bDotIntput;
@@ -85,6 +94,11 @@ private:    // User declarations
     double      m_dAddValue;
     AnsiString  m_sAddValue;
 
+    bool        m_bEnableEncoderButton;
+    double      m_dEncoderValue;
+    AnsiString  m_sEncoderUnit;
+    AnsiString  m_sEncoderTitle;
+
     void __fastcall DisplayUpdate(AnsiString sValue);
     void __fastcall InputNumber(int nNumber);
     bool __fastcall CheckMinMaxValule(AnsiString sValue);
@@ -94,6 +108,9 @@ private:    // User declarations
 
 public:        // User declarations
     __fastcall TfmNumPad_AZ(TComponent* Owner, int nType, double dMin, double dMax, double dCurnt, AnsiString * sReturn, double dUpDownValue = 1.0, int nDecimalPlaces = 3);
+
+    void __fastcall SetEncoderButton(bool bEnable, double dEncoder, AnsiString sTitle, AnsiString sUnit = "mm");
+    
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TfmNumPad_AZ *fmNumPad_AZ;

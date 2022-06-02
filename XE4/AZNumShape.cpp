@@ -112,6 +112,12 @@ __fastcall TAZNumShape::TAZNumShape(TComponent* Owner)
 
     bBeginUpdate        = false;
 
+    m_bEncoderButtonEnable  = false;
+    m_pEncoderAZNumShape    = NULL;
+    m_sEncoderTitle         = "";
+    m_sEncoderUnit          = "";
+    
+
     //------------------------------------------------
     // Unit Property »ý¼º.
     FUnit             = new TNumUnitProperty();
@@ -1677,6 +1683,12 @@ bool     __fastcall TAZNumShape::InputNumber(TObject *Sender)
                                         FInputEdit->UpDownValue,
                                         FInputEdit->DecimalPlaces);
 
+    if(m_bEncoderButtonEnable) {
+        if(m_pEncoderAZNumShape != NULL) {
+            pForm->SetEncoderButton(m_bEncoderButtonEnable, m_pEncoderAZNumShape->AZ_Value, m_sEncoderTitle, m_sEncoderUnit);
+        }
+    }
+
     int nRet = pForm->ShowModal();
 
     delete pForm;
@@ -1882,6 +1894,15 @@ void    __fastcall TAZNumShape::SetFixedDigit(bool b)
     }
 }
 
+//----------------------------------------------------------------------------
+
+void  __fastcall TAZNumShape::SetEncoderButton(bool bEnable, AnsiString sTitle, AnsiString unit, TAZNumShape * pAZNumShape) // , TAZNumShape *pAZNumShape, AnsiString sTitle, AnsiString sUnit
+{
+    m_bEncoderButtonEnable  = bEnable;
+    m_pEncoderAZNumShape    = pAZNumShape;
+    m_sEncoderTitle         = sTitle;
+    m_sEncoderUnit          = unit;
+}
 
 
 //---------------------------------------------------------------------------

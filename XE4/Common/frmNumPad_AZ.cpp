@@ -48,6 +48,10 @@ __fastcall TfmNumPad_AZ::TfmNumPad_AZ(TComponent* Owner, int nType, double dMin,
     m_Mode          = eMODE_NORMAL;
     m_dAddValue     = 0;
 
+    m_bEnableEncoderButton  = false;
+    m_dEncoderValue         = 0;
+    
+
 }
 //---------------------------------------------------------------------------
 
@@ -388,6 +392,9 @@ void __fastcall TfmNumPad_AZ::FormCreate(TObject *Sender)
 
 void __fastcall TfmNumPad_AZ::Init(double Current)
 {
+    this->Height = 546;
+
+
     switch(m_InputType) {
         case DEF_NUM_PAD_INT:
             m_sInputNum = IntToStr((int)Current);
@@ -469,6 +476,25 @@ void __fastcall TfmNumPad_AZ::FormDestroy(TObject *Sender)
 
 void __fastcall TfmNumPad_AZ::FormShow(TObject *Sender)
 {
+    if(m_bEnableEncoderButton) {
+        this->Height                = 707;
+        GroupBox_Encoder->Visible   = true;
+
+        AnsiString sEncoder;
+        sEncoder.printf("%0.3f", m_dEncoderValue);
+
+        Label_Encoder_Value->Caption    = sEncoder;
+        Label_Encoder_unit->Caption     = m_sEncoderUnit;
+		Panel_Encoder_Title->Caption    = m_sEncoderTitle;
+
+		BitBtn_EnterEncoderValue->Caption = "Enter\r\nEncoder Value";
+    }
+    else {
+        this->Height                = 546;
+        GroupBox_Encoder->Visible   = false;
+    }
+
+
 #if LKDIGIT_PANEL_USE
     switch(m_InputType) {
         case DEF_NUM_PAD_INT:
@@ -543,7 +569,7 @@ AnsiString __fastcall TfmNumPad_AZ::CheckNumString(AnsiString s)
 //---------------------------------------------------------------------------
 void __fastcall TfmNumPad_AZ::SpeedButton_OKClick(TObject *Sender)
 {
-    AnsiString sTemp;
+	AnsiString sTemp;
     AnsiString sPrint;
 
     switch(m_Mode) {
@@ -619,6 +645,24 @@ void __fastcall TfmNumPad_AZ::SpeedButton_OKClick(TObject *Sender)
 
 
 
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmNumPad_AZ::SpeedButton_EnterEncoderValueClick(TObject *Sender)
+{
+	AnsiString sEncoder = Label_Encoder_Value->Caption;
+    
+    *m_pReturnStr = sEncoder;
+    
+    ModalResult  = mrOk;
+}
+//---------------------------------------------------------------------------
+void __fastcall TfmNumPad_AZ::BitBtn_EnterEncoderValueClick(TObject *Sender)
+{
+	AnsiString sEncoder = Label_Encoder_Value->Caption;
+
+	*m_pReturnStr = sEncoder;
+
+	ModalResult  = mrOk;
 }
 //---------------------------------------------------------------------------
 
@@ -1001,4 +1045,14 @@ void __fastcall TfmNumPad_AZ::SpeedButton_DownClick(TObject *Sender)
 #endif
 }
 //---------------------------------------------------------------------------
+
+void __fastcall TfmNumPad_AZ::SetEncoderButton(bool bEnable, double dEncoder, AnsiString sTitle, AnsiString sUnit)
+{
+    m_bEnableEncoderButton  = bEnable;
+    m_dEncoderValue         = dEncoder;
+    m_sEncoderTitle         = sTitle;
+    m_sEncoderUnit          = sUnit;
+}
+//---------------------------------------------------------------------------
+
 

@@ -50,6 +50,16 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     FSenOnR2            = false;
     FSenVisibleL2       = false;
     FSenVisibleR2       = false;
+
+    FSenOnL3            = false;
+    FSenOnR3            = false;
+    FSenVisibleL3       = false;
+    FSenVisibleR3       = false;
+
+    FSenOnL4            = false;
+    FSenOnR4            = false;
+    FSenVisibleL4       = false;
+    FSenVisibleR4       = false;
     
     FSenOutLine         = true;
     FSenOutLineColor    = clBlack;
@@ -120,9 +130,13 @@ void __fastcall TDualSensorLabel::Paint()
     
     DrawSensorL();
     DrawSensorL2();
-    
+    DrawSensorL3();
+    DrawSensorL4();
+
     DrawSensorR();
     DrawSensorR2();
+    DrawSensorR3();
+    DrawSensorR4();
     
     DrawTitle();
 }
@@ -426,6 +440,222 @@ void __fastcall TDualSensorLabel::DrawSensorL2()
 
 //---------------------------------------------------------------------------
 
+void __fastcall TDualSensorLabel::DrawSensorL3()
+{
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(!bLoaded) return;
+
+    if(!FSenVisibleL3) return;
+    if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
+    
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+
+    int nX1 = FSenOutLine ? FSenOutSpace + 2 : FSenOutSpace;
+    int nY1 = 0;
+    int nX2 = nX1 + FSenWidth;
+    int nY2 = Height;
+    int nVisible = (int)FSenVisibleL + (int)FSenVisibleL2;
+
+    Canvas->Lock();
+
+    if(FSenLEDImage) {
+        int nSenWidth  = 20;
+        int nSenHeight = 20;
+        TColor clTransP = clWhite;
+        Graphics::TBitmap* pLEDBitmap = NULL;
+
+        if(!Enabled) {
+            pLEDBitmap  = pBmpSenDisable;
+        }
+        else if(FSenOnL3) {
+            pLEDBitmap  = pBmpSenOn;
+        }
+        else {
+            pLEDBitmap  = pBmpSenOff;
+        }
+
+        nSenWidth  = pLEDBitmap->Width;
+        nSenHeight = pLEDBitmap->Height;
+        clTransP   = pLEDBitmap->Canvas->Pixels[0][0];
+    
+        nY1 = nSenWidth >= Height ? 0            : ((Height - nSenWidth) / 2);
+        //nY2 = nSenWidth >= Height ? Height       : (nY1 + nSenHeight);
+        //nX2 = nX1 + nSenWidth;
+
+        nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+
+        TransparentBlt(
+            Canvas->Handle,
+            nX1,
+            nY1,
+            nSenWidth,
+            nSenHeight,
+            pLEDBitmap->Canvas->Handle,
+            0,
+            0,
+            nSenWidth,
+            nSenHeight,
+            clTransP);
+
+
+    }
+    else {
+        SetBkMode(Canvas->Handle, TRANSPARENT);
+
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnL3 ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
+        Canvas->Brush->Style = bsSolid;
+
+        int nSenWidth = FSenWidth;
+
+        switch(FSenType) {
+            case slCircle: 
+                nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
+                nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
+
+                nSenWidth = FSenWidth >= Height ? Height : FSenWidth;
+
+                nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->Ellipse(nX1, nY1, nX2, nY2); 
+                break;
+                
+            case slRect:   
+                nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
+                nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
+
+                nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
+                break;
+        }
+    }
+    
+    Canvas->Unlock();
+}
+
+//---------------------------------------------------------------------------
+
+void __fastcall TDualSensorLabel::DrawSensorL4()
+{
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(!bLoaded) return;
+
+    if(!FSenVisibleL4) return;
+    if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
+    
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+
+    int nX1 = FSenOutLine ? FSenOutSpace + 2 : FSenOutSpace;
+    int nY1 = 0;
+    int nX2 = nX1 + FSenWidth;
+    int nY2 = Height;
+
+    Canvas->Lock();
+
+    int nVisible = (int)FSenVisibleL + (int)FSenVisibleL2 + (int)FSenVisibleL3;
+
+    if(FSenLEDImage) {
+        int nSenWidth  = 20;
+        int nSenHeight = 20;
+        TColor clTransP = clWhite;
+        Graphics::TBitmap* pLEDBitmap = NULL;
+
+        if(!Enabled) {
+            pLEDBitmap  = pBmpSenDisable;
+        }
+        else if(FSenOnL4) {
+            pLEDBitmap  = pBmpSenOn;
+        }
+        else {
+            pLEDBitmap  = pBmpSenOff;
+        }
+
+        nSenWidth  = pLEDBitmap->Width;
+        nSenHeight = pLEDBitmap->Height;
+        clTransP   = pLEDBitmap->Canvas->Pixels[0][0];
+    
+        nY1 = nSenWidth >= Height ? 0            : ((Height - nSenWidth) / 2);
+        //nY2 = nSenWidth >= Height ? Height       : (nY1 + nSenHeight);
+        //nX2 = nX1 + nSenWidth;
+
+        nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+
+        TransparentBlt(
+            Canvas->Handle,
+            nX1,
+            nY1,
+            nSenWidth,
+            nSenHeight,
+            pLEDBitmap->Canvas->Handle,
+            0,
+            0,
+            nSenWidth,
+            nSenHeight,
+            clTransP);
+
+
+    }
+    else {
+        SetBkMode(Canvas->Handle, TRANSPARENT);
+
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnL4 ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
+        Canvas->Brush->Style = bsSolid;
+
+        int nSenWidth = FSenWidth;
+
+        switch(FSenType) {
+            case slCircle: 
+                nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
+                nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
+
+                nSenWidth = FSenWidth >= Height ? Height : FSenWidth;
+
+                nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->Ellipse(nX1, nY1, nX2, nY2); 
+                break;
+                
+            case slRect:   
+                nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
+                nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
+
+                nX1 = nX1 + (nSenWidth * nVisible) + (FSenBetweenSpace * nVisible);
+
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
+                break;
+        }
+    }
+    
+    Canvas->Unlock();
+}
+
+//---------------------------------------------------------------------------
+
+
 void __fastcall TDualSensorLabel::DrawSensorR()
 {
     if(!ComponentState.Contains(csDesigning) && !Visible) return;
@@ -634,6 +864,223 @@ void __fastcall TDualSensorLabel::DrawSensorR2()
     
     Canvas->Unlock();
 }
+//---------------------------------------------------------------------------
+
+void __fastcall TDualSensorLabel::DrawSensorR3()
+{
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(!bLoaded) return;
+
+    if(!FSenVisibleR3) return;
+    if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
+    
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+
+    int nX1 = FSenOutLine ? (this->Width - FSenWidth - FSenOutSpace - 3) : (this->Width - FSenWidth - FSenOutSpace - 1);
+    int nY1 = 0;
+    int nX2 = nX1 + FSenWidth;
+    int nY2 = Height;
+    int nVisible = (int)FSenVisibleR + (int)FSenVisibleR2;
+
+    Canvas->Lock();
+
+    if(FSenLEDImage) {
+        int nSenWidth  = 20;
+        int nSenHeight = 20;
+        TColor clTransP = clWhite;
+        Graphics::TBitmap* pLEDBitmap = NULL;
+
+        if(!Enabled) {
+            pLEDBitmap  = pBmpSenDisable;
+        }
+        else if(FSenOnR3) {
+            pLEDBitmap  = pBmpSenOn;
+        }
+        else {
+            pLEDBitmap  = pBmpSenOff;
+        }
+
+        nSenWidth  = pLEDBitmap->Width;
+        nSenHeight = pLEDBitmap->Height;
+        clTransP   = pLEDBitmap->Canvas->Pixels[0][0];
+
+        nX1 = FSenOutLine ? (this->Width - nSenWidth - FSenOutSpace - 3) : (this->Width - nSenWidth - FSenOutSpace - 1);
+
+        nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+        
+        nX2 = nX1 + nSenWidth;
+        nY1 = nSenWidth >= Height ? 0            : ((Height - nSenWidth) / 2);
+
+        TransparentBlt(
+            Canvas->Handle,
+            nX1,
+            nY1,
+            nSenWidth,
+            nSenHeight,
+            pLEDBitmap->Canvas->Handle,
+            0,
+            0,
+            nSenWidth,
+            nSenHeight,
+            clTransP);
+
+
+    }
+    else {
+        SetBkMode(Canvas->Handle, TRANSPARENT);
+
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnR3 ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
+        Canvas->Brush->Style = bsSolid;
+
+        int nSenWidth  = FSenWidth;
+
+        switch(FSenType) {
+            case slCircle: 
+                nX1 = FSenWidth >= Height ? (this->Width - Height - 1) : (this->Width - FSenWidth - 1);
+                nX1 = FSenOutLine ? (nX1 - FSenOutSpace - 2) : (nX1 - FSenOutSpace);
+                nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
+                nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
+
+                nSenWidth = FSenWidth >= Height ? Height : FSenWidth;
+
+                nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->Ellipse(nX1, nY1, nX2, nY2); 
+                break;
+                
+            case slRect:   
+                nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
+                nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
+
+                nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
+                break;
+        }
+    }
+    
+    Canvas->Unlock();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TDualSensorLabel::DrawSensorR4()
+{
+    if(!ComponentState.Contains(csDesigning) && !Visible) return;
+
+    if(!bLoaded) return;
+
+    if(!FSenVisibleR4) return;
+    if(Width <= 0 || Height <= 0 || FSenWidth <= 0 || FSenHeight <= 0) return;
+    
+    //Vcl::Graphics::TCanvas* BuffCanvas = NULL;
+
+    int nX1 = FSenOutLine ? (this->Width - FSenWidth - FSenOutSpace - 3) : (this->Width - FSenWidth - FSenOutSpace - 1);
+    int nY1 = 0;
+    int nX2 = nX1 + FSenWidth;
+    int nY2 = Height;
+
+    int nVisible = (int)FSenVisibleR + (int)FSenVisibleR2 + (int)FSenVisibleR3;
+ 
+    Canvas->Lock();
+
+    if(FSenLEDImage) {
+        int nSenWidth  = 20;
+        int nSenHeight = 20;
+        TColor clTransP = clWhite;
+        Graphics::TBitmap* pLEDBitmap = NULL;
+
+        if(!Enabled) {
+            pLEDBitmap  = pBmpSenDisable;
+        }
+        else if(FSenOnR4) {
+            pLEDBitmap  = pBmpSenOn;
+        }
+        else {
+            pLEDBitmap  = pBmpSenOff;
+        }
+
+        nSenWidth  = pLEDBitmap->Width;
+        nSenHeight = pLEDBitmap->Height;
+        clTransP   = pLEDBitmap->Canvas->Pixels[0][0];
+
+        nX1 = FSenOutLine ? (this->Width - nSenWidth - FSenOutSpace - 3) : (this->Width - nSenWidth - FSenOutSpace - 1);
+
+        nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+        
+        nX2 = nX1 + nSenWidth;
+        nY1 = nSenWidth >= Height ? 0            : ((Height - nSenWidth) / 2);
+
+        TransparentBlt(
+            Canvas->Handle,
+            nX1,
+            nY1,
+            nSenWidth,
+            nSenHeight,
+            pLEDBitmap->Canvas->Handle,
+            0,
+            0,
+            nSenWidth,
+            nSenHeight,
+            clTransP);
+
+
+    }
+    else {
+        SetBkMode(Canvas->Handle, TRANSPARENT);
+
+        if(Enabled) {
+            Canvas->Brush->Color = FSenOnR4 ? FSenOnColor : FSenOffColor;
+            Canvas->Pen->Color   = FSenLineColor;
+        }
+        else {
+            Canvas->Brush->Color = clSilver;
+            Canvas->Pen->Color   = clGray;
+        }
+        
+        Canvas->Brush->Style = bsSolid;
+
+        int nSenWidth  = FSenWidth;
+
+        switch(FSenType) {
+            case slCircle: 
+                nX1 = FSenWidth >= Height ? (this->Width - Height - 1) : (this->Width - FSenWidth - 1);
+                nX1 = FSenOutLine ? (nX1 - FSenOutSpace - 2) : (nX1 - FSenOutSpace);
+                nY1 = FSenWidth >= Height ? 0            : ((Height - FSenWidth) / 2);
+                nY2 = FSenWidth >= Height ? Height       : (nY1 + FSenWidth);
+
+                nSenWidth = FSenWidth >= Height ? Height : FSenWidth;
+
+                nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->Ellipse(nX1, nY1, nX2, nY2); 
+                break;
+                
+            case slRect:   
+                nY1 = FSenHeight >= Height ? 0            : ((Height - FSenHeight) / 2);
+                nY2 = FSenHeight >= Height ? Height       : (nY1 + FSenHeight);
+
+                nX1 = nX1 - (nSenWidth * nVisible) - (FSenBetweenSpace * nVisible);
+                nX2 = nX1 + nSenWidth;
+                
+                Canvas->RoundRect(nX1, nY1, nX2, nY2, FSenRectRound, FSenRectRound); 
+                break;
+        }
+    }
+    
+    Canvas->Unlock();
+}
 
 //---------------------------------------------------------------------------
 
@@ -731,7 +1178,10 @@ void __fastcall TDualSensorLabel::SetSenOnColor(TColor v)
         DrawSensorR();
         DrawSensorL2();
         DrawSensorR2();
-        
+        DrawSensorL3();
+        DrawSensorR3();
+        DrawSensorL4();
+        DrawSensorR4();
     }
 }
 
@@ -742,7 +1192,12 @@ void __fastcall TDualSensorLabel::SetSenOffColor(TColor v)
         DrawSensorL();
         DrawSensorR();
         DrawSensorL2();
-        DrawSensorR2();        
+        DrawSensorR2(); 
+        DrawSensorL3();
+        DrawSensorR3();
+        DrawSensorL4();
+        DrawSensorR4();
+        
     } 
 }
 
@@ -783,26 +1238,69 @@ void __fastcall TDualSensorLabel::SetSenRectRound(int v)
 
 void __fastcall TDualSensorLabel::SetSenOnL(int Index, bool   v)
 {
-    if((Index == 0) && FSenOnL != v) {
-        FSenOnL = v;
-        DrawSensorL();
+    switch(Index) {
+        case 0:
+            if(FSenOnL != v) {
+                FSenOnL = v;
+                DrawSensorL();
+            }
+            break;
+
+        case 1:
+            if(FSenOnL2 != v) {
+                FSenOnL2 = v;
+                DrawSensorL2();
+            }
+            break;
+
+        case 2:
+            if(FSenOnL3 != v) {
+                FSenOnL3 = v;
+                DrawSensorL3();
+            }
+            break;
+
+        case 3:
+            if(FSenOnL4 != v) {
+                FSenOnL4 = v;
+                DrawSensorL4();
+            }
+            break;            
     }
-    else if((Index == 1) && FSenOnL2 != v) {
-        FSenOnL2 = v;
-        DrawSensorL2();
-    }
+
 }
 
 void __fastcall TDualSensorLabel::SetSenOnR(int Index, bool   v)
 {
-    if((Index == 0) && (FSenOnR != v)) {
-        FSenOnR = v;
-        DrawSensorR();
+    switch(Index) {
+        case 0:
+            if(FSenOnR != v) {
+                FSenOnR = v;
+                DrawSensorR();
+            }
+            break;
+
+        case 1:
+            if(FSenOnR2 != v) {
+                FSenOnR2 = v;
+                DrawSensorR2();
+            }
+            break;
+
+        case 2:
+            if(FSenOnR3 != v) {
+                FSenOnR3 = v;
+                DrawSensorR3();
+            }
+            break;
+
+        case 3:
+            if(FSenOnR4 != v) {
+                FSenOnR4 = v;
+                DrawSensorR4();
+            }
+            break;            
     }
-    else if((Index == 1) && FSenOnR2 != v) {
-        FSenOnR2 = v;
-        DrawSensorR2();
-    }    
 }
 
 void __fastcall TDualSensorLabel::SetSenSpace(int    v)
@@ -824,27 +1322,72 @@ void  __fastcall TDualSensorLabel::SetSenLEDImage(bool v)
 
 void  __fastcall TDualSensorLabel::SetSenVisibleL(int Index, bool v)
 {
-    if((Index == 0) && (FSenVisibleL != v)) {
-        FSenVisibleL = v;
-        Invalidate();
+    switch(Index) {
+        case 0:
+            if(FSenVisibleL != v) {
+                FSenVisibleL = v;
+                Invalidate();
+            }
+            break;
+            
+        case 1:
+            if(FSenVisibleL2 != v) {
+                FSenVisibleL2 = v;
+                Invalidate();
+            }
+            break;
+
+        case 2:
+            if(FSenVisibleL3 != v) {
+                FSenVisibleL3 = v;
+                Invalidate();
+            }
+            break;
+
+        case 3:
+            if(FSenVisibleL4 != v) {
+                FSenVisibleL4 = v;
+                Invalidate();
+            }
+            break;            
     }
-    else if((Index == 1) && (FSenVisibleL2 != v)) {
-        FSenVisibleL2 = v;
-        Invalidate();
-    }    
+  
 }
 
 void  __fastcall TDualSensorLabel::SetSenVisibleR(int Index, bool v)
 {
-    if((Index == 0) && (FSenVisibleR != v)) {
-        FSenVisibleR = v;
-        Invalidate();
+    switch(Index) {
+        case 0:
+            if(FSenVisibleR != v) {
+                FSenVisibleR = v;
+                Invalidate();
+            }
+            break;
+            
+        case 1:
+            if(FSenVisibleR2 != v) {
+                FSenVisibleR2 = v;
+                Invalidate();
+            }
+            break;
+
+        case 2:
+            if(FSenVisibleR3 != v) {
+                FSenVisibleR3 = v;
+                Invalidate();
+            }
+            break;
+
+        case 3:
+            if(FSenVisibleR4 != v) {
+                FSenVisibleR4 = v;
+                Invalidate();
+            }
+            break;            
     }
-    else if((Index == 1) && (FSenVisibleR2 != v)) {
-        FSenVisibleR2 = v;
-        Invalidate();
-    }    
+  
 }
+
 
 void __fastcall TDualSensorLabel::SetSenOutLine(bool  v)
 {

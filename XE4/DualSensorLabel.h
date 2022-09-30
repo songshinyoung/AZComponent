@@ -48,6 +48,16 @@ private:
     bool            FSenOnR2;       ///< true일 경우 On Color, false일 경우 Off Color를 적용 
     bool            FSenVisibleL2;  ///< 왼쪽 센서 보이기     
     bool            FSenVisibleR2;  ///< 왼쪽 센서 보이기 
+
+    bool            FSenOnL3;       ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    bool            FSenOnR3;       ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    bool            FSenVisibleL3;  ///< 왼쪽 센서 보이기     
+    bool            FSenVisibleR3;  ///< 왼쪽 센서 보이기 
+
+    bool            FSenOnL4;       ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    bool            FSenOnR4;       ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    bool            FSenVisibleL4;  ///< 왼쪽 센서 보이기     
+    bool            FSenVisibleR4;  ///< 왼쪽 센서 보이기 
     
     //--------------------------------
     // Title
@@ -90,6 +100,10 @@ protected:
     void            __fastcall DrawSensorR();
     void            __fastcall DrawSensorL2();
     void            __fastcall DrawSensorR2();    
+    void            __fastcall DrawSensorL3();
+    void            __fastcall DrawSensorR3();    
+    void            __fastcall DrawSensorL4();
+    void            __fastcall DrawSensorR4();    
     void            __fastcall DrawTitle();
     void            __fastcall DrawOutLine();
     void            __fastcall LoadLEDImage(void);
@@ -122,6 +136,16 @@ __published:
     __property  bool                SenOnR2         = { read = FSenOnR2,        write = SetSenOnR,          index=1, default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
     __property  bool                SenVisibleL2    = { read = FSenVisibleL2,   write = SetSenVisibleL,     index=1, default = false };
     __property  bool                SenVisibleR2    = { read = FSenVisibleR2,   write = SetSenVisibleR,     index=1, default = false };
+
+    __property  bool                SenOnL3         = { read = FSenOnL3,        write = SetSenOnL,          index=2, default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    __property  bool                SenOnR3         = { read = FSenOnR3,        write = SetSenOnR,          index=2, default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    __property  bool                SenVisibleL3    = { read = FSenVisibleL3,   write = SetSenVisibleL,     index=2, default = false };
+    __property  bool                SenVisibleR3    = { read = FSenVisibleR3,   write = SetSenVisibleR,     index=2, default = false };
+
+    __property  bool                SenOnL4         = { read = FSenOnL4,        write = SetSenOnL,          index=3, default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    __property  bool                SenOnR4         = { read = FSenOnR4,        write = SetSenOnR,          index=3, default = false };     ///< true일 경우 On Color, false일 경우 Off Color를 적용 
+    __property  bool                SenVisibleL4    = { read = FSenVisibleL4,   write = SetSenVisibleL,     index=3, default = false };
+    __property  bool                SenVisibleR4    = { read = FSenVisibleR4,   write = SetSenVisibleR,     index=3, default = false };
 
     __property  bool                SenOutLine      = { read = FSenOutLine,     write = SetSenOutLine,      default = true };
     __property  TColor              SenOutLineColor = { read = FSenOutLineColor,write = SetSenOutLineColor, default = clBlack };;

@@ -79,6 +79,16 @@ private:
     bool                FSenVisibleL2;
     bool                FSenVisibleR2;
 
+    bool                FSenOnL3; 
+    bool                FSenOnR3;
+    bool                FSenVisibleL3;
+    bool                FSenVisibleR3;
+
+    bool                FSenOnL4; 
+    bool                FSenOnR4;
+    bool                FSenVisibleL4;
+    bool                FSenVisibleR4;
+
     void                __fastcall SetCaptionLeft(TCaption s);
     void                __fastcall SetCaptionRight(TCaption s);
     void                __fastcall SetState(TDualButtonState e);
@@ -177,6 +187,17 @@ __published:
     __property  bool                SenOnR2         = { read = FSenOnR2,        write = SetSenOnR,          index=1, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
     __property  bool                SenVisibleL2    = { read = FSenVisibleL2,   write = SetSenVisibleL,     index=1, default = false };
     __property  bool                SenVisibleR2    = { read = FSenVisibleR2,   write = SetSenVisibleR,     index=1, default = false };
+
+    __property  bool                SenOnL3         = { read = FSenOnL3,        write = SetSenOnL,          index=2, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenOnR3         = { read = FSenOnR3,        write = SetSenOnR,          index=2, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenVisibleL3    = { read = FSenVisibleL3,   write = SetSenVisibleL,     index=2, default = false };
+    __property  bool                SenVisibleR3    = { read = FSenVisibleR3,   write = SetSenVisibleR,     index=2, default = false };
+
+    __property  bool                SenOnL4         = { read = FSenOnL4,        write = SetSenOnL,          index=3, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenOnR4         = { read = FSenOnR4,        write = SetSenOnR,          index=3, default = false };     ///< true老 版快 On Color, false老 版快 Off Color甫 利侩 
+    __property  bool                SenVisibleL4    = { read = FSenVisibleL4,   write = SetSenVisibleL,     index=3, default = false };
+    __property  bool                SenVisibleR4    = { read = FSenVisibleR4,   write = SetSenVisibleR,     index=3, default = false };
+
 
     __property  bool            SenOutLine      = { read = FSenOutLine,     write = SetSenOutLine,      default = true };
     __property  TColor          SenOutLineColor = { read = FSenOutLineColor,write = SetSenOutLineColor, default = clBlack };;

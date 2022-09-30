@@ -91,6 +91,16 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FSenVisibleL2       = false;
     FSenVisibleR2       = false;
 
+    FSenOnL3            = false;
+    FSenOnR3            = false;
+    FSenVisibleL3       = false;
+    FSenVisibleR3       = false;
+
+    FSenOnL4            = false;
+    FSenOnR4            = false;
+    FSenVisibleL4       = false;
+    FSenVisibleR4       = false;
+
     FSenOutLine         = true;
     FSenOutLineColor    = clBlack;
     FSenOutLineRound    = 0;
@@ -319,6 +329,10 @@ void __fastcall TActuatorButton::DisplayUpdate()
     FDualSenLabel->SenOnR             = FSenOnR;
     FDualSenLabel->SenOnL2            = FSenOnL2;
     FDualSenLabel->SenOnR2            = FSenOnR2;
+    FDualSenLabel->SenOnL3            = FSenOnL3;
+    FDualSenLabel->SenOnR3            = FSenOnR3;
+    FDualSenLabel->SenOnL4            = FSenOnL4;
+    FDualSenLabel->SenOnR4            = FSenOnR4;
     FDualSenLabel->SenSpace           = FSenSpace;
     FDualSenLabel->SenLEDImage        = FSenLEDImage;
 
@@ -519,26 +533,69 @@ void __fastcall TActuatorButton::SetSenRectRound(int v)
 
 void __fastcall TActuatorButton::SetSenOnL(int Index, bool   v)
 {
-    if((Index == 0) && (FSenOnL != v)) {
-        FSenOnL = v;
-        FDualSenLabel->SenOnL = v;
+    switch(Index) {
+        case 0: 
+            if(FSenOnL != v) {
+                FSenOnL = v;
+                FDualSenLabel->SenOnL = v;
+            }
+            break;
+        
+        case 1: 
+            if(FSenOnL2 != v) {
+                FSenOnL2 = v;
+                FDualSenLabel->SenOnL2 = v;
+            }
+            break;
+
+        case 2: 
+            if(FSenOnL3 != v) {
+                FSenOnL3 = v;
+                FDualSenLabel->SenOnL3 = v;
+            }
+            break;    
+
+        case 3: 
+            if(FSenOnL4 != v) {
+                FSenOnL4 = v;
+                FDualSenLabel->SenOnL4 = v;
+            }
+            break;                
     }
-    else if((Index == 1) && FSenOnL2 != v) {
-        FSenOnL2 = v;
-        FDualSenLabel->SenOnL2 = v;
-    }
+
 }
 
 void __fastcall TActuatorButton::SetSenOnR(int Index, bool   v)
 {
-    if((Index == 0) && (FSenOnR != v)) {
-        FSenOnR = v;
-        FDualSenLabel->SenOnR = v;
+    switch(Index) {
+        case 0: 
+            if(FSenOnR != v) {
+                FSenOnR = v;
+                FDualSenLabel->SenOnR = v;
+            }
+            break;
+
+        case 1: 
+            if(FSenOnR2 != v) {
+                FSenOnR2 = v;
+                FDualSenLabel->SenOnR2 = v;
+            }
+            break;
+
+        case 2: 
+            if(FSenOnR3 != v) {
+                FSenOnR3 = v;
+                FDualSenLabel->SenOnR3 = v;
+            }
+            break;            
+
+        case 3: 
+            if(FSenOnR4 != v) {
+                FSenOnR4 = v;
+                FDualSenLabel->SenOnR4 = v;
+            }
+            break;    
     }
-    else if((Index == 1) && (FSenOnR2 != v)) {
-        FSenOnR2 = v;
-        FDualSenLabel->SenOnR2 = v;
-    }    
 }
 
 void __fastcall TActuatorButton::SetSenSpace(int    v)
@@ -559,26 +616,70 @@ void __fastcall TActuatorButton::SetSenLEDImage(bool v)
 
 void  __fastcall TActuatorButton::SetSenVisibleL(int Index, bool v)
 {
-    if((Index == 0) && (FSenVisibleL != v)) {
-        FSenVisibleL = v;
-        FDualSenLabel->SenVisibleL = v;
+    switch(Index) {
+        case 0: 
+            if(FSenVisibleL != v) {
+                FSenVisibleL = v;
+                FDualSenLabel->SenVisibleL = v;
+            }
+            break;
+
+        case 1: 
+            if(FSenVisibleL2 != v) {
+                FSenVisibleL2 = v;
+                FDualSenLabel->SenVisibleL2 = v;
+            }
+            break;
+
+        case 2: 
+            if(FSenVisibleL3 != v) {
+                FSenVisibleL3 = v;
+                FDualSenLabel->SenVisibleL3 = v;
+            }
+            break;
+
+        case 3: 
+            if(FSenVisibleL4 != v) {
+                FSenVisibleL4 = v;
+                FDualSenLabel->SenVisibleL4 = v;
+            }
+            break;            
     }
-    else if((Index == 1) && (FSenVisibleL2 != v)) {
-        FSenVisibleL2 = v;
-        FDualSenLabel->SenVisibleL2 = v;
-    }    
+   
 }
 
 void  __fastcall TActuatorButton::SetSenVisibleR(int Index, bool v)
 {
-    if((Index == 0) && (FSenVisibleR != v)) {
-        FSenVisibleR = v;
-        FDualSenLabel->SenVisibleR = v;
+    switch(Index) {
+        case 0: 
+            if(FSenVisibleR != v) {
+                FSenVisibleR = v;
+                FDualSenLabel->SenVisibleR = v;
+            }
+            break;
+
+        case 1: 
+            if(FSenVisibleR2 != v) {
+                FSenVisibleR2 = v;
+                FDualSenLabel->SenVisibleR2 = v;
+            }
+            break;
+
+        case 2: 
+            if(FSenVisibleR3 != v) {
+                FSenVisibleR3 = v;
+                FDualSenLabel->SenVisibleR3 = v;
+            }
+            break;
+
+        case 3: 
+            if(FSenVisibleR4 != v) {
+                FSenVisibleR4 = v;
+                FDualSenLabel->SenVisibleR4 = v;
+            }
+            break;            
     }
-    else if((Index == 1) && (FSenVisibleR2 != v)) {
-        FSenVisibleR2 = v;
-        FDualSenLabel->SenVisibleR2 = v;
-    }    
+    
 }
 
 

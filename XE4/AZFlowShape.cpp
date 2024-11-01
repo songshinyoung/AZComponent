@@ -11,6 +11,9 @@
 // any pure virtual functions.
 //
 
+// TODO: 1. Margin 적용 후 Text Size를 계산하도록 해야 한다. 
+// TODO: 2. 해당 Cell 영역을 벗어나서 그리지 못하도록 Min Max Check를 해야 한다. 
+
 static inline void ValidCtrCheck(TAZFlowShape *)
 {
     new TAZFlowShape(NULL);
@@ -218,6 +221,90 @@ void __fastcall TAZFlowShape::Paint()
     DrawPaint(false);
 
 }
+
+//---------------------------------------------------------------------------
+void __fastcall TAZFlowShape::DrawTextMultiLine(TFlowShapeCell * pCell, const RECT& rect)
+{
+    try{
+        if(pCell->SpecialFontColor) {
+            Canvas->Font->Color = pCell->FontColor;
+            if(pCell->FontSize > 0) Canvas->Font->Size  = pCell->FontSize;
+        }
+
+        AnsiString sText = pCell->Caption;
+        
+        SetBkMode(Canvas->Handle, TRANSPARENT);     // 투명 출력.
+
+        if(pCell->WordBreak) {
+            UINT    uiFormat =  DT_WORDBREAK;
+        	RECT    drawRect =  rect;
+            
+            // 임시 사각형을 사용하여 텍스트의 높이를 계산
+        	RECT tempRect = rect;
+        	DrawText(Canvas->Handle, sText.c_str(), -1, &tempRect, DT_WORDBREAK | DT_CALCRECT);
+
+        	// 텍스트를 위-아래 맞추기 위해 yOffset 계산.
+        	int yOffset = (rect.bottom - rect.top - (tempRect.bottom - tempRect.top)) / 2;
+
+            switch(pCell->Layout) {
+                case tlTop:  
+                    yOffset = pCell->LayoutMargin; 
+                    break;
+                
+                case tlBottom:  
+                    yOffset = ((rect.bottom - rect.top) - (tempRect.bottom - tempRect.top)) - pCell->LayoutMargin;
+                    break;
+                
+                default:
+                case tlCenter:  
+                    yOffset = ((rect.bottom - rect.top) - (tempRect.bottom - tempRect.top)) / 2;
+                    break;
+            }
+
+        	drawRect.top += yOffset;
+
+            // 텍스트를 좌-우 맞추기 위해 xOffset 계산. 
+            switch(pCell->Alignment) {
+                case taLeftJustify:
+                    uiFormat        = uiFormat | DT_LEFT;
+                    drawRect.left  += pCell->AlignMargin;
+                    break;
+                
+                case taRightJustify:
+                    uiFormat        = uiFormat | DT_RIGHT;
+                    drawRect.right -= pCell->AlignMargin;
+                    break;
+                
+                default:
+                case taCenter:
+                    uiFormat        = uiFormat | DT_CENTER;
+                    break;
+            }
+
+        	// 텍스트 출력.
+        	DrawText(Canvas->Handle, sText.c_str(), -1, &drawRect, uiFormat);
+
+        }
+        else {
+            int nTxtW = Canvas->TextWidth(pCell->Caption);
+            int nTxtH = Canvas->TextHeight(pCell->Caption);
+
+            Canvas->TextOutA(rect.left + ((rect.right - rect.left) - nTxtW) / 2 , rect.top + ((rect.bottom-rect.top) - nTxtH) / 2 , pCell->Caption);
+        }
+
+    	// 배경색 불투명.
+    	SetBkMode(Canvas->Handle, OPAQUE);
+
+        if(pCell->SpecialFontColor) {
+            Canvas->Font->Color = Font->Color;
+            Canvas->Font->Size  = Font->Size;
+        }
+    }
+    catch(...) {
+
+    }
+}
+
 //---------------------------------------------------------------------------
 void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
 {
@@ -311,6 +398,17 @@ void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
 
                 if(FCaptionVisible && (FppCells[nIndex] != NULL)) {
                     if(FppCells[nIndex]->Caption != "") {
+
+#if 1
+                        RECT rect;
+                        rect.left   = nX;
+                        rect.right  = nX + nW;
+                        rect.top    = nY;
+                        rect.bottom = nY + nH;
+
+                        DrawTextMultiLine(FppCells[nIndex], rect);
+
+#else
                         if(FppCells[nIndex]->SpecialFontColor) {
                             Canvas->Font->Color = FppCells[nIndex]->FontColor;
                             if(FppCells[nIndex]->FontSize > 0) Canvas->Font->Size  = FppCells[nIndex]->FontSize;
@@ -327,6 +425,7 @@ void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
                             Canvas->Font->Color = Font->Color;
                             Canvas->Font->Size  = Font->Size;
                         }
+#endif                         
                     }
                 }
             }
@@ -518,13 +617,19 @@ TAZTitleProperty * __fastcall TAZFlowShape::GetTitle()
 //: Row(r), Col(c)
 __fastcall TFlowShapeCell::TFlowShapeCell()
 {
-    FTag        = 0;
-    FBGColor    = clWhite;
-    FLineColor  = clGray;
-    FFontColor  = clBlack;
-    FFontSize   = 0;
-    bChanged    = false;
-    
+    FTag                = 0;
+    FBGColor            = clWhite;
+    FLineColor          = clGray;
+    FFontColor          = clBlack;
+    FFontSize           = 0;
+    bChanged            = false;
+    FSpecialFontColor   = false;
+
+    FWordBreak          = false;
+    FLayout             = tlCenter;
+    FLayoutMargin       = 0;
+    FAlignment          = taCenter;
+    FAlignMargin        = 0;
 }
 
 void __fastcall TFlowShapeCell::SetTag(int n)
@@ -582,6 +687,54 @@ void __fastcall TFlowShapeCell::SetSpecialFontColor(bool b)
         DoOnChange();
     }
 }
+
+// SSY_0241101 ( Cell에 출력되는 글자 줄바꿈이 되어 멀티라인을 출력되는 기능 추가.  ) 
+
+void __fastcall TFlowShapeCell::SetWordBreak(bool b)
+{
+    if(FWordBreak != b) {
+        FWordBreak = b;
+        DoOnChange();
+    }
+}
+
+void __fastcall TFlowShapeCell::SetLayout(TTextLayout e)
+{
+    if(FLayout != e) {
+        FLayout = e;
+        DoOnChange();
+    }
+}
+
+void __fastcall TFlowShapeCell::SetLayoutMargin(int n)
+{
+    if(FLayoutMargin != n) {
+        FLayoutMargin = n;
+        DoOnChange();
+    }
+}
+
+void __fastcall TFlowShapeCell::SetAlignment(System::Classes::TAlignment e)
+{
+    if(FAlignment != e) {
+        FAlignment = e;
+        DoOnChange();
+    }
+}
+
+void __fastcall TFlowShapeCell::SetAlignMargin(int n)
+{
+    if(FAlignMargin != n) {
+        FAlignMargin = n;
+        DoOnChange();
+    }
+}
+
+
+
+
+
+
 
 void __fastcall TFlowShapeCell::DoOnChange(void)
 {

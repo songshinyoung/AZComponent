@@ -6,6 +6,8 @@
 #include <SysUtils.hpp>
 #include <Classes.hpp>
 #include <Vcl.Controls.hpp>
+#include <Vcl.StdCtrls.hpp> // TTextLayout 사용 위해 
+
 //============================================================================
 // FlowShape의 각 Cell에 필요한 값들을 임시 저장하는 Property이다.
 // 이 값은 dfm 파일에 저장되지 않고 실행 시간에 설정해야한다.
@@ -13,13 +15,20 @@
 class PACKAGE TFlowShapeCell : public TPersistent
 {
 private:
-    int     FTag;
-    String  FCaption;
-    TColor  FBGColor;
-    TColor  FLineColor;
-    TColor  FFontColor;
-    bool    FSpecialFontColor;  // false일 경우 기본 Font의 Font Color를 사용한다. true이면 FFontColor를 사용한다. 
-    int     FFontSize;
+    int         FTag;
+    String      FCaption;
+    TColor      FBGColor;
+    TColor      FLineColor;
+    TColor      FFontColor;
+    bool        FSpecialFontColor;  // false일 경우 기본 Font의 Font Color를 사용한다. true이면 FFontColor를 사용한다. 
+    int         FFontSize;
+
+    // SSY_0241101 ( Cell에 출력되는 글자 줄바꿈이 되어 멀티라인을 출력되는 기능 추가.  ) 
+    bool        FWordBreak;                 // false : Caption을 한 줄로만 표기 한다. true : Caption을 Cell 크기에 맞게 줄바꿈하여 표기 한다. 
+    TTextLayout FLayout;                    //  { tlTop, tlCenter, tlBottom };
+    int         FLayoutMargin;              // FLayout 이 Center가 아닐 경우 Top 또는 Bottom Margin 값으로 사용. 
+    System::Classes::TAlignment FAlignment; // { taLeftJustify, taRightJustify, taCenter };
+    int         FAlignMargin;               // FAlignment 가 Center가 아닐 경우 Left 또는 Right Margin 값으로 사용. 
 
     void __fastcall SetTag(int n);
     void __fastcall SetCaption(String s);
@@ -28,6 +37,12 @@ private:
     void __fastcall SetFontColor(TColor c);
     void __fastcall SetSpecialFontColor(bool b);
     void __fastcall SetFontSize(int n);
+
+    void __fastcall SetWordBreak(bool b);
+    void __fastcall SetLayout(TTextLayout e);
+    void __fastcall SetLayoutMargin(int n);
+    void __fastcall SetAlignment(System::Classes::TAlignment e);
+    void __fastcall SetAlignMargin(int n);
 
     TNotifyEvent     FOnChange;              ///< 나를 가져다 쓸 class에서 여기에 Event를 등록할 것이다.
     void     __fastcall DoOnChange(void);      ///< 내 속성이 변경될 때 마다 이 함수를 호출하여 FOnChange에 등록된 Evnet가 있을 경우 호출 시켜 준다.
@@ -50,6 +65,14 @@ public:
     __property TColor  FontColor        = { read =  FFontColor,         write = SetFontColor };
     __property bool    SpecialFontColor = { read =  FSpecialFontColor,  write = SetSpecialFontColor };
     __property int     FontSize         = { read =  FFontSize,          write = SetFontSize };
+    
+    // SSY_0241101 ( Cell에 출력되는 글자 줄바꿈이 되어 멀티라인을 출력되는 기능 추가.  ) 
+    __property bool                         WordBreak     = { read =  FWordBreak,         write = SetWordBreak };
+    __property TTextLayout                  Layout        = { read =  FLayout,            write = SetLayout };
+    __property int                          LayoutMargin  = { read =  FLayoutMargin,      write = SetLayoutMargin };
+    __property System::Classes::TAlignment  Alignment     = { read =  FAlignment,         write = SetAlignment };
+    __property int                          AlignMargin   = { read =  FAlignMargin,       write = SetAlignMargin };
+
 
     __property TNotifyEvent OnChange = {read = FOnChange, write = FOnChange};
 
@@ -180,6 +203,7 @@ protected:
     virtual void    __fastcall SetEnabled(bool Value);      ///< SetEnabled 함수 오버라이드.
     void    __fastcall Loaded(void);                        ///< Loaded 함수 오버라이드.
     void __fastcall DrawPaint(bool bOnlyCellUpdate);
+    void __fastcall DrawTextMultiLine(TFlowShapeCell * pCell, const RECT& rect);
 
 public:
             __fastcall  TAZFlowShape(TComponent* Owner);

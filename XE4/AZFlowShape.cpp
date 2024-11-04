@@ -11,9 +11,6 @@
 // any pure virtual functions.
 //
 
-// TODO: 1. Margin 적용 후 Text Size를 계산하도록 해야 한다. 
-// TODO: 2. 해당 Cell 영역을 벗어나서 그리지 못하도록 Min Max Check를 해야 한다. 
-
 static inline void ValidCtrCheck(TAZFlowShape *)
 {
     new TAZFlowShape(NULL);
@@ -238,10 +235,28 @@ void __fastcall TAZFlowShape::DrawTextMultiLine(TFlowShapeCell * pCell, const RE
         if(pCell->WordBreak) {
             UINT    uiFormat =  DT_WORDBREAK;
         	RECT    drawRect =  rect;
+
             
-            // 임시 사각형을 사용하여 텍스트의 높이를 계산
+            // 임시 사각형을 사용하여 텍스트의 높이를 계산 (Margin 영역을 적용하여 Text가 그려질 영역 Size를 구한다. )
         	RECT tempRect = rect;
+
+            switch(pCell->Layout) {
+                case tlTop:             tempRect.top    += pCell->LayoutMargin;     break;
+                case tlBottom:          tempRect.bottom -= pCell->LayoutMargin;     break;
+                case tlCenter:  break;
+                default:        break;
+            }
+
+            switch(pCell->Alignment) {
+                case taLeftJustify:     tempRect.left    += pCell->AlignMargin;     break;
+                case taRightJustify:    tempRect.right   -= pCell->AlignMargin;     break;
+                case taCenter:  break;
+                default:        break;
+            }
+
+            
         	DrawText(Canvas->Handle, sText.c_str(), -1, &tempRect, DT_WORDBREAK | DT_CALCRECT);
+
 
         	// 텍스트를 위-아래 맞추기 위해 yOffset 계산.
         	int yOffset = (rect.bottom - rect.top - (tempRect.bottom - tempRect.top)) / 2;
@@ -280,6 +295,11 @@ void __fastcall TAZFlowShape::DrawTextMultiLine(TFlowShapeCell * pCell, const RE
                     uiFormat        = uiFormat | DT_CENTER;
                     break;
             }
+
+            drawRect.top    = drawRect.top      < rect.top      ? rect.top      : drawRect.top;
+            drawRect.bottom = drawRect.bottom   > rect.bottom   ? rect.bottom   : drawRect.bottom;
+            drawRect.left   = drawRect.left     < rect.left     ? rect.left     : drawRect.left;
+            drawRect.right  = drawRect.right    > rect.right    ? rect.right    : drawRect.right;
 
         	// 텍스트 출력.
         	DrawText(Canvas->Handle, sText.c_str(), -1, &drawRect, uiFormat);

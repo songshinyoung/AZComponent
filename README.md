@@ -21,15 +21,60 @@ It was compiled in C++ Builder XE4 32-bit. <a href="https://www.embarcadero.com/
 ## Introduction to Several AZComponents
 ### TAZNumShape
 ![image](https://github.com/user-attachments/assets/6f1b57d0-37c9-48c6-a8df-c344a5c08ba1)
+```C++
+void __fastcall TForm1::AZNumShape1Click(TObject *Sender, bool Ok)
+{
+	if(Ok) {
+		Caption = AZNumShape1->AZ_Value;
+	}
+}
+```
 
 ### TAZFlowShape
 ![image](https://github.com/user-attachments/assets/28f120f5-ac61-42f8-a0b0-9c474cd4aa93)
+```C++
+void __fastcall TForm1::FormShow(TObject *Sender)
+{
+	AZFlowShape1->Cells[0][0]->BGColor = clLime;
+	AZFlowShape1->Cells[0][1]->BGColor = clYellow;
+	AZFlowShape1->Cells[1][1]->BGColor = clLime;
+	AZFlowShape1->Cells[2][2]->BGColor = clLime;
+
+	for(int y=0; y<AZFlowShape1->AZ_Row; y++) {
+		for(int x=0; x<AZFlowShape1->AZ_Col; x++) {
+			AZFlowShape1->Cells[y][x]->Caption = IntToStr(y) + IntToStr(x) ;
+		}
+	}
+
+}
+```
+
 
 ### TAZGroupBox
 ![image](https://github.com/user-attachments/assets/6d08ea31-20cb-4de6-a950-6a9c4446080e)
 
 ### TAZActuatorButton
 ![image](https://github.com/user-attachments/assets/dd09b35b-8c2d-4471-bbef-2afaecbce305)
+```C++
+void __fastcall TForm1::ActuatorButton1Click(TObject *Sender, TDualButtonState eState)
+{
+	switch(eState) {
+		case dbLeft:  Caption = "Left Click";	break;
+		case dbRight: Caption = "Right Click";	break;
+	}
+}
+```
 
 ### AZArrowButton
 ![image](https://github.com/user-attachments/assets/90a91df0-8437-4dd0-82df-415d9c66492e)
+```C++
+void __fastcall TForm1::AZArrowButton1Click(TObject *Sender, TArrowButtonState eState)
+{
+	switch(eState) {
+		case abLeft: 	Caption = "Left";   break;
+		case abRight: 	Caption = "Right";  break;
+		case abTop: 	Caption = "Top";    break;
+		case abBottom: 	Caption = "Bottom"; break;
+	}
+}
+```

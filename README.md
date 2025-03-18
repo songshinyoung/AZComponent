@@ -1,4 +1,4 @@
-# AZComponent
+# AZComponent 
 C++ Builder VCL Component Project. <br>
 It is a component specialized for touch monitors when developing GUI programs for semiconductor production equipment.<br>
 It was compiled in C++ Builder XE4 32-bit. <a href="https://www.embarcadero.com/" target="_blank"><img alt="C++ Builder" src="https://img.shields.io/badge/-C++ Builder-45b8d8?style=flat-square&logo=cplusplusbuilder&logoColor=white" /> </a>

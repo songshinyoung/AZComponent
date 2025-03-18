@@ -3,6 +3,8 @@ C++ Builder VCL Component Project. <br>
 It is a component specialized for touch monitors when developing GUI programs for semiconductor production equipment.<br>
 It was compiled in C++ Builder XE4 32-bit. <a href="https://www.embarcadero.com/" target="_blank"><img alt="C++ Builder" src="https://img.shields.io/badge/-C++ Builder-45b8d8?style=flat-square&logo=cplusplusbuilder&logoColor=white" /> </a>
 
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/songshinyoung/AZComponent/.github/workflows/main.yml)
+
 ## Build Step.
 1. Run "Open Project" in C++ Builder XE4. Select **AZPanelProjectGroup.groupproj** in the **XE4** folder to open the project group.
 2. In the Project Manager, select **TAZPanel.bpl**, right-click it, and then run **Build**.

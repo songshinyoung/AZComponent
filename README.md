@@ -18,6 +18,18 @@ It was compiled in C++ Builder XE4 32-bit. <a href="https://www.embarcadero.com/
 
 <br>
 
+## IDE Path Setting
+Tools / Options / Environment Options / C++ Options / Paths and Directories
+ - System Include Path
+   
+   ![image](https://github.com/user-attachments/assets/04c28c0a-a09d-48b8-a1e2-c46d649c8e09)
+
+ - Library path
+
+   ![image](https://github.com/user-attachments/assets/a4dd6100-3eab-44c1-aa80-0a47ed3e7400)
+
+<br>
+
 ## Introduction to Several AZComponents
 ### ✔ TAZNumShape
 ![image](https://github.com/user-attachments/assets/6f1b57d0-37c9-48c6-a8df-c344a5c08ba1)

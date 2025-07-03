@@ -150,7 +150,8 @@ private:
                                     TColor          cColor,
                                     unsigned int    Align,
                                     int             nFontSize,
-                                    bool            bBold);
+                                    bool            bBold);
+
 
     void __fastcall DisplayUpdate(EImageButtonState eState);
 

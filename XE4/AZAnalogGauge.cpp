@@ -1579,7 +1579,8 @@ void __fastcall TAZAnalogGauge::_Resize()
 //{
 //    i_BodyBitmap->Canvas->Font->Assign(Font);
 //    Redraw();
-//}
+//}
+
 //---------------------------------------------------------------------------
 
 void     __fastcall TAZAnalogGauge::MyResize(TObject *Sender)

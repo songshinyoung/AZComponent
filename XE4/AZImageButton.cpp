@@ -427,7 +427,8 @@ void     __fastcall TAZImageButton::SetAlignment(System::Classes::TAlignment Val
 }
 
 void  __fastcall TAZImageButton::SetSpace(int Index, int Value )
-{
+{
+
     switch(Index) {
         case 0:
             if(FSpaceH != Value) {

@@ -405,7 +405,7 @@ void __fastcall TAZGroupBox::DisplayUpdate(void)
                 pCanvas->Pen->Color      = Enabled ? FTitleRectColor : clSilver;
                 pCanvas->Brush->Color    = Enabled ? FTitleBGColor   : clBtnFace;
                 pCanvas->Brush->Style    = bsSolid;
-                pCanvas->RoundRect(m_recTitle.Left, m_recTitle.Top+1, m_recTitle.Right, m_recTitle.Bottom, FFrameRound, FFrameRound);
+                pCanvas->RoundRect(m_recTitle.Left, m_recTitle.Top+1, m_recTitle.Right, m_recTitle.Bottom, FTitleRound, FTitleRound);
 
             }
             break;

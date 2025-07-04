@@ -20,7 +20,7 @@ static inline void ValidCtrCheck(TAZGroupBox *)
 }
 //---------------------------------------------------------------------------
 __fastcall TAZGroupBox::TAZGroupBox(TComponent* Owner)
-    : TCustomGroupBox(Owner)
+    : TCustomPanel(Owner) // TCustomGroupBox(Owner)
 {
     m_pBGImage          = new TImage(this);
     m_pBGImage->Parent  = this;
@@ -99,14 +99,14 @@ __fastcall TAZGroupBox::~TAZGroupBox()
 //---------------------------------------------------------------------------
 void __fastcall TAZGroupBox::Loaded(void)
 {
-    TCustomGroupBox::Loaded();
+	TCustomPanel::Loaded(); // TCustomGroupBox::Loaded();
     m_bLoaded = true;
 
     m_bRefreshChildControl = true;
 
     CalTitleRect();
 
-    DisplayUpdate();
+	DisplayUpdate();
 }
 //---------------------------------------------------------------------------
 void __fastcall TAZGroupBox::CalTitleRect(void)
@@ -547,7 +547,8 @@ void __fastcall TAZGroupBox::SetEnabled(bool b)
 {
     m_bRefreshChildControl = true;
 
-    TCustomGroupBox::SetEnabled(b);
+	// TCustomGroupBox::SetEnabled(b);
+	TCustomPanel::SetEnabled(b);
 
     Changed();
 }

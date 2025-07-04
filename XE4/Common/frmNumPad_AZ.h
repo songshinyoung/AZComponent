@@ -13,6 +13,7 @@
 #include <Buttons.hpp>
 #include <OleCtrls.hpp>
 #include <Vcl.ExtCtrls.hpp>
+#include <Vcl.Graphics.hpp>
 
 #if LKDIGIT_PANEL_USE
 #include "LKDIGITLib_OCX.h"
@@ -30,7 +31,7 @@ __published:    // IDE-managed Components
     TStaticText *StaticText1;
     TStaticText *StaticText2;
     TStaticText *StaticText3;
-    TSpeedButton *SpeedButton1;
+	TSpeedButton *SpeedButton1;
     TSpeedButton *SpeedButton2;
     TSpeedButton *SpeedButton3;
     TSpeedButton *SpeedButton4;
@@ -59,6 +60,8 @@ __published:    // IDE-managed Components
 	TLabel *Label_Encoder_unit;
 	TSpeedButton *SpeedButton_EnterEncoderValue;
 	TBitBtn *BitBtn_EnterEncoderValue;
+	TImage *Image_Clean_Dark;
+	TImage *Image_Backspace_Dark;
     void __fastcall SpeedButton1Click(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall FormCreate(TObject *Sender);

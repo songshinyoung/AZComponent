@@ -15,7 +15,7 @@ enum DECLSPEC_DENUM TGBGlyphType : unsigned char { lbsDefault, lbsRectangle, lbs
 enum DECLSPEC_DENUM TGBGlyphDefaultColor : unsigned char { gdtColorGreen, gltColorBlue, gltColorRed, gltColorBlack, gltColorGray, gltColorDisable };
 
 
-class PACKAGE TAZGroupBox : public TCustomGroupBox
+class PACKAGE TAZGroupBox : public TCustomPanel // TCustomGroupBox
 {
 private:
     String                  FCaption;

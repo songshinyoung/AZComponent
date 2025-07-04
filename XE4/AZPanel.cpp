@@ -72,7 +72,8 @@ void __fastcall TAZPanel::WndProc(TMessage& Message)
 //        TComponentClass classes[1] = {__classid(TAZPanel)};
 //        RegisterComponents(L"Samples", classes, 0);
 //    }
-//}
+//}
+
 //---------------------------------------------------------------------------
 
 void __fastcall TAZPanel::Notification(
@@ -244,7 +245,8 @@ TPanel* __fastcall TAZPanel::GetSubPanel(int Index_R, int Index_C)
 //    bool bRet = TPanel::CanResize(NewWidth, NewHeight);
 //    ResizePanel(FRowCount, FColCount);
 //    return bRet;
-//}
+//}
+
 
 //void __fastcall TAZPanel::Resize(TObject *Sender)
 //{

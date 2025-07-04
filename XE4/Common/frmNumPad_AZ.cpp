@@ -1,6 +1,9 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
+
 #pragma hdrstop
 
 #include "frmNumPad_AZ.h"
@@ -386,6 +389,17 @@ void __fastcall TfmNumPad_AZ::FormClose(TObject *Sender, TCloseAction &Action)
 
 void __fastcall TfmNumPad_AZ::FormCreate(TObject *Sender)
 {
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") {
+
+	}
+	else {
+		SpeedButton_Clear->Glyph->Assign(Image_Clean_Dark->Picture->Bitmap);
+		SpeedButton_Back->Glyph->Assign(Image_Backspace_Dark->Picture->Bitmap);
+	}
+	
+
     Init(m_dCurrent);
 }
 //---------------------------------------------------------------------------

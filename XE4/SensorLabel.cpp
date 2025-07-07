@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -107,26 +109,53 @@ void __fastcall TSensorLabel::Loaded(void)
 void __fastcall TSensorLabel::LoadLEDImage(void)
 {
     if(FSenType == slCircle) {
-        switch(FSenColorType) {
-            case slColorGreen:
-            default:
-                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
-                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
-                break;
-                
-            case slColorRed:
-                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Red_On");
-                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Red_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
-                break;
-                
-            case slColorBlue:
-                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_On");
-                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
-                break;
-        }
+
+		AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+		
+		if(currentStyle == "Windows") {
+	        switch(FSenColorType) {
+	            case slColorGreen:
+	            default:
+	                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_On");
+	                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Off");
+	                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+	                break;
+	                
+	            case slColorRed:
+	                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Red_On");
+	                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Red_Off");
+	                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+	                break;
+	                
+	            case slColorBlue:
+	                pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_On");
+	                pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SensorLED_Blue_Off");
+	                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SensorLED_Disable");
+	                break;
+	        }
+		}
+		else {
+			switch(FSenColorType) {
+				case slColorGreen:
+				default:
+					pBmpSenOn		->LoadFromResourceName((int)HInstance, "SensorLED_On_Dark");
+					pBmpSenOff		->LoadFromResourceName((int)HInstance, "SensorLED_Off_Dark");
+					pBmpSenDisable	->LoadFromResourceName((int)HInstance, "SensorLED_Disable_Dark");
+					break;
+					
+				case slColorRed:
+					pBmpSenOn		->LoadFromResourceName((int)HInstance, "SensorLED_Red_On_Dark");
+					pBmpSenOff		->LoadFromResourceName((int)HInstance, "SensorLED_Red_Off_Dark");
+					pBmpSenDisable	->LoadFromResourceName((int)HInstance, "SensorLED_Disable_Dark");
+					break;
+					
+				case slColorBlue:
+					pBmpSenOn		->LoadFromResourceName((int)HInstance, "SensorLED_Blue_On_Dark");
+					pBmpSenOff		->LoadFromResourceName((int)HInstance, "SensorLED_Blue_Off_Dark");
+					pBmpSenDisable	->LoadFromResourceName((int)HInstance, "SensorLED_Disable_Dark");
+					break;
+			}
+		}
     }
     else {
         switch(FSenColorType) {

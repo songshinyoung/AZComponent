@@ -397,6 +397,8 @@ void __fastcall TfmNumPad_AZ::FormCreate(TObject *Sender)
 	else {
 		SpeedButton_Clear->Glyph->Assign(Image_Clean_Dark->Picture->Bitmap);
 		SpeedButton_Back->Glyph->Assign(Image_Backspace_Dark->Picture->Bitmap);
+		SpeedButton_Cancel->Glyph->Assign(Image_Cancel_Dark->Picture->Bitmap);
+		SpeedButton_OK->Glyph->Assign(Image_Ok_Dark->Picture->Bitmap);
 	}
 	
 

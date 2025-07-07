@@ -232,65 +232,129 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW3_D</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow3_D_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_D_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow3_L.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW3_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_L_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_L_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow3_R.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW3_R</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow3_R_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_R_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow3_U.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW3_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow3_U_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW3_U_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow4_D.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW4_D</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow4_D_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_D_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow4_L.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW4_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_L_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_L_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow4_R.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW4_R</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow4_R_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_R_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow4_U.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW4_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow4_U_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW4_U_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow5_D.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW5_D</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow5_D_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_D_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow5_L.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW5_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_L_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_L_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow5_R.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW5_R</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow5_R_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_R_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow5_U.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW5_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow5_U_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW5_U_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow6_D.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW6_D</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow6_D_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_D_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow6_L.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW6_L</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_L_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_L_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\Arrow6_R.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW6_R</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Arrow6_R_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_R_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Arrow6_U.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>ARROW6_U</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Arrow6_U_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>ARROW6_U_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\ArrowButton1_4.bmp">
             <ResourceType>BITMAP</ResourceType>
@@ -904,29 +968,57 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Blue_Off</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Blue_Off_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Blue_Off_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Blue_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Blue_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Blue_On_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Blue_On_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\SensorLED_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Disable</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Disable_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Disable_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Off.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Off_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Off_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\SensorLED_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_On</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_On_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_On_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Red_Off.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Red_Off</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SensorLED_Red_Off_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Red_Off_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SensorLED_Red_On.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SensorLED_Red_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\SensorLED_Red_On_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SensorLED_Red_On_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\SquareLED_Blue_Off.bmp">
             <ResourceType>BITMAP</ResourceType>

@@ -62,6 +62,8 @@ __published:    // IDE-managed Components
 	TBitBtn *BitBtn_EnterEncoderValue;
 	TImage *Image_Clean_Dark;
 	TImage *Image_Backspace_Dark;
+	TImage *Image_Cancel_Dark;
+	TImage *Image_Ok_Dark;
     void __fastcall SpeedButton1Click(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall FormCreate(TObject *Sender);

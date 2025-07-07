@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -96,16 +98,18 @@ __fastcall TAZArrowButton::TAZArrowButton(TComponent* Owner)
     FLabelValue->Align      = alClient;
     FLabelValue->ParentFont = false;
     //FLabelValue->Top        = Height;
-    FLabelValue->Alignment  = taCenter;
+	FLabelValue->Alignment  = taCenter;
     FLabelValue->Layout     = tlCenter;
     FLabelValue->Transparent= false;
-    FLabelValue->AlignWithMargins = true;
+	FLabelValue->AlignWithMargins = true;
     FLabelValue->Margins->Top    = 1;
-    FLabelValue->Margins->Bottom = 0;
-    FLabelValue->OnClick     = MyEditClick;
+	FLabelValue->Margins->Bottom = 0;
+	FLabelValue->OnClick     = MyEditClick;
+	FLabelValue->StyleElements = TStyleElements();
+
 
     FLabelUnit = new TLabel(FBasePanel);
-    FLabelUnit->Parent      = FBasePanel;
+	FLabelUnit->Parent      = FBasePanel;
     //FLabelUnit->Top         = Height;
     FLabelUnit->Align       = alBottom;
     FLabelUnit->ParentFont  = false;
@@ -115,7 +119,8 @@ __fastcall TAZArrowButton::TAZArrowButton(TComponent* Owner)
     FLabelUnit->AlignWithMargins = true;
     FLabelUnit->Margins->Top    = 0;
     FLabelUnit->Margins->Bottom = 1;
-    FLabelUnit->OnClick     = MyEditClick;
+	FLabelUnit->OnClick     = MyEditClick;
+	FLabelUnit->StyleElements = TStyleElements();
 
     //--------------------------
     // Font »ý¼º.
@@ -193,10 +198,22 @@ void     __fastcall TAZArrowButton::MyClick(TObject *Sender)
 
     TArrowButtonState eClickBtn;
 
-    if(pBtn == FBitBtn[abLeft])         eClickBtn = abLeft;
-    else if(pBtn == FBitBtn[abRight])   eClickBtn = abRight;
-    else if(pBtn == FBitBtn[abTop])     eClickBtn = abTop;
-    else if(pBtn == FBitBtn[abBottom])  eClickBtn = abBottom;
+    if(pBtn == FBitBtn[abLeft]) {
+		eClickBtn = abLeft;
+		this->SetFocus();
+    }
+    else if(pBtn == FBitBtn[abRight]) {
+		eClickBtn = abRight;
+		this->SetFocus();
+	}
+	else if(pBtn == FBitBtn[abTop]) {
+		eClickBtn = abTop;
+		this->SetFocus();
+	}
+	else if(pBtn == FBitBtn[abBottom]) {
+		eClickBtn = abBottom;
+		this->SetFocus();
+    }
     else                                return;
 
     if(FOnClick) FOnClick(this, eClickBtn);
@@ -516,18 +533,39 @@ void __fastcall TAZArrowButton::CreateIndicatorImage(bool bView)
 //            default: sGlyphName = "RightArrowGlyph";  break;
 //        }
 
+		AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+		
+
+
         switch(FGlyphType) {
             case 1:
             case 2:
+				sGlyphName	 = "ARROW" + IntToStr(FGlyphType);
+				 sGlyphName_D = sGlyphName + "_D";
+				 sGlyphName_L = sGlyphName + "_L";
+				 sGlyphName_R = sGlyphName + "_R";
+				 sGlyphName_U = sGlyphName + "_U";
+				 break;
             case 3:
             case 4:
             case 5:
             case 6:
-               sGlyphName   = "ARROW" + IntToStr(FGlyphType);
-               sGlyphName_D = sGlyphName + "_D";
-               sGlyphName_L = sGlyphName + "_L";
-               sGlyphName_R = sGlyphName + "_R";
-               sGlyphName_U = sGlyphName + "_U";
+				sGlyphName	 = "ARROW" + IntToStr(FGlyphType);
+				
+				if(currentStyle == "Windows") {
+					sGlyphName_D = sGlyphName + "_D";
+					sGlyphName_L = sGlyphName + "_L";
+					sGlyphName_R = sGlyphName + "_R";
+					sGlyphName_U = sGlyphName + "_U";
+				}
+				else {
+					sGlyphName	 = "ARROW" + IntToStr(FGlyphType);
+					sGlyphName_D = sGlyphName + "_D_Dark";
+					sGlyphName_L = sGlyphName + "_L_Dark";
+					sGlyphName_R = sGlyphName + "_R_Dark";
+					sGlyphName_U = sGlyphName + "_U_Dark";
+				}				
+
                break;
 
             default: sGlyphName = "RightArrowGlyph";  break;

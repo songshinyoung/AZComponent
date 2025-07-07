@@ -772,6 +772,30 @@
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ofBtn_23_On_Down</ResourceId>
         </RcItem>
+        <RcItem Include="Images\ofBtn_24_Off.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_Off</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_24_Off_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_Off_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_24_Off_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_Off_Down</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_24_On.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_On</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_24_On_Disable.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_On_Disable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\ofBtn_24_On_Down.png">
+            <ResourceType>RCDATA</ResourceType>
+            <ResourceId>ofBtn_24_On_Down</ResourceId>
+        </RcItem>
         <RcItem Include="Images\ofBtn_2_Off.png">
             <ResourceType>RCDATA</ResourceType>
             <ResourceId>ofBtn_2_Off</ResourceId>

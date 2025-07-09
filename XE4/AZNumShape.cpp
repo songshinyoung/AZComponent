@@ -901,9 +901,9 @@ void __fastcall TAZNumShape::PaintValue()
         }
     }
     else {
-        BuffCanvas->Pen->Color          = clGray;
-        BuffCanvas->Brush->Color        = clBtnFace;
-        BuffCanvas->Font->Color         = clGray;
+		BuffCanvas->Pen->Color          = FColorSet->DisableRectColor; 	// clGray;
+		BuffCanvas->Brush->Color        = FColorSet->DisableBGColor; 	// clBtnFace;
+		BuffCanvas->Font->Color         = FColorSet->DisableFrontColor; // clGray;
     }
 
     BuffCanvas->RoundRect(0, 0, nEditWidth, nEditHeight, FRound, FRound);
@@ -941,7 +941,7 @@ void __fastcall TAZNumShape::PaintValue()
 
         BuffCanvas->Font->Assign(FUnit->Font);
 
-        if(!Enabled) BuffCanvas->Font->Color = clGray;
+        if(!Enabled) BuffCanvas->Font->Color = FColorSet->DisableFrontColor; // clGray;
 
         nTxtW = BuffCanvas->TextWidth(FUnit->Str);
         nTxtH = BuffCanvas->TextHeight(FUnit->Str);
@@ -1013,8 +1013,8 @@ void __fastcall TAZNumShape::PaintValue()
                 clBackColor     = MY_TRANSPARENTCOLOR;
             }
             else {
-                clFontColor     = clGray;
-                clShadowColor   = clWhite;
+                clFontColor     = FColorSet->DisableFrontColor; 		// clGray;
+                clShadowColor   = FColorSet->DisableFrontShadowColor; // clWhite;
                 clBackColor     = MY_TRANSPARENTCOLOR;
             }
             
@@ -1071,7 +1071,7 @@ void __fastcall TAZNumShape::PaintValue()
                 BuffCanvas->Font->Color     = FColorSet->OldValueColor;
             }
             else {
-                BuffCanvas->Font->Color     = clGray;
+                BuffCanvas->Font->Color     = FColorSet->DisableFrontColor; // clGray;
             }
 
             int nTemp = nEditHeight - nTotalTxtH;
@@ -1159,8 +1159,8 @@ void __fastcall TAZNumShape::PaintValue()
             clBackColor     = MY_TRANSPARENTCOLOR; 
         }
         else {
-            clFontColor     = clGray;
-            clShadowColor   = clWhite;
+			clFontColor     = FColorSet->DisableFrontColor; 		// clGray;
+            clShadowColor   = FColorSet->DisableFrontShadowColor; 	// clWhite;
             clBackColor     = MY_TRANSPARENTCOLOR;
         }
 
@@ -1187,7 +1187,7 @@ void __fastcall TAZNumShape::PaintValue()
     else {
         BuffCanvas->Font->Assign(Font);
 
-        sOutputText = GetDrawValue(FValue, FInputEdit->Type, FInputEdit->DecimalPlaces);
+        sOutputText = GetDrawValue(FValue, FInputEdit->Type, FInputEdit->DecimalPlaces);        
 
         if(Enabled) {
             if(FReadOnly) {
@@ -1201,7 +1201,7 @@ void __fastcall TAZNumShape::PaintValue()
             }
         }
         else {
-            BuffCanvas->Font->Color            = clGray;
+            BuffCanvas->Font->Color            = FColorSet->DisableFrontColor; // clGray;
         }
 
         nTxtW = BuffCanvas->TextWidth(sOutputText);
@@ -3005,6 +3005,12 @@ __fastcall  TNumShapeColorProperty::TNumShapeColorProperty()
     FOldValueColor          = clYellow;
     FChangedFontColor       = clRed;
     FFontShadowColor        = (TColor)0x0505050;
+
+	FDisableBGColor				= clBtnFace;
+	FDisableFrontColor			= clGray;
+	FDisableFrontShadowColor	= clWhite;
+	FDisableRectColor			= clGray;
+
 };
 
 __fastcall  TNumShapeColorProperty::~TNumShapeColorProperty()
@@ -3030,6 +3036,11 @@ void    __fastcall TNumShapeColorProperty::SetColor(int Index, TColor c)
         case 7:  bChanbed = (FOldValueColor != c);       FOldValueColor          = c;    break;
         case 8:  bChanbed = (FChangedFontColor != c);    FChangedFontColor       = c;    break;
         case 9:  bChanbed = (FFontShadowColor != c);     FFontShadowColor        = c;    break;
+
+		case 10:  bChanbed = (FDisableBGColor != c);	 		FDisableBGColor		 		= c;	 break;
+		case 11:  bChanbed = (FDisableFrontColor != c);	 		FDisableFrontColor		 	= c;	 break;
+		case 12:  bChanbed = (FDisableFrontShadowColor != c);	FDisableFrontShadowColor	= c;	 break;
+		case 13:  bChanbed = (FDisableRectColor != c);			FDisableRectColor			= c;	 break;
     }
 
     if(bChanbed) DoOnChange();// Property 가 변경된 것을 보고한다.

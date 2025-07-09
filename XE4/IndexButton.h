@@ -122,6 +122,8 @@ private:
     bool                FAllowAllUp;            ///< true : 버튼이 하나도 선택되지 않는 상태 가능. 
 
     TButtonLayout       FGlyphLayout;
+
+    bool                m_bDarkMode;
     
     //-------------------------------
     // Matrix Button 관련 속성

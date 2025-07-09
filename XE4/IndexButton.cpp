@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -28,6 +30,18 @@ static inline void ValidCtrCheck(TIndexButton *)
 __fastcall TIndexButton::TIndexButton(TComponent* Owner)
     : TWinControl(Owner)
 {
+
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") {
+        m_bDarkMode = false;
+	}
+	else {
+        m_bDarkMode = true;
+	}
+
+
+
     TWinControl::OnResize   = MyResize;
 
     FList = new System::Classes::TStringList;
@@ -119,7 +133,8 @@ __fastcall TIndexButton::~TIndexButton()
 //         TComponentClass classes[1] = {__classid(TDualButton)};
 //         RegisterComponents(L"AZ", classes, 0);
 //    }
-//}
+//}
+
 //---------------------------------------------------------------------------
 void __fastcall TIndexButton::Loaded(void)
 {
@@ -371,7 +386,13 @@ void __fastcall TIndexButton::CreateIndicatorImage()
     }
     else if(FGlyphDefault) {
         //int nResI = FindClassHInstance(__classid(TIndexButton));
-        BMP_Indicator->LoadFromResourceName((int)HInstance, "CheckIndicator");
+
+        if(m_bDarkMode) {
+            BMP_Indicator->LoadFromResourceName((int)HInstance, "CheckIndicator_Dark");
+        }
+        else {
+            BMP_Indicator->LoadFromResourceName((int)HInstance, "CheckIndicator");
+        }
 
         if(Enabled) {
             for(int i=0; i<BtnList->Count; i++) {
@@ -380,7 +401,12 @@ void __fastcall TIndexButton::CreateIndicatorImage()
             }        
         }
         else {
-            BMP_IndicatorDisable->LoadFromResourceName((int)HInstance, "CheckIndicatorDisable");
+            if(m_bDarkMode) {
+                BMP_IndicatorDisable->LoadFromResourceName((int)HInstance, "CheckIndicatorDisable_Dark");
+            }
+            else {
+                BMP_IndicatorDisable->LoadFromResourceName((int)HInstance, "CheckIndicatorDisable");
+            }
 
             for(int i=0; i<BtnList->Count; i++) {
                 TSpeedButton * pBtn = (TSpeedButton *)BtnList->Items[i];
@@ -1346,7 +1372,8 @@ void      __fastcall  TMatrixButtonProperty::Assign(TPersistent* Source)
 
         DoOnChange();
     }
-}
+}
+
 
 //=============================================================================
 __fastcall  TIndexBtnNumberingProperty::TIndexBtnNumberingProperty()

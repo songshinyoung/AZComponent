@@ -384,9 +384,17 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>CheckIndicator</ResourceId>
         </RcItem>
+        <RcItem Include="Images\Check_Indicator_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>CheckIndicator_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\Check_Indicator_Disable.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>CheckIndicatorDisable</ResourceId>
+        </RcItem>
+        <RcItem Include="Images\Check_Indicator_Disable_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>CheckIndicatorDisable_Dark</ResourceId>
         </RcItem>
         <RcItem Include="Images\ofBtn_0_Off.png">
             <ResourceType>RCDATA</ResourceType>

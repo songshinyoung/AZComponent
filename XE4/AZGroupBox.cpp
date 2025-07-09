@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -22,6 +24,15 @@ static inline void ValidCtrCheck(TAZGroupBox *)
 __fastcall TAZGroupBox::TAZGroupBox(TComponent* Owner)
     : TCustomPanel(Owner) // TCustomGroupBox(Owner)
 {
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") {
+        m_bDarkMode = false;
+	}
+	else {
+        m_bDarkMode = true;
+	}
+
     m_pBGImage          = new TImage(this);
     m_pBGImage->Parent  = this;
 
@@ -402,8 +413,15 @@ void __fastcall TAZGroupBox::DisplayUpdate(void)
         case lbsRectangle:
             {
                 pCanvas->Pen->Width      = 1;
-                pCanvas->Pen->Color      = Enabled ? FTitleRectColor : clSilver;
-                pCanvas->Brush->Color    = Enabled ? FTitleBGColor   : clBtnFace;
+
+                if(m_bDarkMode) {
+                    pCanvas->Pen->Color      = Enabled ? FTitleRectColor : (TColor)0x004A4A4A; // clSilver;
+                    pCanvas->Brush->Color    = Enabled ? FTitleBGColor   : (TColor)0x00444444; // clBtnFace;
+                }
+                else {
+                    pCanvas->Pen->Color      = Enabled ? FTitleRectColor : clSilver;
+                    pCanvas->Brush->Color    = Enabled ? FTitleBGColor   : clBtnFace;
+                }
                 pCanvas->Brush->Style    = bsSolid;
                 pCanvas->RoundRect(m_recTitle.Left, m_recTitle.Top+1, m_recTitle.Right, m_recTitle.Bottom, FTitleRound, FTitleRound);
 
@@ -470,11 +488,21 @@ void __fastcall TAZGroupBox::DisplayUpdate(void)
                 default:                uiFormat = DT_SINGLELINE|DT_VCENTER|DT_CENTER;  break;
             }
 
-            pCanvas->Font->Color = Enabled ? FShadowFontColor : clWhite;
-            DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
-            OffsetRect(m_recTitle, FShadowFontLeft, FShadowFontTop);
-            pCanvas->Font->Color = Enabled ? Font->Color : clGray;
-            DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
+            if(m_bDarkMode) {
+                pCanvas->Font->Color = Enabled ? FShadowFontColor : (TColor)0x00525252;
+                DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
+                OffsetRect(m_recTitle, FShadowFontLeft, FShadowFontTop);
+                pCanvas->Font->Color = Enabled ? Font->Color : (TColor)0x00121212;
+                DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
+
+            }
+            else {
+                pCanvas->Font->Color = Enabled ? FShadowFontColor : clWhite;
+                DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
+                OffsetRect(m_recTitle, FShadowFontLeft, FShadowFontTop);
+                pCanvas->Font->Color = Enabled ? Font->Color : clGray;
+                DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
+            }
             
         }
         else {
@@ -485,12 +513,7 @@ void __fastcall TAZGroupBox::DisplayUpdate(void)
                 case taCenter:          uiFormat = DT_SINGLELINE|DT_VCENTER|DT_CENTER;  break;
             }
 
-            if(Enabled) {
-                pCanvas->Font->Color = Font->Color;
-            }
-            else {
-                pCanvas->Font->Color = clGray;
-            }
+            pCanvas->Font->Color = Font->Color;
 
             DrawText(pCanvas->Handle, sCaption.c_str() , -1, &m_recTitle, uiFormat);
         }

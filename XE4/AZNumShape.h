@@ -37,6 +37,11 @@ private:
     TColor          FChangedFontColor;          ///< 사용자가 값을 변경한 경우 폰트 색상.
     TColor          FFontShadowColor;           ///< 고정 Digit 사용 시 문자 그림자 색상. 
 
+	TColor			FDisableBGColor;
+	TColor			FDisableFrontColor;
+	TColor			FDisableFrontShadowColor;
+	TColor			FDisableRectColor;
+
     void        __fastcall SetColor(int Index, TColor c);
 
     TNotifyEvent     FOnChange;                 ///< 나를 가져다 쓸 class에서 여기에 Event를 등록할 것이다.
@@ -60,6 +65,11 @@ __published:
     __property TColor OldValueColor         = { read = FOldValueColor,          write = SetColor,     index = 7,   default = clYellow   };
     __property TColor ChangedFontColor      = { read = FChangedFontColor,       write = SetColor,     index = 8,   default = clRed      };
     __property TColor FontShadowColor       = { read = FFontShadowColor,        write = SetColor,     index = 9,   default = (TColor)0x0505050};
+	
+    __property TColor DisableBGColor      		= { read = FDisableBGColor,       	write = SetColor,     index = 10,  default = clBtnFace   };
+    __property TColor DisableFrontColor      	= { read = FDisableFrontColor,      write = SetColor,     index = 11,  default = clGray      };
+    __property TColor DisableFrontShadowColor   = { read = FDisableFrontShadowColor,write = SetColor,     index = 12,  default = clWhite     };
+    __property TColor DisableRectColor   		= { read = FDisableRectColor,		write = SetColor,     index = 13,  default = clGray      };
 
 };
 

@@ -58,6 +58,8 @@ private:
 
     TImage *                m_pBGImage;
 
+    bool                    m_bDarkMode;
+
     System::Classes::TNotifyEvent FOnFontChangeOrg;
 
     void                    __fastcall SetGlyphDefaultStyle(TGBGlyphDefaultColor e) ;

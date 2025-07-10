@@ -413,7 +413,7 @@ void __fastcall TAZFlowShape::DrawPaint(bool bOnlyCellUpdate)
                     Canvas->Pen->Color   = (FppCells[nIndex]) != NULL ? FppCells[nIndex]->LineColor : FCellLineColor;
                 }
 
-                Canvas->Brush->Color = (FppCells[nIndex]) != NULL ? FppCells[nIndex]->BGColor   : clWhite;
+                Canvas->Brush->Color = (FppCells[nIndex]) != NULL ? FppCells[nIndex]->BGColor   : Color; // clWhite;
                 Canvas->RoundRect(nX, nY, nX + nW, nY + nH, FRound, FRound);
 
                 if(FCaptionVisible && (FppCells[nIndex] != NULL)) {
@@ -488,6 +488,7 @@ void __fastcall TAZFlowShape::CreateCells()
 #else
     for(int i=0; i<(FCol * FRow); i++) {
         FppCells[i] = new TFlowShapeCell();
+        FppCells[i]->BGColor = Color; 
         FppCells[i]->OnChange   = CellChanged;
     }
 #endif
@@ -521,7 +522,8 @@ void    __fastcall  TAZFlowShape::EndUpdate()
 //void __fastcall TAZFlowShape::SetCells(int nRow, int nCol)
 //{
 //
-//}
+//}
+
 
 void __fastcall TAZFlowShape::SetCol(int n)
 {

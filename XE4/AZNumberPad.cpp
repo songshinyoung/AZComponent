@@ -39,7 +39,8 @@ __fastcall TAZNumberPad::~TAZNumberPad()
 //         TComponentClass classes[1] = {__classid(TAZNumberPad)};
 //         RegisterComponents(L"AZ", classes, 0);
 //    }
-//}
+//}
+
 //---------------------------------------------------------------------------
 
 bool __fastcall TAZNumberPad::Execute()

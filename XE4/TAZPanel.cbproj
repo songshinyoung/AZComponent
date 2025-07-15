@@ -1064,6 +1064,10 @@
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SquareLED_Disable</ResourceId>
         </RcItem>
+        <RcItem Include="Images\SquareLED_Disable_Dark.bmp">
+            <ResourceType>BITMAP</ResourceType>
+            <ResourceId>SquareLED_Disable_Dark</ResourceId>
+        </RcItem>
         <RcItem Include="Images\SquareLED_Off.bmp">
             <ResourceType>BITMAP</ResourceType>
             <ResourceId>SquareLED_Off</ResourceId>

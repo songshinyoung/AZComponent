@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -19,19 +21,24 @@ static inline void ValidCtrCheck(TDualSensorLabel *)
 __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     : TCustomLabel(Owner)
 {
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") 	m_bDarkMode = false;
+	else							m_bDarkMode = true;
+
+
     bLoaded         = false;
     
     pBitmapBase     = NULL;
 
     AutoSize        = false;
-    Transparent     = true;
+
     ParentColor     = false;
     Width           = 200;
     Height          = 24;
     Alignment       = taCenter;
-    Color           = clBtnFace;
 
-    FSenLineColor   = clBlack ;
+	FSenLineColor   = clBlack ;
     FSenOnColor     = clLime ;
     FSenOffColor    = clSilver ;
     FSenType        = slRect;
@@ -65,7 +72,18 @@ __fastcall TDualSensorLabel::TDualSensorLabel(TComponent* Owner)
     FSenOutLineColor    = clBlack;
     FSenOutLineRound    = 0;
     FSenOutSpace        = 5;
-    FSenBetweenSpace    = 3;
+	FSenBetweenSpace    = 3;
+
+	if(m_bDarkMode) {
+		// Dark Mode
+		Color           = (TColor)0x00272727;
+		Font->Color     = clSilver;
+	}
+	else {
+        // Normal Windows(Light) Mode
+		Color           = clBtnFace;
+		Transparent     = true;
+	}
 
     pBmpSenOn       = new Graphics::TBitmap;
     pBmpSenOff      = new Graphics::TBitmap;
@@ -102,13 +120,13 @@ __fastcall TDualSensorLabel::~TDualSensorLabel()
 
 void __fastcall TDualSensorLabel::Loaded(void)
 {
-    TGraphicControl::Loaded();
+	TGraphicControl::Loaded();
 
     bLoaded = true;
 
     LoadLEDImage();
 
-    Invalidate();
+	Invalidate();
 }
 
 void            __fastcall TDualSensorLabel::SetLoaded(bool b)
@@ -172,19 +190,34 @@ void __fastcall TDualSensorLabel::LoadLEDImage(void)
             default:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }
                 break;
                 
             case slColorRed:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Red_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Red_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }
                 break;
                 
             case slColorBlue:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }
                 break;
         }
     }
@@ -214,16 +247,32 @@ void __fastcall TDualSensorLabel::DrawOutLine()
         else {
             Canvas->Brush->Style = bsSolid;
         }
+
+		if(m_bDarkMode) {
+			Canvas->Brush->Color = Enabled ? Color            : (TColor)0x00272727;
+    		Canvas->Pen->Color   = Enabled ? FSenOutLineColor : (TColor)0x00171411;
+		}
+		else {
+			Canvas->Brush->Color = Enabled ? Color : clBtnFace;
+    		Canvas->Pen->Color   = Enabled ? FSenOutLineColor : clGray;
+		}
+
         
-        Canvas->Brush->Color = Enabled ? Color : clBtnFace;
-        Canvas->Pen->Color   = Enabled ? FSenOutLineColor : clGray;
         Canvas->RoundRect(1, 0, this->Width-1, this->Height-1, FSenOutLineRound, FSenOutLineRound); 
     }
     else {
         if(!Transparent) {
-            Canvas->Brush->Style = bsSolid;
-            Canvas->Brush->Color = Enabled ? Color : clBtnFace;
-            Canvas->Pen->Color   = Enabled ? Color : clBtnFace;
+			Canvas->Brush->Style = bsSolid;
+
+			if(m_bDarkMode) {
+				Canvas->Brush->Color = Enabled ? Color : (TColor)0x00272727;
+				Canvas->Pen->Color   = Enabled ? Color : (TColor)0x00272727;
+			}
+			else {
+				Canvas->Brush->Color = Enabled ? Color : clBtnFace;
+				Canvas->Pen->Color   = Enabled ? Color : clBtnFace;
+			}
+
             Canvas->RoundRect(1, 0, this->Width-1, this->Height-1, FSenOutLineRound, FSenOutLineRound); 
         }
     }
@@ -1099,7 +1148,7 @@ void __fastcall TDualSensorLabel::DrawTitle()
     Canvas->Font->Assign(Font);
 
     if(!Enabled) {
-        Canvas->Font->Color = clGray;
+        Canvas->Font->Color = m_bDarkMode ? (TColor)0x00454545 : clGray;
     }
 
     int nTxtW = Canvas->TextWidth(Caption);

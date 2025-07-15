@@ -13,7 +13,9 @@
 class PACKAGE TDualSensorLabel : public TCustomLabel
 {
 private:
-    bool            bLoaded;
+	bool            bLoaded;
+
+	bool			m_bDarkMode;
 
     //--------------------------------
     // Sensor Led 

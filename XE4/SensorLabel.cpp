@@ -21,6 +21,11 @@ static inline void ValidCtrCheck(TSensorLabel *)
 __fastcall TSensorLabel::TSensorLabel(TComponent* Owner)
     : TCustomLabel(Owner)
 {
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") 	m_bDarkMode = false;
+	else							m_bDarkMode = true;
+
     bLoaded         = false;
     
     pBitmapBase     = NULL;
@@ -163,19 +168,35 @@ void __fastcall TSensorLabel::LoadLEDImage(void)
             default:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }                
                 break;
                 
             case slColorRed:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Red_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Red_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }
                 break;
                 
             case slColorBlue:
                 pBmpSenOn       ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_On");
                 pBmpSenOff      ->LoadFromResourceName((int)HInstance, "SquareLED_Blue_Off");
-                pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                if(m_bDarkMode) {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable_Dark");
+                }
+                else {
+                    pBmpSenDisable  ->LoadFromResourceName((int)HInstance, "SquareLED_Disable");
+                }
                 break;
         }
     }

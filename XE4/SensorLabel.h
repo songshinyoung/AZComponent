@@ -14,6 +14,8 @@ class PACKAGE TSensorLabel : public TCustomLabel
 {
 private:
     bool            bLoaded;
+    bool            m_bDarkMode;
+    
     //--------------------------------
     // Number 
     bool            FNumVisible;

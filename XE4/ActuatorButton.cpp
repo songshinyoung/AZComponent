@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -19,6 +21,15 @@ static inline void ValidCtrCheck(TActuatorButton *)
 __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     : TWinControl(Owner)
 {
+	AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+
+	if(currentStyle == "Windows") {
+        m_bDarkMode = false;
+	}
+	else {
+        m_bDarkMode = true;
+	}
+
     bLoaded                 = false;
     
     TWinControl::OnResize   = MyResize;
@@ -29,7 +40,7 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     FMargin                 = -1;
     FSpacing                = 4;
 
-    FDualSenLabel           = new TDualSensorLabel(this);
+	FDualSenLabel           = new TDualSensorLabel(this);
     FSBLeft                 = new TSpeedButton(this);
     FSBRight                = new TSpeedButton(this);
 
@@ -70,7 +81,7 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
     BMP_Indicator = new Graphics::TBitmap;
 
     //--------------------------------
-    FSenBGColor         = clBtnFace;
+    FSenBGColor         = m_bDarkMode ? (TColor)0x00272727 : clBtnFace;
     FSenLineColor       = clBlack ;
     FSenOnColor         = clLime ;
     FSenOffColor        = clSilver ;
@@ -110,6 +121,7 @@ __fastcall TActuatorButton::TActuatorButton(TComponent* Owner)
 
     FSenFont            = new Vcl::Graphics::TFont;
     FSenFont->OnChange  = SenFontChanged; // Font가 변경될 경우 이를 감지할 Call Back 함수를 등록한다.
+    if(m_bDarkMode) FSenFont->Color = clSilver;
 
 
     FGlyph_Left             = new Vcl::Graphics::TBitmap;

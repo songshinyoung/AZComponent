@@ -44,6 +44,8 @@ private:
     TDualButtonLayout   FLayout;                ///< 버튼이 놓이는 방향 (좌-우, 위-아래)
     TButtonLayout       FGlyphLayout;           ///< 버튼에 Glyph이 놓이는 방향.
 
+    bool                m_bDarkMode;
+
     //---------------------------------
     // Sensor Led 
     TColor              FSenBGColor;

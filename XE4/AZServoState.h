@@ -67,6 +67,8 @@ private:
     TAZServoStateIndicatorProperty  * FIndicator[_AZ_SERVO_STATE_MAX];
     Vcl::Graphics::TFont    *   FFontIndicator;
 
+    bool    m_bDarkMode;
+
     void    __fastcall SetIndex(int n);
     void    __fastcall SetIndicatorRectColor(TColor c);
     void    __fastcall SetOutRectColor(TColor c);

@@ -1,6 +1,8 @@
 //---------------------------------------------------------------------------
 
 #include <vcl.h>
+#include <Vcl.Styles.hpp>
+#include <Vcl.Themes.hpp>
 
 #pragma hdrstop
 
@@ -19,6 +21,9 @@ static inline void ValidCtrCheck(TAZServoState *)
 __fastcall TAZServoState::TAZServoState(TComponent* Owner)
     : TGraphicControl(Owner)
 {
+    AnsiString currentStyle = TStyleManager::ActiveStyle->Name;
+    m_bDarkMode = (currentStyle == "Windows") ? false : true;
+
     bLoaded             = false;
     FIndex              = 0;
     Color               = clGray;
@@ -100,7 +105,8 @@ __fastcall TAZServoState::~TAZServoState()
 //         TComponentClass classes[1] = {__classid(TAZServoState)};
 //         RegisterComponents(L"AZ", classes, 0);
 //    }
-//}
+//}
+
 //---------------------------------------------------------------------------
 void  __fastcall TAZServoState::Loaded(void)
 {
@@ -128,15 +134,24 @@ void  __fastcall TAZServoState::Paint()
     tmpBitmap1->Width  = Width;
     tmpBitmap1->Height = Height;
 
-    tmpBitmap1->Canvas->Pen->Color = Enabled ? FOutRectColor : (TColor)0x00505050;
+    if(m_bDarkMode) {
+        tmpBitmap1->Canvas->Pen->Color   = Enabled ? FOutRectColor : clGray;
+        tmpBitmap1->Canvas->Brush->Color = Enabled ? Color : (TColor)0x00404040;
+    }
+    else {
+        tmpBitmap1->Canvas->Pen->Color   = Enabled ? FOutRectColor : (TColor)0x00505050;
+        tmpBitmap1->Canvas->Brush->Color = Enabled ? Color : clSilver;
+    }
+
     tmpBitmap1->Canvas->Pen->Width = 1;
     tmpBitmap1->Canvas->Brush->Style = bsSolid;
-    tmpBitmap1->Canvas->Brush->Color = Enabled ? Color : clSilver;
     tmpBitmap1->Canvas->RoundRect(0, 0, Width, Height, nRound, nRound);
 
     // Title 그리기 ---------------------------------
     tmpBitmap1->Canvas->Font->Assign(Font);
-    if(!Enabled) tmpBitmap1->Canvas->Font->Color = clWhite;
+    if(!Enabled) {
+        tmpBitmap1->Canvas->Font->Color = m_bDarkMode ? clGray : clWhite;
+    }
 
     // Index 출력
     String sIndex = "[" + IntToStr(FIndex) + "]";
@@ -166,7 +181,12 @@ void  __fastcall TAZServoState::Paint()
     //int nY_End  = nY + nIndicatorH - 2;
 
     // Indicator 외곽 라인 그리기.
-    tmpBitmap1->Canvas->Brush->Color = Enabled ? FIndicatorRectColor : clGray;
+    if(m_bDarkMode) {
+        tmpBitmap1->Canvas->Brush->Color = Enabled ? FIndicatorRectColor : clGray;
+    }
+    else {
+        tmpBitmap1->Canvas->Brush->Color = Enabled ? FIndicatorRectColor : clGray;
+    }
     tmpBitmap1->Canvas->FillRect(Rect(1, nY-1, Width - 1, Height - 1));
 
     // Indicator 내부 그리기.
@@ -205,7 +225,7 @@ void  __fastcall TAZServoState::DrawIndicator(int nID, Vcl::Graphics::TCanvas* p
         pCanvas->Brush->Color = FIndicator[nID]->StateOn ? FIndicator[nID]->ColorOn : FIndicator[nID]->ColorOff;
     }
     else {
-        pCanvas->Brush->Color = clBtnFace;
+        pCanvas->Brush->Color = m_bDarkMode ? (TColor)0x00404040 : clBtnFace;
     }
 
     pCanvas->FillRect(Rect(nX, nY, nX_End, nY_End));

@@ -58,12 +58,12 @@ __published:    // IDE-managed Components
 	TPanel *Panel2;
 	TLabel *Label_Encoder_Value;
 	TLabel *Label_Encoder_unit;
-	TSpeedButton *SpeedButton_EnterEncoderValue;
-	TBitBtn *BitBtn_EnterEncoderValue;
 	TImage *Image_Clean_Dark;
 	TImage *Image_Backspace_Dark;
 	TImage *Image_Cancel_Dark;
 	TImage *Image_Ok_Dark;
+	TSpeedButton *SpeedButton_EnterEncoderValue;
+	TImage *Image_EnterEncoder_Dark;
     void __fastcall SpeedButton1Click(TObject *Sender);
     void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
     void __fastcall FormCreate(TObject *Sender);
@@ -79,7 +79,6 @@ __published:    // IDE-managed Components
     void __fastcall SpeedButton_UpClick(TObject *Sender);
     void __fastcall SpeedButton_DownClick(TObject *Sender);
 	void __fastcall SpeedButton_EnterEncoderValueClick(TObject *Sender);
-	void __fastcall BitBtn_EnterEncoderValueClick(TObject *Sender);
 private:    // User declarations
     AnsiString m_sInputNum;
     bool    m_bDotIntput;

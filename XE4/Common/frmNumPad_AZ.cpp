@@ -399,6 +399,7 @@ void __fastcall TfmNumPad_AZ::FormCreate(TObject *Sender)
 		SpeedButton_Back->Glyph->Assign(Image_Backspace_Dark->Picture->Bitmap);
 		SpeedButton_Cancel->Glyph->Assign(Image_Cancel_Dark->Picture->Bitmap);
 		SpeedButton_OK->Glyph->Assign(Image_Ok_Dark->Picture->Bitmap);
+		SpeedButton_EnterEncoderValue->Glyph->Assign(Image_EnterEncoder_Dark->Picture->Bitmap);
 	}
 	
 
@@ -503,7 +504,7 @@ void __fastcall TfmNumPad_AZ::FormShow(TObject *Sender)
         Label_Encoder_unit->Caption     = m_sEncoderUnit;
 		Panel_Encoder_Title->Caption    = m_sEncoderTitle;
 
-		BitBtn_EnterEncoderValue->Caption = "Enter\r\nEncoder Value";
+		SpeedButton_EnterEncoderValue->Caption = "Enter\r\nEncoder Value";
     }
     else {
         this->Height                = 546;
@@ -670,15 +671,6 @@ void __fastcall TfmNumPad_AZ::SpeedButton_EnterEncoderValueClick(TObject *Sender
     *m_pReturnStr = sEncoder;
     
     ModalResult  = mrOk;
-}
-//---------------------------------------------------------------------------
-void __fastcall TfmNumPad_AZ::BitBtn_EnterEncoderValueClick(TObject *Sender)
-{
-	AnsiString sEncoder = Label_Encoder_Value->Caption;
-
-	*m_pReturnStr = sEncoder;
-
-	ModalResult  = mrOk;
 }
 //---------------------------------------------------------------------------
 

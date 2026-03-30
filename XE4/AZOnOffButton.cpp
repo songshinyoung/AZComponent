@@ -11,7 +11,7 @@
 // any pure virtual functions.
 //
 
-#define ON_OFF_BTN_STYLE_COUNT_MAX 25
+#define ON_OFF_BTN_STYLE_COUNT_MAX 26
 
 static inline void ValidCtrCheck(TAZOnOffButton *)
 {
